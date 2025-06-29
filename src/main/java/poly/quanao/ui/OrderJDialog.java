@@ -90,14 +90,14 @@ public class OrderJDialog extends javax.swing.JDialog {
             }
         });
 
-        btnAdd.setText("Thêm đồ uống");
+        btnAdd.setText("Thêm quần áo");
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddActionPerformed(evt);
             }
         });
 
-        btnRemove.setText("Xóa đồ uống");
+        btnRemove.setText("Xóa quần áo");
         btnRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRemoveActionPerformed(evt);
