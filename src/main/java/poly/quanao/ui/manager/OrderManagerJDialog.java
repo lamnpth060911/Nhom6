@@ -419,19 +419,19 @@ public class OrderManagerJDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnuncheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnuncheckActionPerformed
-        this.uncheckAll();
+     
     }//GEN-LAST:event_btnuncheckActionPerformed
 
     private void btncheckAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncheckAllActionPerformed
-        this.checkAll();
+      
     }//GEN-LAST:event_btncheckAllActionPerformed
 
     private void btndeleteCheckedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndeleteCheckedActionPerformed
-        this.deleteCheckedItems();
+      
     }//GEN-LAST:event_btndeleteCheckedActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        this.selectTimeRange();
+       
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void cboTimeRangesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTimeRangesActionPerformed
@@ -439,9 +439,7 @@ public class OrderManagerJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_cboTimeRangesActionPerformed
 
     private void tblBillsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBillsMouseClicked
-        if (evt.getClickCount() == 2) {
-            this.edit();
-        }
+        
     }//GEN-LAST:event_tblBillsMouseClicked
 
     private void txtCardidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCardidActionPerformed
@@ -453,35 +451,35 @@ public class OrderManagerJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_txtCheckinActionPerformed
 
     private void btnMoveLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveLastActionPerformed
-        this.moveLast();
+  
     }//GEN-LAST:event_btnMoveLastActionPerformed
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
-        this.create();
+       
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        this.update();
+       
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        this.delete();
+       
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
-        this.clear();
+       
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnMoveFirstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveFirstActionPerformed
-        this.moveFirst();
+       
     }//GEN-LAST:event_btnMoveFirstActionPerformed
 
     private void btnMovePreviousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMovePreviousActionPerformed
-        this.movePrevious();
+        
     }//GEN-LAST:event_btnMovePreviousActionPerformed
 
     private void btnMoveNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveNextActionPerformed
-        this.moveNext();
+     
     }//GEN-LAST:event_btnMoveNextActionPerformed
 
     /**
