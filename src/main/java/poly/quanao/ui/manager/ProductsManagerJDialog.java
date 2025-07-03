@@ -98,11 +98,11 @@ public class ProductsManagerJDialog extends javax.swing.JDialog {
         });
         jScrollPane2.setViewportView(jTable2);
 
-        jButton9.setText("jButton9");
+        jButton9.setText("Chọn tất cả");
 
-        jButton10.setText("jButton10");
+        jButton10.setText("Bỏ chọn tất cả");
 
-        jButton11.setText("jButton11");
+        jButton11.setText("Xóa các mục chọn");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -143,7 +143,7 @@ public class ProductsManagerJDialog extends javax.swing.JDialog {
                 .addContainerGap(87, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("tab1", jPanel1);
+        jTabbedPane1.addTab("Danh Sách", jPanel1);
 
         jLabel1.setText("Ảnh");
 
@@ -159,12 +159,6 @@ public class ProductsManagerJDialog extends javax.swing.JDialog {
 
         jLabel7.setText("Loại");
 
-        jTextField1.setText("jTextField1");
-
-        jTextField2.setText("jTextField2");
-
-        jTextField3.setText("jTextField3");
-
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         Sldiscount.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -177,21 +171,21 @@ public class ProductsManagerJDialog extends javax.swing.JDialog {
 
         jRadioButton2.setText("Hết hàng");
 
-        jButton1.setText("jButton1");
+        jButton1.setText("Tạo mới");
 
-        jButton2.setText("jButton2");
+        jButton2.setText("Cập nhật ");
 
-        jButton3.setText("jButton3");
+        jButton3.setText("Xóa");
 
-        jButton4.setText("jButton4");
+        jButton4.setText("Làm mới");
 
-        jButton5.setText("jButton5");
+        jButton5.setText("<<");
 
-        jButton6.setText("jButton6");
+        jButton6.setText("|<");
 
-        jButton7.setText("jButton7");
+        jButton7.setText(">|");
 
-        jButton8.setText("jButton8");
+        jButton8.setText(">>");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -300,23 +294,23 @@ public class ProductsManagerJDialog extends javax.swing.JDialog {
                 .addGap(110, 110, 110))
         );
 
-        jTabbedPane1.addTab("tab2", jPanel2);
+        jTabbedPane1.addTab("Biểu mẫu", jPanel2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(51, Short.MAX_VALUE)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addGap(41, 41, 41))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addGap(38, 38, 38)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
 
         pack();

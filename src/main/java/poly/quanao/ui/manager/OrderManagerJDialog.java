@@ -141,11 +141,11 @@ public class OrderManagerJDialog extends javax.swing.JDialog {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btncheckAll)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnuncheck)
-                .addGap(29, 29, 29)
+                .addGap(18, 18, 18)
                 .addComponent(btndeleteChecked)
-                .addGap(42, 42, 42))
+                .addGap(184, 184, 184))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -164,7 +164,7 @@ public class OrderManagerJDialog extends javax.swing.JDialog {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 913, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(133, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,13 +181,13 @@ public class OrderManagerJDialog extends javax.swing.JDialog {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btncheckAll)
                     .addComponent(btndeleteChecked)
-                    .addComponent(btnuncheck))
+                    .addComponent(btnuncheck)
+                    .addComponent(btncheckAll))
                 .addContainerGap(170, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("tab1", jPanel1);
+        jTabbedPane1.addTab("Danh sách", jPanel1);
 
         jLabel9.setText("Người tạo");
 
@@ -396,7 +396,7 @@ public class OrderManagerJDialog extends javax.swing.JDialog {
                 .addGap(260, 260, 260))
         );
 
-        jTabbedPane1.addTab("tab2", jPanel2);
+        jTabbedPane1.addTab("Biểu mẫu", jPanel2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

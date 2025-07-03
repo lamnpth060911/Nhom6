@@ -86,11 +86,11 @@ public class UserManagerJDialog extends javax.swing.JDialog {
         });
         jScrollPane2.setViewportView(jTable1);
 
-        jButton9.setText("jButton9");
+        jButton9.setText("Chọn tất");
 
-        jButton10.setText("jButton10");
+        jButton10.setText("Bỏ chọn tất cả");
 
-        jButton11.setText("jButton11");
+        jButton11.setText("Xóa các mục chọn");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -126,7 +126,7 @@ public class UserManagerJDialog extends javax.swing.JDialog {
                 .addContainerGap(70, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("tab1", jPanel2);
+        jTabbedPane1.addTab("Danh sách", jPanel2);
 
         jLabel1.setText("Ảnh");
 
@@ -162,31 +162,36 @@ public class UserManagerJDialog extends javax.swing.JDialog {
         buttonGroup1.add(jRadioButton4);
         jRadioButton4.setText("Nhân viên");
 
-        jButton1.setText("jButton1");
+        jButton1.setText("Tạo mới");
 
-        jButton2.setText("jButton2");
+        jButton2.setText("Cập nhật ");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
 
-        jButton3.setText("jButton3");
+        jButton3.setText("Xóa");
 
-        jButton4.setText("jButton4");
+        jButton4.setText("Làm mới");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
 
-        jButton5.setText("jButton5");
+        jButton5.setText("<<");
 
-        jButton6.setText("jButton6");
+        jButton6.setText("|<");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
-        jButton7.setText("jButton7");
+        jButton7.setText(">|");
 
-        jButton8.setText("jButton8");
+        jButton8.setText(">>");
 
         jPasswordField1.setText("jPasswordField1");
 
@@ -200,15 +205,14 @@ public class UserManagerJDialog extends javax.swing.JDialog {
                 .addGap(200, 200, 200)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPasswordField1)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel4)
-                        .addComponent(jLabel6)
-                        .addGroup(jPanel3Layout.createSequentialGroup()
-                            .addComponent(jRadioButton1)
-                            .addGap(28, 28, 28)
-                            .addComponent(jRadioButton2))
-                        .addComponent(jLabel2)
-                        .addComponent(jTextField1)))
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel6)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jRadioButton1)
+                        .addGap(28, 28, 28)
+                        .addComponent(jRadioButton2))
+                    .addComponent(jLabel2)
+                    .addComponent(jTextField1))
                 .addGap(62, 62, 62)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -246,7 +250,7 @@ public class UserManagerJDialog extends javax.swing.JDialog {
                         .addComponent(jButton7)
                         .addGap(18, 18, 18)
                         .addComponent(jButton8)))
-                .addGap(0, 6, Short.MAX_VALUE))
+                .addGap(0, 14, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -293,7 +297,7 @@ public class UserManagerJDialog extends javax.swing.JDialog {
                 .addGap(61, 61, 61))
         );
 
-        jTabbedPane1.addTab("tab2", jPanel3);
+        jTabbedPane1.addTab("Biểu mẫu", jPanel3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -325,6 +329,10 @@ public class UserManagerJDialog extends javax.swing.JDialog {
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments

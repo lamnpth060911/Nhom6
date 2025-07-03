@@ -30,6 +30,9 @@ public class ProductCategoriesManager extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
+        jButton9 = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -68,6 +71,12 @@ public class ProductCategoriesManager extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(jTable3);
 
+        jButton9.setText("Chọn tất cả");
+
+        jButton10.setText("Bỏ chọn tất cả");
+
+        jButton11.setText("Xóa cá mục chọn");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -76,16 +85,29 @@ public class ProductCategoriesManager extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 719, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(98, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton9)
+                .addGap(18, 18, 18)
+                .addComponent(jButton10)
+                .addGap(18, 18, 18)
+                .addComponent(jButton11)
+                .addGap(109, 109, 109))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 399, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(82, Short.MAX_VALUE))
+                .addGap(26, 26, 26)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton9)
+                    .addComponent(jButton10)
+                    .addComponent(jButton11))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Danh Sach", jPanel1);
+        jTabbedPane1.addTab("Danh sách", jPanel1);
 
         jLabel3.setText("Mã loại");
 
@@ -172,7 +194,7 @@ public class ProductCategoriesManager extends javax.swing.JFrame {
                 .addGap(63, 63, 63))
         );
 
-        jTabbedPane1.addTab("Bieu Mau", jPanel2);
+        jTabbedPane1.addTab("Biểu mẫu", jPanel2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -238,6 +260,8 @@ public class ProductCategoriesManager extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -245,6 +269,7 @@ public class ProductCategoriesManager extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;

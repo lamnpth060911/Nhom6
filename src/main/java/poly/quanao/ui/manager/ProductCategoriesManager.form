@@ -48,8 +48,8 @@
         <Container class="javax.swing.JPanel" name="jPanel1">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Danh Sach">
-                <Property name="tabTitle" type="java.lang.String" value="Danh Sach"/>
+              <JTabbedPaneConstraints tabName="Danh s&#xe1;ch">
+                <Property name="tabTitle" type="java.lang.String" value="Danh s&#xe1;ch"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
@@ -62,6 +62,15 @@
                       <Component id="jScrollPane2" min="-2" pref="719" max="-2" attributes="0"/>
                       <EmptySpace pref="98" max="32767" attributes="0"/>
                   </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jButton9" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jButton10" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jButton11" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="109" max="-2" attributes="0"/>
+                  </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -69,7 +78,13 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                       <Component id="jScrollPane2" min="-2" pref="399" max="-2" attributes="0"/>
-                      <EmptySpace pref="82" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jButton9" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButton10" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButton11" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace pref="33" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -117,13 +132,28 @@
                 </Component>
               </SubComponents>
             </Container>
+            <Component class="javax.swing.JButton" name="jButton9">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Ch&#x1ecd;n t&#x1ea5;t c&#x1ea3;"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="jButton10">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="B&#x1ecf; ch&#x1ecd;n t&#x1ea5;t c&#x1ea3;"/>
+              </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="jButton11">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="X&#xf3;a c&#xe1; m&#x1ee5;c ch&#x1ecd;n"/>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jPanel2">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Bieu Mau">
-                <Property name="tabTitle" type="java.lang.String" value="Bieu Mau"/>
+              <JTabbedPaneConstraints tabName="Bi&#x1ec3;u m&#x1eab;u">
+                <Property name="tabTitle" type="java.lang.String" value="Bi&#x1ec3;u m&#x1eab;u"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>

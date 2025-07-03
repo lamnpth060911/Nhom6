@@ -53,8 +53,8 @@
         <Container class="javax.swing.JPanel" name="jPanel2">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="tab1">
-                <Property name="tabTitle" type="java.lang.String" value="tab1"/>
+              <JTabbedPaneConstraints tabName="Danh s&#xe1;ch">
+                <Property name="tabTitle" type="java.lang.String" value="Danh s&#xe1;ch"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
@@ -170,17 +170,17 @@
             </Component>
             <Component class="javax.swing.JButton" name="jButton9">
               <Properties>
-                <Property name="text" type="java.lang.String" value="jButton9"/>
+                <Property name="text" type="java.lang.String" value="Ch&#x1ecd;n t&#x1ea5;t"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="jButton10">
               <Properties>
-                <Property name="text" type="java.lang.String" value="jButton10"/>
+                <Property name="text" type="java.lang.String" value="B&#x1ecf; ch&#x1ecd;n t&#x1ea5;t c&#x1ea3;"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="jButton11">
               <Properties>
-                <Property name="text" type="java.lang.String" value="jButton11"/>
+                <Property name="text" type="java.lang.String" value="X&#xf3;a c&#xe1;c m&#x1ee5;c ch&#x1ecd;n"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -188,8 +188,8 @@
         <Container class="javax.swing.JPanel" name="jPanel3">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="tab2">
-                <Property name="tabTitle" type="java.lang.String" value="tab2"/>
+              <JTabbedPaneConstraints tabName="Bi&#x1ec3;u m&#x1eab;u">
+                <Property name="tabTitle" type="java.lang.String" value="Bi&#x1ec3;u m&#x1eab;u"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
@@ -203,17 +203,15 @@
                       <EmptySpace min="-2" pref="200" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="jPasswordField1" max="32767" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                                  <Component id="jRadioButton2" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jTextField1" alignment="0" max="32767" attributes="0"/>
+                          <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="jRadioButton1" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="jRadioButton2" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jTextField1" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -260,7 +258,7 @@
                               <Component id="jButton8" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="0" pref="6" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="14" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -401,12 +399,12 @@
             </Component>
             <Component class="javax.swing.JButton" name="jButton1">
               <Properties>
-                <Property name="text" type="java.lang.String" value="jButton1"/>
+                <Property name="text" type="java.lang.String" value="T&#x1ea1;o m&#x1edb;i"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="jButton2">
               <Properties>
-                <Property name="text" type="java.lang.String" value="jButton2"/>
+                <Property name="text" type="java.lang.String" value="C&#x1ead;p nh&#x1ead;t "/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
@@ -414,12 +412,12 @@
             </Component>
             <Component class="javax.swing.JButton" name="jButton3">
               <Properties>
-                <Property name="text" type="java.lang.String" value="jButton3"/>
+                <Property name="text" type="java.lang.String" value="X&#xf3;a"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="jButton4">
               <Properties>
-                <Property name="text" type="java.lang.String" value="jButton4"/>
+                <Property name="text" type="java.lang.String" value="L&#xe0;m m&#x1edb;i"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>
@@ -427,22 +425,25 @@
             </Component>
             <Component class="javax.swing.JButton" name="jButton5">
               <Properties>
-                <Property name="text" type="java.lang.String" value="jButton5"/>
+                <Property name="text" type="java.lang.String" value="&lt;&lt;"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="jButton6">
               <Properties>
-                <Property name="text" type="java.lang.String" value="jButton6"/>
+                <Property name="text" type="java.lang.String" value="|&lt;"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton6ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButton7">
               <Properties>
-                <Property name="text" type="java.lang.String" value="jButton7"/>
+                <Property name="text" type="java.lang.String" value="&gt;|"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JButton" name="jButton8">
               <Properties>
-                <Property name="text" type="java.lang.String" value="jButton8"/>
+                <Property name="text" type="java.lang.String" value="&gt;&gt;"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JPasswordField" name="jPasswordField1">
