@@ -4,6 +4,8 @@
  */
 package poly.quanao.util;
 
+import poly.quanao.entity.User;
+
 
 
 /**
