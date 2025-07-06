@@ -3,6 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package poly.quanao.ui;
+import poly.quanao.dao.UserDAO;
+import poly.quanao.dao.impl.UserDAOImpl;
 import poly.quanao.entity.User;
 import poly.quanao.util.XDialog;
 import poly.quanao.util.XAuth;
@@ -194,21 +196,23 @@ exit() ;       // TODO add your handling code here:
         this.setLocationRelativeTo(null);
     }
 
-    @Override
-    public void login() {
-        String username = txtUsername.getText();
-        String password = txtPassword.getText();
-        UserDAO dao = new UserDAOImpl();
-        User user = dao.findById(username);
-        if (user == null) {
+  @Override
+public void login() {
+    String username = txtUsername.getText();
+    String password = txtPassword.getText();
+
+    UserDAO dao = new UserDAOImpl();
+    User user = dao.findByUsername(username); // ✅ đúng hàm
+
+    if (user == null) {
         XDialog.alert("Sai tên đăng nhập!");
-        } else if (!password.equals(user.getPassword())) {
+    } else if (!password.equals(user.getPassword())) {
         XDialog.alert("Sai mật khẩu đăng nhập!");
-        } else if (!user.isEnabled()) {
-        XDialog.alert("Tài khoản của bạn đang tạm dừng!");
-        } else {
-        XAuth.user = user; // duy trì user đăng nhập
+    } else {
+        XAuth.user = user; // ✅ đăng nhập thành công
         this.dispose();
-        }
-    }}  
+    }
+}
+
+}  
 
