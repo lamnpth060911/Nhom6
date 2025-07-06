@@ -4,6 +4,8 @@
  */
 package poly.quanao.ui;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author Admin
@@ -185,4 +187,6 @@ public class ClothingShop extends javax.swing.JFrame {
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     // End of variables declaration//GEN-END:variables
+
 }
+
