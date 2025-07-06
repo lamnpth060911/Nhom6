@@ -11,13 +11,13 @@ import poly.quanao.util.XAuth;
  *
  * @author ADMIN
  */
-public class LoginJDialog extends javax.swing.JDialog implements LoginController{ {
+public class LoginJDialog extends javax.swing.JDialog implements LoginController{
 
     /**
      * Creates new form loginJDialog
      */
      public LoginJDialog(java.awt.Frame parent, boolean modal) {
- super(parent, modal);
+    super(parent, modal);
         initComponents();
         open();
     }
