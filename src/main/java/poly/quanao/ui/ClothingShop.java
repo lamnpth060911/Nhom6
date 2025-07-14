@@ -4,19 +4,23 @@
  */
 package poly.quanao.ui;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import poly.quanao.util.XAuth;
+import poly.quanao.util.XIcon;
 
 /**
  *
  * @author Admin
  */
-public class ClothingShop extends javax.swing.JFrame {
+public class ClothingShop extends javax.swing.JFrame implements ClothingShopController {
 
     /**
      * Creates new form ClothingShop
      */
     public ClothingShop() {
         initComponents();
+        this.init(); 
     }
 
     /**
@@ -187,6 +191,14 @@ public class ClothingShop extends javax.swing.JFrame {
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     // End of variables declaration//GEN-END:variables
+
+public void init() {
+    this.setLocationRelativeTo(null);
+    this.setTitle("Clothing Shop Manager");
+    // Gọi các hộp thoại
+    showWelcomeJDialog(this);
+    showLoginJDialog(this);
+}
 
 }
 
