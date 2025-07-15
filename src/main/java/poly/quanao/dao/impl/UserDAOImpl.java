@@ -61,15 +61,4 @@ public class UserDAOImpl implements UserDAO{
     public User findById(String username) {
         return XQuery.getSingleBean(User.class, findByIdSql, username);
     }
-
-    @Override
-    public void deleteById(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public User findById(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
 }

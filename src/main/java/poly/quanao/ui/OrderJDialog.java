@@ -4,11 +4,14 @@
  */
 package poly.quanao.ui;
 
+import lombok.Setter;
+import poly.quanao.entity.Order;
+
 /**
  *
  * @author ADMIN
  */
-public class OrderJDialog extends javax.swing.JDialog {
+public class OrderJDialog extends javax.swing.JDialog implements OrderController {
 
     /**
      * Creates new form OrderJDialog
@@ -33,7 +36,7 @@ public class OrderJDialog extends javax.swing.JDialog {
         txtId = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblBillDetails = new javax.swing.JTable();
+        tblOrderDetails = new javax.swing.JTable();
         btnCancel = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
         btnRemove = new javax.swing.JButton();
@@ -57,7 +60,7 @@ public class OrderJDialog extends javax.swing.JDialog {
 
         jLabel9.setText("Thời điểm thanh toán");
 
-        tblBillDetails.setModel(new javax.swing.table.DefaultTableModel(
+        tblOrderDetails.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -76,12 +79,12 @@ public class OrderJDialog extends javax.swing.JDialog {
                 return types [columnIndex];
             }
         });
-        tblBillDetails.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblOrderDetails.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblBillDetailsMouseClicked(evt);
+                tblOrderDetailsMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tblBillDetails);
+        jScrollPane1.setViewportView(tblOrderDetails);
 
         btnCancel.setText("Hủy phiếu");
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -217,10 +220,10 @@ public class OrderJDialog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tblBillDetailsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBillDetailsMouseClicked
+    private void tblOrderDetailsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblOrderDetailsMouseClicked
         
         
-    }//GEN-LAST:event_tblBillDetailsMouseClicked
+    }//GEN-LAST:event_tblOrderDetailsMouseClicked
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
       
@@ -301,7 +304,7 @@ public class OrderJDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblBillDetails;
+    private javax.swing.JTable tblOrderDetails;
     private javax.swing.JTextField txtCardId;
     private javax.swing.JTextField txtCheckin;
     private javax.swing.JTextField txtCheckout;
@@ -309,4 +312,50 @@ public class OrderJDialog extends javax.swing.JDialog {
     private javax.swing.JTextField txtStatus;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
+@Setter Order order;
+    @Override
+    public void setOrder(Order order) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void open() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void close() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void showProductsJDialog() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void removeDrinks() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void updateQuantity() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void checkout() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void cancel() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void fillBillDetails() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }
