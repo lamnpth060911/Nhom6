@@ -313,10 +313,6 @@ public class OrderJDialog extends javax.swing.JDialog implements OrderController
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 @Setter Order order;
-    BillDetailDAO billDetailDao = new BillDetailDAOImpl();
-    BillDAO billDao= new BillDAOImpl();
-    List<BillDetail> billDetails = List.of();
-    
     @Override
     public void setOrder(Order order) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
