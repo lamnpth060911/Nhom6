@@ -16,16 +16,16 @@ import poly.quanao.entity.ProductCategory;
  * @author ADMIN
  */
 public class CategoryProductDAOImpl implements CategoryProductDAO{
-    String createSql = "INSERT INTO Categories(Id, Name) VALUES(?, ?)";
-    String updateSql = "UPDATE Categories SET Name=? WHERE Id=?";
-    String deleteSql = "DELETE FROM Categories WHERE Id=?";
-    String findAllSql = "SELECT * FROM Categories";
-    String findByIdSql = "SELECT * FROM Categories WHERE Id=?";
+String createSql = "INSERT INTO Categories(CategoryId, CategoryName) VALUES(?, ?)";
+String updateSql = "UPDATE Categories SET Name=? WHERE CategoryId=?";
+String deleteSql = "DELETE FROM Categories WHERE CategoryId=?";
+String findAllSql = "SELECT * FROM Categories";
+String findByIdSql = "SELECT * FROM Categories WHERE CategoryId=?";
     @Override
     public ProductCategory create(ProductCategory entity) {
         Object[] values = {
-        entity.getId(),
-        entity.getName()
+        entity.getCategoryId(),
+        entity.getCategoryName()
         };
         XJdbc.executeUpdate(createSql, values);
  return entity;    }
@@ -33,8 +33,8 @@ public class CategoryProductDAOImpl implements CategoryProductDAO{
     @Override
     public void update(ProductCategory entity) {
         Object[] values = {
-         entity.getName(),
-        entity.getId()
+         entity.getCategoryName(),
+        entity.getCategoryId()
         };
         XJdbc.executeUpdate(updateSql, values);    }
 
