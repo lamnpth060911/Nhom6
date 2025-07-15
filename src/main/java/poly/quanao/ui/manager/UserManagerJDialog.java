@@ -6,9 +6,11 @@ package poly.quanao.ui.manager;
 
 
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
 import poly.quanao.dao.UserDAO;
 import poly.quanao.dao.impl.UserDAOImpl;
 import poly.quanao.entity.User;
+import poly.quanao.util.XDialog;
 
 /**
  *
@@ -37,10 +39,10 @@ public class UserManagerJDialog extends javax.swing.JDialog implements UserManag
 
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        tabs = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblUser = new javax.swing.JTable();
         jSeparator1 = new javax.swing.JSeparator();
         btnCheckAll = new javax.swing.JButton();
         btnUncheckAll = new javax.swing.JButton();
@@ -73,32 +75,47 @@ public class UserManagerJDialog extends javax.swing.JDialog implements UserManag
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblUser.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "UserName", "Password", "Trạng Thái", "Tên đầy đủ", "Ảnh", "Vai trò", ""
+                "UserName", "Password", "Trạng Thái", "Tên đầy đủ", "Vai trò", ""
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(tblUser);
 
         btnCheckAll.setText("Chọn tất cả");
+        btnCheckAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCheckAllActionPerformed(evt);
+            }
+        });
 
         btnUncheckAll.setText("Bỏ chọn tất cả");
+        btnUncheckAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUncheckAllActionPerformed(evt);
+            }
+        });
 
         btnDeleteCheckedItems.setText("Xóa các mục chọn");
+        btnDeleteCheckedItems.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteCheckedItemsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -134,7 +151,7 @@ public class UserManagerJDialog extends javax.swing.JDialog implements UserManag
                 .addContainerGap(70, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Danh sách", jPanel2);
+        tabs.addTab("Danh sách", jPanel2);
 
         jLabel1.setText("Ảnh");
 
@@ -171,6 +188,11 @@ public class UserManagerJDialog extends javax.swing.JDialog implements UserManag
         jRadioButton4.setText("Nhân viên");
 
         btnCreate.setText("Tạo mới");
+        btnCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreateActionPerformed(evt);
+            }
+        });
 
         btnUpdate.setText("Cập nhật ");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
@@ -180,6 +202,11 @@ public class UserManagerJDialog extends javax.swing.JDialog implements UserManag
         });
 
         btnDelete.setText("Xóa");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         btnClear.setText("Làm mới");
         btnClear.addActionListener(new java.awt.event.ActionListener() {
@@ -189,6 +216,11 @@ public class UserManagerJDialog extends javax.swing.JDialog implements UserManag
         });
 
         btnMoveFirst.setText("<<");
+        btnMoveFirst.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMoveFirstActionPerformed(evt);
+            }
+        });
 
         btnMovePrevious.setText("|<");
         btnMovePrevious.addActionListener(new java.awt.event.ActionListener() {
@@ -198,8 +230,18 @@ public class UserManagerJDialog extends javax.swing.JDialog implements UserManag
         });
 
         btnMoveNext.setText(">|");
+        btnMoveNext.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMoveNextActionPerformed(evt);
+            }
+        });
 
         btnMoveLast.setText(">>");
+        btnMoveLast.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMoveLastActionPerformed(evt);
+            }
+        });
 
         txtPassword.setText("jPasswordField1");
 
@@ -305,7 +347,7 @@ public class UserManagerJDialog extends javax.swing.JDialog implements UserManag
                 .addGap(61, 61, 61))
         );
 
-        jTabbedPane1.addTab("Biểu mẫu", jPanel3);
+        tabs.addTab("Biểu mẫu", jPanel3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -313,25 +355,25 @@ public class UserManagerJDialog extends javax.swing.JDialog implements UserManag
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 6, Short.MAX_VALUE)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        // TODO add your handling code here:
+        this.update();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
-        // TODO add your handling code here:
+        this.clear();
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void txtFullNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFullNameActionPerformed
@@ -339,8 +381,41 @@ public class UserManagerJDialog extends javax.swing.JDialog implements UserManag
     }//GEN-LAST:event_txtFullNameActionPerformed
 
     private void btnMovePreviousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMovePreviousActionPerformed
-        // TODO add your handling code here:
+        this.movePrevious();
     }//GEN-LAST:event_btnMovePreviousActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        this.delete();
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
+        this.create();
+    }//GEN-LAST:event_btnCreateActionPerformed
+
+    private void btnMoveFirstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveFirstActionPerformed
+        this.moveFirst();
+    }//GEN-LAST:event_btnMoveFirstActionPerformed
+
+    private void btnMoveNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveNextActionPerformed
+        this.moveNext();
+    }//GEN-LAST:event_btnMoveNextActionPerformed
+
+    private void btnMoveLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveLastActionPerformed
+        this.moveLast();
+    }//GEN-LAST:event_btnMoveLastActionPerformed
+
+    private void btnCheckAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckAllActionPerformed
+        this.checkAll();
+    }//GEN-LAST:event_btnCheckAllActionPerformed
+
+    private void btnUncheckAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUncheckAllActionPerformed
+        this.uncheckAll();
+    }//GEN-LAST:event_btnUncheckAllActionPerformed
+
+    private void btnDeleteCheckedItemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteCheckedItemsActionPerformed
+        this.deleteCheckedItems();
+    }//GEN-LAST:event_btnDeleteCheckedItemsActionPerformed
+                               
 
     /**
      * @param args the command line arguments
@@ -413,10 +488,10 @@ public class UserManagerJDialog extends javax.swing.JDialog implements UserManag
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JRadioButton rdoEnabled;
     private javax.swing.JRadioButton rdoManager;
+    private javax.swing.JTabbedPane tabs;
+    private javax.swing.JTable tblUser;
     private javax.swing.JTextField txtFullName;
     private javax.swing.JPasswordField txtPassword;
     private javax.swing.JTextField txtPwConfirm;
@@ -451,82 +526,189 @@ UserDAO dao = new UserDAOImpl();
 
     @Override
     public User getForm() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    User entity = new User();
+    entity.setUsername(txtUsername.getText().trim());
+    entity.setPassword(txtPassword.getText().trim());
+    
+    // FullName có thể null
+    String fullName = txtFullName.getText().trim();
+    entity.setFullName(fullName.isEmpty() ? null : fullName);
+
+    // Role thay cho Manager/Enabled
+    // Ví dụ: nếu chọn Manager thì Role = "admin", ngược lại "staff"
+    if (rdoManager.isSelected()) {
+        entity.setRole("admin");
+    } else {
+        entity.setRole("staff");
+    }
+
+    return entity;    
     }
 
     @Override
     public void fillToTable() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+     DefaultTableModel model = (DefaultTableModel) tblUser.getModel(); 
+    model.setRowCount(0);
+
+    // Lấy danh sách từ DAO
+    items = dao.findAll();
+
+    // Đổ dữ liệu vào bảng
+    items.forEach(item -> {
+    Object[] rowData = {
+        item.getUserId(),      // Mã người dùng
+        item.getUsername(),    // Tên đăng nhập
+        item.getPassword(),    // Mật khẩu
+        item.getFullName(),    // Tên đầy đủ (có thể null)
+        item.getRole()         // Vai trò (admin hoặc staff)
+    };
+        model.addRow(rowData);
+    });
+   
     }
 
     @Override
     public void edit() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+     User entity = items.get(tblUser.getSelectedRow());
+        this.setForm(entity);
+        this.setEditable(true);
+        tabs.setSelectedIndex(1);  
     }
 
     @Override
     public void create() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+     User entity = this.getForm();
+        dao.create(entity);
+        this.fillToTable();
+        this.clear();  
     }
 
     @Override
     public void update() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+     User entity = this.getForm();
+        dao.update(entity);
+        this.fillToTable();    
     }
 
     @Override
     public void delete() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         if (XDialog.confirm("Bạn thực sự muốn xóa?")) {
+    int selectedRow = tblUser.getSelectedRow();
+    if (selectedRow < 0) {
+        XDialog.alert("Vui lòng chọn người dùng cần xóa!");
+        return;
+    }
+
+    // Lấy User từ danh sách items
+    User entity = items.get(selectedRow);
+    int userId = entity.getUserId();
+
+    // Gọi DAO để xóa theo UserId
+    dao.deleteById(userId);
+
+    // Cập nhật lại bảng
+    this.fillToTable();
+    this.clear();
+}
+ 
     }
 
     @Override
     public void clear() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        
+    txtPwConfirm.setText("");
+        this.setForm(new User());
+        this.setEditable(false);
     }
 
     @Override
     public void setEditable(boolean editable) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+     txtUsername.setEnabled(!editable);
+        btnCreate.setEnabled(!editable);
+        btnUpdate.setEnabled(editable);
+        btnDelete.setEnabled(editable);
+        int rowCount = tblUser.getRowCount();
+        btnMoveFirst.setEnabled(editable && rowCount > 0);
+        btnMovePrevious.setEnabled(editable && rowCount > 0);
+        btnMoveNext.setEnabled(editable && rowCount > 0);
+        btnMoveLast.setEnabled(editable && rowCount > 0);   
     }
 
     @Override
     public void checkAll() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       int rowCount = tblUser.getRowCount();
+    if (rowCount == 0) return;
+
+    // Chọn tất cả các hàng trong JTable
+    tblUser.setRowSelectionInterval(0, rowCount - 1); 
     }
 
     @Override
     public void uncheckAll() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       tblUser.clearSelection();
     }
 
     @Override
     public void deleteCheckedItems() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+      if (XDialog.confirm("Bạn thực sự muốn xóa các mục đã chọn?")) {
+    int[] selectedRows = tblUser.getSelectedRows(); // Lấy tất cả dòng được chọn
+    
+    if (selectedRows.length == 0) {
+        XDialog.alert("Vui lòng chọn ít nhất một người dùng để xóa!");
+        return;
+    }
+
+    for (int row : selectedRows) {
+        User entity = items.get(row);    // Lấy User tương ứng
+        dao.deleteById(entity.getUserId()); // Xóa theo UserId
+    }
+
+    this.fillToTable(); // Load lại dữ liệu
+}
+
     }
 
     @Override
     public void moveFirst() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       this.moveTo(0);
     }
 
     @Override
     public void movePrevious() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         this.moveTo(tblUser.getSelectedRow() - 1);
     }
 
     @Override
     public void moveNext() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.moveTo(tblUser.getSelectedRow() + 1);
     }
 
     @Override
     public void moveLast() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+      this.moveTo(tblUser.getRowCount() - 1);
     }
 
     @Override
     public void moveTo(int rowIndex) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       int rowCount = tblUser.getRowCount();
+
+    if (rowCount == 0) return; // Không có dữ liệu thì thoát
+        int index = 0;
+
+    if (index < 0) {
+        // Nếu index nhỏ hơn 0 -> chuyển đến dòng cuối
+        this.moveLast();
+    } else if (index >= rowCount) {
+        // Nếu index lớn hơn tổng số dòng -> chuyển đến dòng đầu
+        this.moveFirst();
+    } else {
+        // Bỏ chọn tất cả, rồi chọn đúng dòng index
+        tblUser.clearSelection();
+        tblUser.setRowSelectionInterval(index, index);
+
+        // Hiển thị User lên form
+        this.edit();
+    }
     }
 
    
