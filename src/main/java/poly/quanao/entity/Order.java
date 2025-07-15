@@ -19,7 +19,12 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 public class Order {
-
+    private Long id;
+    private String username;
+    private Integer cardId;
+    @Builder.Default
+    private Date checkin = new Date();
+    private Date checkout;
     private int status;
     public enum Status {
     Servicing, Completed, Canceled;

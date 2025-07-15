@@ -11,16 +11,18 @@ import lombok.NoArgsConstructor;
 
 /**
  *
- * @author admin
+ * @author LENOVO
  */
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Data
 public class OrderDetail {
-    private Integer orderDetailId;  
-    private Integer orderId;        
-    private Integer productId;      
-    private int quantity;           
-    private float priceAtTime; 
+    private Long id;
+    private Long billId;
+    private String drinkId;
+    private double unitPrice;
+    private double discount;
+    private int quantity;
+    private String drinkName;
 }

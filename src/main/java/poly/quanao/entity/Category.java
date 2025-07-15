@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Data
-public class ProductCategory {
-    String categoryId;
-    String categoryName;
+public class Category {
+    String id;
+    String name;
 }

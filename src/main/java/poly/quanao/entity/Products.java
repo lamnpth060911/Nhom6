@@ -18,12 +18,12 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 public class Products {
-   private Integer productId;       
-    private String productName;     
-    private Float price;             
-    private Float discount;          
-    private Boolean inStock;         
-    private String categoryId;       
-    private String color;             
-    private String imagePath;         
+    private String id;
+    private String name;
+    @Builder.Default
+    private String image = "product.png";
+    private double unitPrice;
+    private double discount;
+    private boolean available;
+    private String categoryId;
 }
