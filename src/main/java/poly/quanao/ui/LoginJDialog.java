@@ -191,28 +191,30 @@ exit() ;       // TODO add your handling code here:
     // End of variables declaration//GEN-END:variables
 
    
+
     @Override
     public void open() {
         this.setLocationRelativeTo(null);
     }
 
-  @Override
-public void login() {
-    String username = txtUsername.getText();
-    String password = txtPassword.getText();
-
-    UserDAO dao = new UserDAOImpl();
-    User user = dao.findByUsername(username); // ✅ đúng hàm
-
-    if (user == null) {
+    @Override
+    public void login() {
+        String username = txtUsername.getText();
+        String password = txtPassword.getText();
+        UserDAO dao = new UserDAOImpl();
+        User user = dao.findById(username);
+        if (user == null) {
         XDialog.alert("Sai tên đăng nhập!");
-    } else if (!password.equals(user.getPassword())) {
+        } else if (!password.equals(user.getPassword())) {
         XDialog.alert("Sai mật khẩu đăng nhập!");
-    } else {
-        XAuth.user = user; // ✅ đăng nhập thành công
+        } else if (!user.isEnabled()) {
+        XDialog.alert("Tài khoản của bạn đang tạm dừng!");
+        } else {
+        XAuth.user = user; // duy trì user đăng nhập
         this.dispose();
-    }
+        }
+    }    
 }
 
-}  
+
 
