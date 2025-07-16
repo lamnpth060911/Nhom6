@@ -6,9 +6,9 @@ package poly.quanao.ui.manager;
 
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
-import poly.quanao.dao.CategoryProductDAO;
-import poly.quanao.dao.impl.CategoryProductDAOImpl;
-import poly.quanao.entity.ProductCategory;
+import poly.quanao.dao.CategoryDAO;
+import poly.quanao.dao.impl.CategoryDAOImpl;
+import poly.quanao.entity.Category;
 import poly.quanao.util.XDialog;
 
 /**
@@ -412,8 +412,8 @@ public class ProductCategoriesManager extends javax.swing.JFrame implements Prod
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
- CategoryProductDAO dao = new CategoryProductDAOImpl();
-    List<ProductCategory> items = List.of();
+ CategoryDAO dao = new CategoryDAOImpl();
+    List<Category> items = List.of();
     @Override
     public void open() {
         this.setLocationRelativeTo(null);
@@ -422,16 +422,16 @@ public class ProductCategoriesManager extends javax.swing.JFrame implements Prod
     }
 
     @Override
-    public void setForm(ProductCategory entity) {
-        txtId.setText(entity.getCategoryId());
-        txtName.setText(entity.getCategoryName());    
+    public void setForm(Category entity) {
+        txtId.setText(entity.getId());
+        txtName.setText(entity.getName());    
     }
 
     @Override
-    public ProductCategory getForm() {
-        ProductCategory entity = new ProductCategory();
-        entity.setCategoryId(txtId.getText());
-        entity.setCategoryName(txtName.getText());
+    public Category getForm() {
+        Category entity = new Category();
+        entity.setId(txtId.getText());
+        entity.setName(txtName.getText());
         return entity;    
     }
 
@@ -442,8 +442,8 @@ public class ProductCategoriesManager extends javax.swing.JFrame implements Prod
         items = dao.findAll();
         items.forEach(item -> {
         Object[] rowData = {
-        item.getCategoryId(),
-        item.getCategoryName(),
+        item.getId(),
+        item.getName(),
         false
         };
         model.addRow(rowData);
@@ -452,7 +452,7 @@ public class ProductCategoriesManager extends javax.swing.JFrame implements Prod
 
     @Override
     public void edit() {
-        ProductCategory entity = items.get(tblCategories.getSelectedRow());
+        Category entity = items.get(tblCategories.getSelectedRow());
         this.setForm(entity);
         this.setEditable(true);
         tabs.setSelectedIndex(1);    
@@ -460,7 +460,7 @@ public class ProductCategoriesManager extends javax.swing.JFrame implements Prod
 
     @Override
     public void create() {
-        ProductCategory entity = this.getForm();
+        Category entity = this.getForm();
         dao.create(entity);
         this.fillToTable();
         this.clear();    
@@ -468,7 +468,7 @@ public class ProductCategoriesManager extends javax.swing.JFrame implements Prod
 
     @Override
     public void update() {
-        ProductCategory entity = this.getForm();
+        Category entity = this.getForm();
         dao.update(entity);
         this.fillToTable();    
     }
@@ -485,7 +485,7 @@ public class ProductCategoriesManager extends javax.swing.JFrame implements Prod
 
     @Override
     public void clear() {
-        this.setForm(new ProductCategory());
+        this.setForm(new Category());
         this.setEditable(false);    
     }
 
@@ -521,7 +521,7 @@ public class ProductCategoriesManager extends javax.swing.JFrame implements Prod
         if (XDialog.confirm("Bạn thực sự muốn xóa các mục chọn?")) {
             for (int i = 0; i < tblCategories.getRowCount(); i++) {
                 if ((Boolean) tblCategories.getValueAt(i, 2)) {
-                    dao.deleteById(items.get(i).getCategoryId());
+                    dao.deleteById(items.get(i).getId());
                 }
             }
             this.fillToTable();

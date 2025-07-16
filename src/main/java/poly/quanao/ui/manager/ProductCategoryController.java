@@ -4,13 +4,13 @@
  */
 package poly.quanao.ui.manager;
 
-import poly.quanao.entity.ProductCategory;
+import poly.quanao.entity.Category;
 import poly.quanao.ui.CrudController;
 
 /**
  *
  * @author ADMIN
  */
-public interface ProductCategoryController extends CrudController <ProductCategory>{
+public interface ProductCategoryController extends CrudController <Category>{
     
 }

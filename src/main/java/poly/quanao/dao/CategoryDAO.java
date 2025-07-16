@@ -4,13 +4,12 @@
  */
 package poly.quanao.dao;
 
-
-import poly.quanao.entity.ProductCategory;
+import poly.quanao.entity.Category;
 
 /**
  *
- * @author ADMIN
+ * @author LENOVO
  */
-public interface CategoryProductDAO extends CrudDAO<ProductCategory, String>{ 
+public interface CategoryDAO extends CrudDAO<Category, String>{
     
 }
