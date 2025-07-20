@@ -11,5 +11,6 @@ import poly.quanao.ui.CrudController;
  * @author Admin
  */
 public interface ProductsManagerController extends CrudController <ProductsManagerJDialog> {
-    
+    void fillCategories();
+    void chooseFile();
 }
