@@ -6,6 +6,7 @@ package poly.quanao.ui.manager;
 
 
 import java.util.List;
+import javax.swing.ImageIcon;
 import javax.swing.table.DefaultTableModel;
 import poly.quanao.dao.UserDAO;
 import poly.quanao.dao.impl.UserDAOImpl;
@@ -48,7 +49,7 @@ public class UserManagerJDialog extends javax.swing.JDialog implements UserManag
         jScrollPane1 = new javax.swing.JScrollPane();
         tblUser = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        lblPhoto = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -162,7 +163,7 @@ public class UserManagerJDialog extends javax.swing.JDialog implements UserManag
 
         tabs.addTab("Danh sách", jPanel2);
 
-        jLabel1.setText("Ảnh");
+        lblPhoto.setText("Ảnh");
 
         jLabel2.setText("Tên đăng nhập");
 
@@ -260,7 +261,7 @@ public class UserManagerJDialog extends javax.swing.JDialog implements UserManag
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(44, 44, 44)
-                .addComponent(jLabel1)
+                .addComponent(lblPhoto)
                 .addGap(200, 200, 200)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtPassword)
@@ -316,7 +317,7 @@ public class UserManagerJDialog extends javax.swing.JDialog implements UserManag
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(61, 61, 61)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(lblPhoto)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
                 .addGap(18, 18, 18)
@@ -489,7 +490,6 @@ public class UserManagerJDialog extends javax.swing.JDialog implements UserManag
     private javax.swing.JButton btnUpdate;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -503,6 +503,7 @@ public class UserManagerJDialog extends javax.swing.JDialog implements UserManag
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JLabel lblPhoto;
     private javax.swing.JRadioButton rdoEnabled;
     private javax.swing.JRadioButton rdoManager;
     private javax.swing.JTabbedPane tabs;
@@ -512,133 +513,109 @@ public class UserManagerJDialog extends javax.swing.JDialog implements UserManag
     private javax.swing.JTextField txtPwConfirm;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
-UserDAO dao = new UserDAOImpl();
+ UserDAO dao = new UserDAOImpl();
     List<User> items = List.of();
     @Override
     public void open() {
         this.setLocationRelativeTo(null);
+        this.fillToTable();
+        this.clear();
     }
 
     @Override
     public void setForm(User entity) {
-     
-    txtUsername.setText(entity.getUsername());
-    txtPassword.setText(entity.getPassword());
-    txtFullName.setText(entity.getFullName());
-
-    // Vai trò: admin => Quản lý, staff => Nhân viên
-    if ("admin".equalsIgnoreCase(entity.getRole())) {
-        rdoManager.setSelected(true);
-    } else {
-        jRadioButton4.setSelected(true);
-    }
-
-    // Nếu sau này bạn thêm thuộc tính trạng thái thì mới xử lý phần này
-    // Ví dụ nếu có: entity.getStatus() == 1 thì chọn rdoEnabled
-
-
+        txtUsername.setText(entity.getUsername());
+        txtPassword.setText(entity.getPassword());    
+        txtFullName.setText(entity.getFullname());
+        ImageIcon icon = new ImageIcon(entity.getPhoto());
+        lblPhoto.setIcon(icon);
+        if (entity.isEnabled()){
+            rdoEnabled.setSelected(true);
+        }else{
+            jRadioButton4.setSelected(true);
+        }
+        if (entity.isManager()){
+            rdoManager.setSelected(true);
+        }else{
+            jRadioButton2.setSelected(true);
+        }
+        
     }
 
     @Override
     public User getForm() {
-    User entity = new User();
-    entity.setUsername(txtUsername.getText().trim());
-    entity.setPassword(txtPassword.getText().trim());
-    
-    // FullName có thể null
-    String fullName = txtFullName.getText().trim();
-    entity.setFullName(fullName.isEmpty() ? null : fullName);
-
-    // Role thay cho Manager/Enabled
-    // Ví dụ: nếu chọn Manager thì Role = "admin", ngược lại "staff"
-    if (rdoManager.isSelected()) {
-        entity.setRole("admin");
-    } else {
-        entity.setRole("staff");
-    }
-
-    return entity;    
+        User entity = new User();
+        entity.setUsername(txtUsername.getText());
+        entity.setPassword(txtPassword.getText());        
+        entity.setFullname(txtFullName.getText());
+        entity.setManager(rdoManager.isSelected()? true:false);
+        entity.setEnabled(rdoEnabled.isSelected()? true:false);
+        entity.setPhoto("");
+        return entity;    
     }
 
     @Override
     public void fillToTable() {
-     DefaultTableModel model = (DefaultTableModel) tblUser.getModel(); 
-    model.setRowCount(0);
-
-    // Lấy danh sách từ DAO
-    items = dao.findAll();
-
-    // Đổ dữ liệu vào bảng
-    items.forEach(item -> {
-    Object[] rowData = {
-        item.getUserId(),      // Mã người dùng
-        item.getUsername(),    // Tên đăng nhập
-        item.getPassword(),    // Mật khẩu
-        item.getFullName(),    // Tên đầy đủ (có thể null)
-        item.getRole()         // Vai trò (admin hoặc staff)
-    };
+        DefaultTableModel model = (DefaultTableModel) tblUser.getModel();
+        model.setRowCount(0);
+        items = dao.findAll();
+        items.forEach(item -> {
+        Object[] rowData = {
+        item.getUsername(),
+        item.getPassword(),
+        item.isEnabled(),
+        item.getUsername(),
+        item.getPhoto(),
+        item.isManager(),
+        false
+        };
         model.addRow(rowData);
-    });
-   
+        });
     }
 
     @Override
     public void edit() {
-     User entity = items.get(tblUser.getSelectedRow());
+        User entity = items.get(tblUser.getSelectedRow());
         this.setForm(entity);
         this.setEditable(true);
-        tabs.setSelectedIndex(1);  
+        tabs.setSelectedIndex(1);
     }
 
     @Override
     public void create() {
-     User entity = this.getForm();
+        User entity = this.getForm();
         dao.create(entity);
         this.fillToTable();
-        this.clear();  
+        this.clear();
     }
 
     @Override
     public void update() {
-     User entity = this.getForm();
+        User entity = this.getForm();
         dao.update(entity);
-        this.fillToTable();    
+        this.fillToTable();
     }
 
     @Override
     public void delete() {
-         if (XDialog.confirm("Bạn thực sự muốn xóa?")) {
-    int selectedRow = tblUser.getSelectedRow();
-    if (selectedRow < 0) {
-        XDialog.alert("Vui lòng chọn người dùng cần xóa!");
-        return;
-    }
-
-    // Lấy User từ danh sách items
-    User entity = items.get(selectedRow);
-    int userId = entity.getUserId();
-
-    // Gọi DAO để xóa theo UserId
-    dao.deleteById(userId);
-
-    // Cập nhật lại bảng
-    this.fillToTable();
-    this.clear();
-}
- 
+        if (XDialog.confirm("Bạn thực sự muốn xóa?")) {
+            String username = txtUsername.getText();
+            dao.deleteById(username);
+            this.fillToTable();
+            this.clear();
+        }   
     }
 
     @Override
     public void clear() {
-        
-    txtPwConfirm.setText("");
+        txtPwConfirm.setText("");
         this.setForm(new User());
         this.setEditable(false);
     }
 
     @Override
     public void setEditable(boolean editable) {
-     txtUsername.setEnabled(!editable);
+        txtUsername.setEnabled(!editable);
         btnCreate.setEnabled(!editable);
         btnUpdate.setEnabled(editable);
         btnDelete.setEnabled(editable);
@@ -646,51 +623,44 @@ UserDAO dao = new UserDAOImpl();
         btnMoveFirst.setEnabled(editable && rowCount > 0);
         btnMovePrevious.setEnabled(editable && rowCount > 0);
         btnMoveNext.setEnabled(editable && rowCount > 0);
-        btnMoveLast.setEnabled(editable && rowCount > 0);   
+        btnMoveLast.setEnabled(editable && rowCount > 0);  
     }
 
     @Override
     public void checkAll() {
-       int rowCount = tblUser.getRowCount();
-    if (rowCount == 0) return;
-
-    // Chọn tất cả các hàng trong JTable
-    tblUser.setRowSelectionInterval(0, rowCount - 1); 
+         this.setCheckedAll(true);    
     }
 
     @Override
     public void uncheckAll() {
-       tblUser.clearSelection();
+        this.setCheckedAll(false); 
     }
-
+    
+    private void setCheckedAll(boolean checked) {
+        for (int i = 0; i < tblUser.getRowCount(); i++) {
+        tblUser.setValueAt(checked, i, 6);
+        }
+    }
     @Override
     public void deleteCheckedItems() {
-      if (XDialog.confirm("Bạn thực sự muốn xóa các mục đã chọn?")) {
-    int[] selectedRows = tblUser.getSelectedRows(); // Lấy tất cả dòng được chọn
-    
-    if (selectedRows.length == 0) {
-        XDialog.alert("Vui lòng chọn ít nhất một người dùng để xóa!");
-        return;
-    }
-
-    for (int row : selectedRows) {
-        User entity = items.get(row);    // Lấy User tương ứng
-        dao.deleteById(entity.getUserId()); // Xóa theo UserId
-    }
-
-    this.fillToTable(); // Load lại dữ liệu
-}
-
+         if (XDialog.confirm("Bạn thực sự muốn xóa các mục chọn?")) {
+            for (int i = 0; i < tblUser.getRowCount(); i++) {
+                if ((Boolean) tblUser.getValueAt(i, 6)) {
+                    dao.deleteById(items.get(i).getUsername());
+                }
+            }
+            this.fillToTable();
+        }    
     }
 
     @Override
     public void moveFirst() {
-       this.moveTo(0);
+        this.moveTo(0);    
     }
 
     @Override
     public void movePrevious() {
-         this.moveTo(tblUser.getSelectedRow() - 1);
+        this.moveTo(tblUser.getSelectedRow() - 1);
     }
 
     @Override
@@ -700,32 +670,22 @@ UserDAO dao = new UserDAOImpl();
 
     @Override
     public void moveLast() {
-      this.moveTo(tblUser.getRowCount() - 1);
+        this.moveTo(tblUser.getRowCount() - 1);
     }
 
     @Override
-    public void moveTo(int rowIndex) {
-       int rowCount = tblUser.getRowCount();
-
-    if (rowCount == 0) return; // Không có dữ liệu thì thoát
-        int index = 0;
-
-    if (index < 0) {
-        // Nếu index nhỏ hơn 0 -> chuyển đến dòng cuối
-        this.moveLast();
-    } else if (index >= rowCount) {
-        // Nếu index lớn hơn tổng số dòng -> chuyển đến dòng đầu
-        this.moveFirst();
-    } else {
-        // Bỏ chọn tất cả, rồi chọn đúng dòng index
-        tblUser.clearSelection();
-        tblUser.setRowSelectionInterval(index, index);
-
-        // Hiển thị User lên form
-        this.edit();
+    public void moveTo(int index) {
+        if (index < 0) {
+            this.moveLast();
+        } else if (index >= tblUser.getRowCount()) {
+            this.moveFirst();
+        } else {
+            tblUser.clearSelection();
+            tblUser.setRowSelectionInterval(index, index);
+            this.edit();
+        }    
     }
-    }
-
-   
 }
+
+
 
