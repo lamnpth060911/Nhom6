@@ -171,6 +171,7 @@ public class ClothingShop extends javax.swing.JFrame implements ClothingShopCont
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new ClothingShop().setVisible(true);
             }

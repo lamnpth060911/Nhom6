@@ -446,203 +446,105 @@ public class ProductsManagerJDialog extends javax.swing.JDialog implements Produ
 
     @Override
     public void fillCategories() {
-        DefaultComboBoxModel cboModel = (DefaultComboBoxModel) cboCategories.getModel();
-        cboModel.removeAllElements();
-        DefaultTableModel tblModel = (DefaultTableModel) tblCategories.getModel();
-        tblModel.setRowCount(0);
-        CategoryDAO cdao = new CategoryDAOImpl();
-        items2 = cdao.findAll();
-        items2.forEach(category -> {
-        cboModel.addElement(category);
-        tblModel.addRow(new Object[]{category.getName()});
-        });
-        tblCategories.setRowSelectionInterval(0, 0);
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void chooseFile() {
-        JFileChooser fileChooser = new JFileChooser();
-        if(fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
-        File selectedFile = fileChooser.getSelectedFile();
-        File file = XIcon.copyTo(selectedFile, "images");
-        lblImage.setToolTipText(file.getName());
-        XIcon.setIcon(lblImage, file);
-        }
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void open() {
-        this.setLocationRelativeTo(null);
-        this.fillCategories();
-        this.fillToTable();
-        this.clear();
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void setForm(Products entity) {
-        txtId.setText(entity.getId());
-        txtName.setText(entity.getName());    
-        txtPrice.setText(String.valueOf(entity.getUnitPrice()));
-        if (entity.isAvailable()){
-            rdoStatus.setSelected(true);
-        }else{
-            jRadioButton2.setSelected(true);
-        }
-        Sldiscount.setValue((int) entity.getDiscount());
-        String catId = entity.getCategoryId();
-        for (Category c : items2) {
-            if (c.getId().equals(catId)) {
-                cboCategories.setSelectedItem(c);
-                break;
-            }   
-        }
+    public void setForm(ProductsManagerJDialog entity) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public Products getForm() {
-        Products entity = new Products();
-        entity.setId(txtId.getText());
-        entity.setName(txtName.getText());        
-        entity.setUnitPrice(Double.parseDouble(txtPrice.getText()));
-        entity.setAvailable(rdoStatus.isSelected()? true:false);
-        entity.setDiscount(Sldiscount.getValue());
-        Category selectedCategory = (Category) cboCategories.getSelectedItem();
-        String categoryId = selectedCategory.getId();
-        entity.setCategoryId(categoryId);
-        return entity;   
+    public ProductsManagerJDialog getForm() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void fillToTable() {
-        DefaultTableModel model = (DefaultTableModel) tblProducts.getModel();
-        model.setRowCount(0);
-        Category category = items2.get(tblCategories.getSelectedRow());
-        items = dao.findByCategoryId(category.getId()); // thay vì findAll()
-        items.forEach(item -> {
-            Object[]rowData={
-                item.getId(),
-                item.getName(),
-                item.getUnitPrice()+" VND",
-                item.getDiscount()+"%",
-                item.isAvailable()? "Có sẵn":"Hết hàng",
-                false
-            };
-        model.addRow(rowData);
-        });
-        this.clear();
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void edit() {
-        Products entity = items.get(tblProducts.getSelectedRow());
-        this.setForm(entity);
-        this.setEditable(true);
-        tabs.setSelectedIndex(1);
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void create() {
-        Products entity = this.getForm();
-        dao.create(entity);
-        this.fillToTable();
-        this.clear();
-
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void update() {
-        Products entity = this.getForm();
-        dao.update(entity);
-        this.fillToTable();
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void delete() {
-        if (XDialog.confirm("Bạn thực sự muốn xóa?")) {
-            String Id = txtId.getText();
-            dao.deleteById(Id);
-            this.fillToTable();
-            this.clear();
-        }   
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void clear() {
-        this.setForm(new Products());
-        this.setEditable(false);
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void setEditable(boolean editable) {
-        txtId.setEnabled(!editable);
-        btnCreate.setEnabled(!editable);
-        btnUpdate.setEnabled(editable);
-        btnDelete.setEnabled(editable);
-        int rowCount = tblProducts.getRowCount();
-        btnMoveFirst.setEnabled(editable && rowCount > 0);
-        btnMovePrevious.setEnabled(editable && rowCount > 0);
-        btnMoveNext.setEnabled(editable && rowCount > 0);
-        btnMoveLast.setEnabled(editable && rowCount > 0);  
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void checkAll() {
-        this.setCheckedAll(true);    
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void uncheckAll() {
-        this.setCheckedAll(false); 
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    private void setCheckedAll(boolean checked) {
-        for (int i = 0; i < tblProducts.getRowCount(); i++) {
-        tblProducts.setValueAt(checked, i, 2);
-        }
-    }
+
     @Override
     public void deleteCheckedItems() {
-         if (XDialog.confirm("Bạn thực sự muốn xóa các mục chọn?")) {
-            for (int i = 0; i < tblProducts.getRowCount(); i++) {
-                if ((Boolean) tblProducts.getValueAt(i, 2)) {
-                    dao.deleteById(items.get(i).getId());
-                }
-            }
-            this.fillToTable();
-        }    
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void moveFirst() {
-        this.moveTo(0); 
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void movePrevious() {
-        this.moveTo(tblProducts.getSelectedRow() - 1);
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void moveNext() {
-        this.moveTo(tblProducts.getSelectedRow() + 1);
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
     public void moveLast() {
-        this.moveTo(tblProducts.getRowCount() - 1);
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void moveTo(int index) {
-        if (index < 0) {
-            this.moveLast();
-        } else if (index >= tblProducts.getRowCount()) {
-            this.moveFirst();
-        } else {
-            tblProducts.clearSelection();
-            tblProducts.setRowSelectionInterval(index, index);
-            this.edit();
-        }    
+    public void moveTo(int rowIndex) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+
+
 }
 
 
