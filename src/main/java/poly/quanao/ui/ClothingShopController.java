@@ -28,7 +28,7 @@ public interface ClothingShopController {
 
 
     default void showChangePasswordJDialog(JFrame frame) {
-        // TODO: Mở hộp thoại đổi mật khẩu
+       this.showJDialog(new ChangePasswordJDialog(frame, true));
     }
 
     default void showSalesJDialog(JFrame frame) {

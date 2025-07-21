@@ -4,11 +4,16 @@
  */
 package poly.quanao.ui;
 
+import poly.quanao.dao.UserDAO;
+import poly.quanao.dao.impl.UserDAOImpl;
+import poly.quanao.util.XAuth;
+import poly.quanao.util.XDialog;
+
 /**
  *
  * @author ADMIN
  */
-public class ChangePasswordJDialog extends javax.swing.JDialog {
+public class ChangePasswordJDialog extends javax.swing.JDialog implements ChangePasswordController {
 
     /**
      * Creates new form ChangePasswordJDialog
@@ -143,7 +148,7 @@ public class ChangePasswordJDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
-
+    close();
     }//GEN-LAST:event_btnCloseActionPerformed
 
     private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
@@ -151,7 +156,7 @@ public class ChangePasswordJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_txtPasswordActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-
+    save();
     }//GEN-LAST:event_btnSaveActionPerformed
 
     /**
@@ -210,4 +215,33 @@ public class ChangePasswordJDialog extends javax.swing.JDialog {
     private javax.swing.JTextField txtPassword;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
+    UserDAO dao = new UserDAOImpl(); 
+    @Override
+    public void open() {
+        this.setLocationRelativeTo(null);
+    }
+
+    @Override
+    public void save() {
+       String username = txtUsername.getText(); 
+        String password = txtPassword.getText(); 
+        String newpass = txtNewpass.getText(); 
+        String confirm = txtConfirm.getText();
+        if (!newpass.equals(confirm)) { 
+            XDialog.alert("Xác nhận mật khẩu không đúng!"); 
+        } else if (!username.equals(XAuth.user.getUsername())) { 
+            XDialog.alert("Sai tên đăng nhập!"); 
+        } else if (!password.equals(XAuth.user.getPassword())) { 
+            XDialog.alert("Sai mật khẩu!"); 
+        } else { 
+            XAuth.user.setPassword(newpass); 
+            dao.update(XAuth.user); 
+            XDialog.alert("Đổi mật khẩu thành công!"); 
+        }   
+    }
+
+    @Override
+    public void close() {
+        this.dispose();
+    }
 }
