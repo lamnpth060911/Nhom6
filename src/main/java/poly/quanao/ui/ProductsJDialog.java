@@ -4,14 +4,26 @@
  */
 package poly.quanao.ui;
 
+import java.util.List;
+import lombok.Setter;
+import poly.quanao.dao.CategoryDAO;
+import poly.quanao.dao.ProductsDAO;
+import poly.quanao.dao.impl.CategoryDAOImpl;
+import poly.quanao.dao.impl.ProductDAOImpl;
+import poly.quanao.entity.Category;
+import poly.quanao.entity.Order;
+import poly.quanao.entity.Products;
+
 /**
  *
  * @author ADMIN
  */
-public class ProductsJDialog extends javax.swing.JDialog {
+public class ProductsJDialog extends javax.swing.JDialog implements ProductsController {
 
     /**
      * Creates new form Products
+     * @param parent
+     * @param modal
      */
     public ProductsJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -153,17 +165,15 @@ public class ProductsJDialog extends javax.swing.JDialog {
         //</editor-fold>
 
         /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                ProductsJDialog dialog = new ProductsJDialog(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            ProductsJDialog dialog = new ProductsJDialog(new javax.swing.JFrame(), true);
+            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent e) {
+                    System.exit(0);
+                }
+            });
+            dialog.setVisible(true);
         });
     }
 
@@ -175,4 +185,35 @@ public class ProductsJDialog extends javax.swing.JDialog {
     private javax.swing.JTable tblCategories;
     private javax.swing.JTable tblDrinks;
     // End of variables declaration//GEN-END:variables
+    @Setter Products bill;
+    CategoryDAO categoryDao = new CategoryDAOImpl();
+    List<Category> categories = List.of();
+    ProductsDAO drinkDao = new ProductDAOImpl();
+    List<Products> drinks = List.of();
+    @Override
+    public void setBill(Order bill) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void open() {
+        this.setLocationRelativeTo(null);
+        this.fillCategories();
+        this.fillDrinks();
+    }
+
+    @Override
+    public void fillCategories() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void fillDrinks() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public void addDrinkToBill() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
