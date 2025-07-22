@@ -12,7 +12,7 @@ import poly.quanao.entity.Products;
  * @author ADMIN
  */
 public interface ProductsDAO {
-    public interface DrinkDAO extends CrudDAO<Products, String>{
+    public interface ProductDAO extends CrudDAO<Products, String>{
     List<Products> findByCategoryId(String categoryId);
 }
 }

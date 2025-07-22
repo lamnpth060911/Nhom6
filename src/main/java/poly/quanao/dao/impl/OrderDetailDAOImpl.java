@@ -23,7 +23,7 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
     }
 
     @Override
-    public List<OrderDetail> findByDrinkId(String drinkId) {
+    public List<OrderDetail> findByProductId(String drinkId) {
         return XQuery.getBeanList(OrderDetail.class, findByDrinkIdSql, drinkId);
     }
 
@@ -67,4 +67,5 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
     public OrderDetail findById(Long id) {
         return XQuery.getSingleBean(OrderDetail.class, findByIdSql, id);
     }
+
 }

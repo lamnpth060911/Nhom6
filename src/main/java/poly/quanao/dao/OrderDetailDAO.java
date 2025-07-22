@@ -12,6 +12,6 @@ import poly.quanao.entity.OrderDetail;
  * @author LENOVO
  */
 public interface OrderDetailDAO extends CrudDAO<OrderDetail, Long>{
-    List<OrderDetail> findByBillId(Long OrderId);
-    List<OrderDetail> findByDrinkId(String ProductsId);
+    List<OrderDetail> findByOrderId(Long OrderId);
+    List<OrderDetail> findByProductId(String ProductsId);
 }
