@@ -5,14 +5,18 @@
 package poly.quanao.ui;
 
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
 import lombok.Setter;
 import poly.quanao.dao.CategoryDAO;
 import poly.quanao.dao.ProductsDAO;
 import poly.quanao.dao.impl.CategoryDAOImpl;
+import poly.quanao.dao.impl.OrderDetailDAOImpl;
 import poly.quanao.dao.impl.ProductDAOImpl;
 import poly.quanao.entity.Category;
 import poly.quanao.entity.Order;
+import poly.quanao.entity.OrderDetail;
 import poly.quanao.entity.Products;
+import poly.quanao.util.XDialog;
 
 /**
  *
@@ -40,15 +44,23 @@ public class ProductsJDialog extends javax.swing.JDialog implements ProductsCont
     private void initComponents() {
 
         jScrollPane5 = new javax.swing.JScrollPane();
-        tblCategories = new javax.swing.JTable();
+        tblCategory = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tblDrinks = new javax.swing.JTable();
+        tblProducts = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowIconified(java.awt.event.WindowEvent evt) {
+                formWindowIconified(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
-        tblCategories.setModel(new javax.swing.table.DefaultTableModel(
+        tblCategory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null},
                 {null},
@@ -59,12 +71,12 @@ public class ProductsJDialog extends javax.swing.JDialog implements ProductsCont
                 "Loại quần áo"
             }
         ));
-        tblCategories.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblCategory.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblCategoriesMouseClicked(evt);
+                tblCategoryMouseClicked(evt);
             }
         });
-        jScrollPane5.setViewportView(tblCategories);
+        jScrollPane5.setViewportView(tblCategory);
 
         jButton1.setText("Đóng");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -73,7 +85,7 @@ public class ProductsJDialog extends javax.swing.JDialog implements ProductsCont
             }
         });
 
-        tblDrinks.setModel(new javax.swing.table.DefaultTableModel(
+        tblProducts.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -84,12 +96,12 @@ public class ProductsJDialog extends javax.swing.JDialog implements ProductsCont
                 "Mã", "Tên quần áo", "Đơn giá", "Giảm giá"
             }
         ));
-        tblDrinks.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblProducts.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblDrinksMouseClicked(evt);
+                tblProductsMouseClicked(evt);
             }
         });
-        jScrollPane3.setViewportView(tblDrinks);
+        jScrollPane3.setViewportView(tblProducts);
 
         jScrollPane4.setViewportView(jScrollPane3);
 
@@ -123,18 +135,28 @@ public class ProductsJDialog extends javax.swing.JDialog implements ProductsCont
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tblCategoriesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCategoriesMouseClicked
-  
-    }//GEN-LAST:event_tblCategoriesMouseClicked
+    private void tblCategoryMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCategoryMouseClicked
+   this.fillProducts();
+    }//GEN-LAST:event_tblCategoryMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void tblDrinksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDrinksMouseClicked
-    
+    private void tblProductsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductsMouseClicked
+  if(evt.getClickCount() == 1){
+            this.addProductToOrder();
+        }    
         
-    }//GEN-LAST:event_tblDrinksMouseClicked
+    }//GEN-LAST:event_tblProductsMouseClicked
+
+    private void formWindowIconified(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowIconified
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowIconified
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+this.open();        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -182,38 +204,60 @@ public class ProductsJDialog extends javax.swing.JDialog implements ProductsCont
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JTable tblCategories;
-    private javax.swing.JTable tblDrinks;
+    private javax.swing.JTable tblCategory;
+    private javax.swing.JTable tblProducts;
     // End of variables declaration//GEN-END:variables
-    @Setter Products bill;
+    @Setter Order order;
     CategoryDAO categoryDao = new CategoryDAOImpl();
     List<Category> categories = List.of();
-    ProductsDAO drinkDao = new ProductDAOImpl();
-    List<Products> drinks = List.of();
-    @Override
-    public void setBill(Order bill) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
+    ProductsDAO ProductsDao = new ProductDAOImpl();
+    List<Products> Products = List.of();
     @Override
     public void open() {
         this.setLocationRelativeTo(null);
         this.fillCategories();
-        this.fillDrinks();
+        this.fillProducts();
     }
 
     @Override
     public void fillCategories() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        categories = categoryDao.findAll();
+        DefaultTableModel model = (DefaultTableModel) tblCategory.getModel();
+        model.setRowCount(0);
+        categories.forEach(d -> model.addRow(new Object[] {d.getName()}));
+        tblCategory.setRowSelectionInterval(0, 0);
     }
 
     @Override
-    public void fillDrinks() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void fillProducts() {
+        Category category = categories.get(tblCategory.getSelectedRow());
+        Products = ProductsDao.findByCategoryId(category.getId());
+        DefaultTableModel model = (DefaultTableModel) tblProducts.getModel();
+        model.setRowCount(0);
+        Products.forEach(d -> {
+        Object[] row = {
+        d.getId(), 
+        d.getName(), 
+        String.format("$%.1f", d.getUnitPrice()), 
+        String.format("%.0f%%", d.getDiscount()*100)
+        };
+        model.addRow(row);
+        });
     }
 
     @Override
-    public void addDrinkToBill() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void addProductToOrder() {
+        String quantity = XDialog.prompt("Số lượng?");
+        if(quantity != null && quantity.length() > 0){
+            Products product = Products.get(tblProducts.getSelectedRow());
+            OrderDetail detail = new OrderDetail();
+            detail.setOrderId(order.getId());
+            detail.setProductId(product.getId());
+            detail.setUnitPrice(product.getUnitPrice());
+            detail.setDiscount(product.getDiscount());
+            detail.setQuantity(Integer.parseInt(quantity));
+            new OrderDetailDAOImpl().create(detail);
+        }
     }
+
 }

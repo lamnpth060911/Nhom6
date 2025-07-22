@@ -11,9 +11,9 @@ import poly.quanao.entity.Order;
  * @author Admin
  */
 public interface ProductsController {
-    void setBill(Order bill); // nhận bill từ OrderJDialog 
+    void setOrder(Order order); // nhận bill từ OrderJDialog
     void open(); // hiển thị loại và đồ uống
     void fillCategories(); // tải và hiển thị loại đồ uống
-    void fillDrinks(); // tải và hiển thị đồ uống
-    void addDrinkToBill(); // thêm đồ uống vào bil
+    void fillProducts(); // tải và hiển thị đồ uống
+    void addProductToOrder(); // thêm đồ uống vào bil
 }
