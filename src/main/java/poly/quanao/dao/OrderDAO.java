@@ -4,6 +4,8 @@
  */
 package poly.quanao.dao;
 
+import java.util.Date;
+import java.util.List;
 import poly.quanao.entity.Order;
 
 /**
@@ -11,5 +13,9 @@ import poly.quanao.entity.Order;
  * @author Admin
  */
 public interface OrderDAO extends CrudDAO<Order, Long> {
-    
+     List<Order> findByUsername(String username);
+    List<Order> findByCardId(Integer cardId);
+    List<Order> findByTimeRange(Date begin, Date end);
+    public Order findServicingByCardId(Integer cardId);
+    List<Order> findByUserAndTimeRange(String username, Date begin, Date end);
 }

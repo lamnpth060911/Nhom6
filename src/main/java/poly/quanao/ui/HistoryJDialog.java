@@ -4,11 +4,22 @@
  */
 package poly.quanao.ui;
 
+import java.awt.Frame;
+import java.util.Date;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import poly.quanao.dao.OrderDAO;
+import poly.quanao.dao.impl.OrderDAOImpl;
+import poly.quanao.entity.Order;
+import poly.quanao.util.TimeRange;
+import poly.quanao.util.XAuth;
+import poly.quanao.util.XDate;
+
 /**
  *
  * @author ADMIN
  */
-public class HistoryJDialog extends javax.swing.JDialog {
+public class HistoryJDialog extends javax.swing.JDialog implements HistoryController {
 
     /**
      * Creates new form HistoryJDialog
@@ -37,6 +48,14 @@ public class HistoryJDialog extends javax.swing.JDialog {
         tblBills = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setText("Đến ngày :");
@@ -139,16 +158,26 @@ public class HistoryJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_txtBeginActionPerformed
 
     private void btnFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterActionPerformed
-        // TODO add your handling code here:
+        this.fillBills();
     }//GEN-LAST:event_btnFilterActionPerformed
 
     private void cboTimeRangesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTimeRangesActionPerformed
-        // TODO add your handling code here:
+        this.selectTimeRange();
     }//GEN-LAST:event_cboTimeRangesActionPerformed
 
     private void tblBillsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBillsMouseClicked
-        // TODO add your handling code here:
+        if (evt.getClickCount() == 2) {
+            this.showOrderJDialog();
+        }
     }//GEN-LAST:event_tblBillsMouseClicked
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here: xx
+    }//GEN-LAST:event_formWindowActivated
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        this.open();
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -202,4 +231,60 @@ public class HistoryJDialog extends javax.swing.JDialog {
     private javax.swing.JTextField txtBegin;
     private javax.swing.JTextField txtEnd;
     // End of variables declaration//GEN-END:variables
+    OrderDAO billDao = new OrderDAOImpl();
+    List<Order> bills = List.of();
+    @Override
+    public void open() {
+        this.setLocationRelativeTo(null);
+        this.selectTimeRange();
+    }
+
+    @Override
+    public void fillBills() {
+         String username = XAuth.user.getUsername();
+        Date begin = XDate.parse(txtBegin.getText(), "MM/dd/yyyy");
+        Date end = XDate.parse(txtEnd.getText(), "MM/dd/yyyy");
+        bills = billDao.findByUserAndTimeRange(username, begin, end);
+        DefaultTableModel model = (DefaultTableModel) tblBills.getModel();
+        model.setRowCount(0);
+        String[] statuses = {"Servicing", "Completed", "Canceled"};
+        bills.forEach(b -> {
+        Object[] row = { 
+        b.getId(), 
+        "Card #" + b.getCardId(),
+        XDate.format(b.getCheckin(), "HH:mm:ss dd-MM-yyyy"),
+        XDate.format(b.getCheckout(), "HH:mm:ss dd-MM-yyyy"),
+        statuses[b.getStatus()]
+        };
+        model.addRow(row);
+        });
+    }
+
+    @Override
+    public void showOrderJDialog() {
+        Order bill = bills.get(tblBills.getSelectedRow());
+        OrderJDialog dialog = new OrderJDialog((Frame) this.getOwner(), true);
+        dialog.setOrder(bill); // truyền bill vào cửa sổ BillJDialog
+        dialog.setVisible(true);
+        dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+        public void windowClosed(java.awt.event.WindowEvent e) {
+        HistoryJDialog.this.fillBills();
+        }
+        });}
+
+    @Override
+    public void selectTimeRange() {
+        TimeRange range = TimeRange.today();
+    switch(cboTimeRanges.getSelectedIndex()){
+    case 0 -> range = TimeRange.today();
+    case 1 -> range = TimeRange.thisWeek();
+    case 2 -> range = TimeRange.thisMonth();
+    case 3 -> range = TimeRange.thisQuarter();
+    case 4 -> range = TimeRange.thisYear();
+    }
+    txtBegin.setText(XDate.format(range.getBegin()));
+    txtEnd.setText(XDate.format(range.getEnd()));
+    this.fillBills();
+    }
 }

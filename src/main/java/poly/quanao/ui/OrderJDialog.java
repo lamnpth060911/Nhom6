@@ -15,6 +15,8 @@ public class OrderJDialog extends javax.swing.JDialog implements OrderController
 
     /**
      * Creates new form OrderJDialog
+     * @param parent
+     * @param modal
      */
     public OrderJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -278,6 +280,7 @@ public class OrderJDialog extends javax.swing.JDialog implements OrderController
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 OrderJDialog dialog = new OrderJDialog(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -312,7 +315,7 @@ public class OrderJDialog extends javax.swing.JDialog implements OrderController
     private javax.swing.JTextField txtStatus;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
-@Setter Order order;
+    @Setter Order order;
     @Override
     public void setOrder(Order order) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
