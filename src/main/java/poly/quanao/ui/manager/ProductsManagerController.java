@@ -4,13 +4,13 @@
  */
 package poly.quanao.ui.manager;
 
-import poly.quanao.ui.CrudController;
+import poly.quanao.entity.Products;
 
 /**
  *
  * @author Admin
  */
-public interface ProductsManagerController extends CrudController <ProductsManagerJDialog> {
+public interface ProductsManagerController extends CrudController <Products> {
     void fillCategories();
     void chooseFile();
 }

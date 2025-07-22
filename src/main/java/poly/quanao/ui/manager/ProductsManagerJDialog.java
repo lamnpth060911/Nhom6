@@ -42,6 +42,7 @@ public class ProductsManagerJDialog extends javax.swing.JDialog implements Produ
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         tabs = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -65,8 +66,8 @@ public class ProductsManagerJDialog extends javax.swing.JDialog implements Produ
         jTextField3 = new javax.swing.JTextField();
         cboCategories = new javax.swing.JComboBox<>();
         Sldiscount = new javax.swing.JSlider();
-        rdoStatus = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
+        rdoConhang = new javax.swing.JRadioButton();
+        rdoHethang = new javax.swing.JRadioButton();
         jSeparator2 = new javax.swing.JSeparator();
         btnCreate = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
@@ -130,8 +131,9 @@ public class ProductsManagerJDialog extends javax.swing.JDialog implements Produ
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(68, 68, 68)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 679, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(34, 34, 34)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 679, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 904, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(38, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
@@ -176,6 +178,12 @@ public class ProductsManagerJDialog extends javax.swing.JDialog implements Produ
 
         jLabel7.setText("Loại");
 
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
+            }
+        });
+
         cboCategories.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         Sldiscount.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -184,9 +192,12 @@ public class ProductsManagerJDialog extends javax.swing.JDialog implements Produ
             }
         });
 
-        rdoStatus.setText("Còn hàng");
+        buttonGroup1.add(rdoConhang);
+        rdoConhang.setSelected(true);
+        rdoConhang.setText("Còn hàng");
 
-        jRadioButton2.setText("Hết hàng");
+        buttonGroup1.add(rdoHethang);
+        rdoHethang.setText("Hết hàng");
 
         btnCreate.setText("Tạo mới");
 
@@ -253,9 +264,9 @@ public class ProductsManagerJDialog extends javax.swing.JDialog implements Produ
                                     .addComponent(jLabel6)
                                     .addComponent(Sldiscount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(rdoStatus)
+                                        .addComponent(rdoConhang)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jRadioButton2))))
+                                        .addComponent(rdoHethang))))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addGap(92, 92, 92)
                                 .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -299,8 +310,8 @@ public class ProductsManagerJDialog extends javax.swing.JDialog implements Produ
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cboCategories, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rdoStatus)
-                    .addComponent(jRadioButton2))
+                    .addComponent(rdoConhang)
+                    .addComponent(rdoHethang))
                 .addGap(19, 19, 19)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -356,6 +367,10 @@ public class ProductsManagerJDialog extends javax.swing.JDialog implements Produ
      
     }//GEN-LAST:event_SldiscountStateChanged
 
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -410,6 +425,7 @@ public class ProductsManagerJDialog extends javax.swing.JDialog implements Produ
     private javax.swing.JButton btnMoveNext;
     private javax.swing.JButton btnMovePrevious;
     private javax.swing.JButton btnUpdate;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cboCategories;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
@@ -424,14 +440,14 @@ public class ProductsManagerJDialog extends javax.swing.JDialog implements Produ
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JLabel lblImage;
-    private javax.swing.JRadioButton rdoStatus;
+    private javax.swing.JRadioButton rdoConhang;
+    private javax.swing.JRadioButton rdoHethang;
     private javax.swing.JTabbedPane tabs;
     private javax.swing.JTable tblCategories;
     private javax.swing.JTable tblProducts;
@@ -440,110 +456,208 @@ public class ProductsManagerJDialog extends javax.swing.JDialog implements Produ
     private javax.swing.JTextField txtPrice;
     // End of variables declaration//GEN-END:variables
 
- ProductsDAO dao = new ProductDAOImpl();
+  ProductsDAO dao = new ProductDAOImpl();
     List<Products> items = List.of();
     List<Category> items2 = List.of();
-
     @Override
     public void fillCategories() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        DefaultComboBoxModel cboModel = (DefaultComboBoxModel) cboCategories.getModel();
+        cboModel.removeAllElements();
+        DefaultTableModel tblModel = (DefaultTableModel) tblCategories.getModel();
+        tblModel.setRowCount(0);
+        CategoryDAO cdao = new CategoryDAOImpl();
+        items2 = cdao.findAll();
+        items2.forEach(category -> {
+        cboModel.addElement(category);
+        tblModel.addRow(new Object[]{category.getName()});
+        });
+        tblCategories.setRowSelectionInterval(0, 0);
     }
 
     @Override
     public void chooseFile() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        JFileChooser fileChooser = new JFileChooser();
+        if(fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
+        File selectedFile = fileChooser.getSelectedFile();
+        File file = XIcon.copyTo(selectedFile, "images");
+        lblImage.setToolTipText(file.getName());
+        XIcon.setIcon(lblImage, file);
+        }
     }
 
     @Override
     public void open() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.setLocationRelativeTo(null);
+        this.fillCategories();
+        this.fillToTable();
+        this.clear();
     }
 
     @Override
-    public void setForm(ProductsManagerJDialog entity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void setForm(Products entity) {
+        txtId.setText(entity.getId());
+        txtName.setText(entity.getName());    
+        txtPrice.setText(String.valueOf(entity.getUnitPrice()));
+        if (entity.isInStock()){
+            rdoConhang.setSelected(true);
+        }else{
+            rdoHethang.setSelected(true);
+        }
+        Sldiscount.setValue((int) entity.getDiscount());
+        String catId = entity.getCategoryId();
+        for (Category c : items2) {
+            if (c.getId().equals(catId)) {
+                cboCategories.setSelectedItem(c);
+                break;
+            }   
+        }
     }
 
     @Override
-    public ProductsManagerJDialog getForm() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Products getForm() {
+        Products entity = new Products();
+        entity.setId(txtId.getText());
+        entity.setName(txtName.getText());        
+        entity.setUnitPrice(Double.parseDouble(txtPrice.getText()));
+        entity.setInStock(rdoConhang.isSelected()? true:false);
+        entity.setDiscount(Sldiscount.getValue());
+        Category selectedCategory = (Category) cboCategories.getSelectedItem();
+        String categoryId = selectedCategory.getId();
+        entity.setCategoryId(categoryId);
+        return entity;   
     }
 
     @Override
     public void fillToTable() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        DefaultTableModel model = (DefaultTableModel) tblProducts.getModel();
+        model.setRowCount(0);
+        Category category = items2.get(tblCategories.getSelectedRow());
+        items = dao.findByCategoryId(category.getId()); 
+        items.forEach(item -> {
+            Object[]rowData={
+                item.getId(),
+                item.getName(),
+                item.getUnitPrice()+" VND",
+                item.getDiscount()+"%",
+                item.isInStock()? "Có sẵn":"Hết hàng",
+                item.getColor(),
+                false
+            };
+        model.addRow(rowData);
+        });
+        this.clear();
     }
 
     @Override
     public void edit() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Products entity = items.get(tblProducts.getSelectedRow());
+        this.setForm(entity);
+        this.setEditable(true);
+        tabs.setSelectedIndex(1);
     }
 
-    @Override
-    public void create() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+   @Override
+public void create() {
+    Products entity = this.getForm();
+    dao.create(entity);
+    this.fillToTable();
+    this.clear();
+}
 
     @Override
     public void update() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Products entity = this.getForm();
+        dao.update(entity);
+        this.fillToTable();
     }
 
     @Override
     public void delete() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if (XDialog.confirm("Bạn thực sự muốn xóa?")) {
+            String Id = txtId.getText();
+            dao.deleteById(Id);
+            this.fillToTable();
+            this.clear();
+        }   
     }
 
     @Override
     public void clear() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.setForm(new Products());
+        this.setEditable(false);
     }
 
     @Override
     public void setEditable(boolean editable) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        txtId.setEnabled(!editable);
+        btnCreate.setEnabled(!editable);
+        btnUpdate.setEnabled(editable);
+        btnDelete.setEnabled(editable);
+        int rowCount = tblProducts.getRowCount();
+        btnMoveFirst.setEnabled(editable && rowCount > 0);
+        btnMovePrevious.setEnabled(editable && rowCount > 0);
+        btnMoveNext.setEnabled(editable && rowCount > 0);
+        btnMoveLast.setEnabled(editable && rowCount > 0);  
     }
 
     @Override
     public void checkAll() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.setCheckedAll(true);    
     }
 
     @Override
     public void uncheckAll() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.setCheckedAll(false); 
     }
-
+    private void setCheckedAll(boolean checked) {
+        for (int i = 0; i < tblProducts.getRowCount(); i++) {
+        tblProducts.setValueAt(checked, i, 2);
+        }
+    }
     @Override
     public void deleteCheckedItems() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+         if (XDialog.confirm("Bạn thực sự muốn xóa các mục chọn?")) {
+            for (int i = 0; i < tblProducts.getRowCount(); i++) {
+                if ((Boolean) tblProducts.getValueAt(i, 2)) {
+                    dao.deleteById(items.get(i).getId());
+                }
+            }
+            this.fillToTable();
+        }    
     }
 
     @Override
     public void moveFirst() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.moveTo(0); 
     }
 
     @Override
     public void movePrevious() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.moveTo(tblProducts.getSelectedRow() - 1);
     }
 
     @Override
     public void moveNext() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.moveTo(tblProducts.getSelectedRow() + 1);
     }
 
     @Override
     public void moveLast() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.moveTo(tblProducts.getRowCount() - 1);
     }
 
     @Override
-    public void moveTo(int rowIndex) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void moveTo(int index) {
+        if (index < 0) {
+            this.moveLast();
+        } else if (index >= tblProducts.getRowCount()) {
+            this.moveFirst();
+        } else {
+            tblProducts.clearSelection();
+            tblProducts.setRowSelectionInterval(index, index);
+            this.edit();
+        }    
     }
-
 
 }
 

@@ -5,7 +5,6 @@
 package poly.quanao.ui.manager;
 
 import poly.quanao.entity.User;
-import poly.quanao.ui.CrudController;
 
 /**
  *
