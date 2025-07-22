@@ -4,10 +4,14 @@
  */
 package poly.quanao.dao;
 
+import java.util.List;
+import poly.quanao.entity.OrderDetail;
+
 /**
  *
- * @author Admin
+ * @author LENOVO
  */
-public interface OrderDetailDAO {
-    
+public interface OrderDetailDAO extends CrudDAO<OrderDetail, Long>{
+    List<OrderDetail> findByBillId(Long OrderId);
+    List<OrderDetail> findByDrinkId(String ProductsId);
 }

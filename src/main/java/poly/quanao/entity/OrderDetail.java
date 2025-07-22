@@ -19,10 +19,10 @@ import lombok.NoArgsConstructor;
 @Data
 public class OrderDetail {
     private Long id;
-    private Long billId;
-    private String drinkId;
+    private Long orderId;
+    private String productId;
     private double unitPrice;
     private double discount;
     private int quantity;
-    private String drinkName;
+    private String productName;
 }
