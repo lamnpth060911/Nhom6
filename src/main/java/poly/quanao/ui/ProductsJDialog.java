@@ -5,14 +5,18 @@
 package poly.quanao.ui;
 
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
 import lombok.Setter;
 import poly.quanao.dao.CategoryDAO;
 import poly.quanao.dao.ProductsDAO;
 import poly.quanao.dao.impl.CategoryDAOImpl;
+import poly.quanao.dao.impl.OrderDetailDAOImpl;
 import poly.quanao.dao.impl.ProductDAOImpl;
 import poly.quanao.entity.Category;
 import poly.quanao.entity.Order;
+import poly.quanao.entity.OrderDetail;
 import poly.quanao.entity.Products;
+import poly.quanao.util.XDialog;
 
 /**
  *
@@ -204,16 +208,42 @@ public class ProductsJDialog extends javax.swing.JDialog implements ProductsCont
 
     @Override
     public void fillCategories() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        categories = categoryDao.findAll();
+        DefaultTableModel model = (DefaultTableModel) tblCategories.getModel();
+        model.setRowCount(0);
+        categories.forEach(d -> model.addRow(new Object[] {d.getName()}));
+        tblCategories.setRowSelectionInterval(0, 0);
     }
 
     @Override
     public void fillDrinks() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Category category = categories.get(tblCategories.getSelectedRow());
+        drinks = drinkDao.findByCategoryId(category.getId());
+        DefaultTableModel model = (DefaultTableModel) tblDrinks.getModel();
+        model.setRowCount(0);
+        drinks.forEach(d -> {
+        Object[] row = {
+        d.getId(), 
+        d.getName(), 
+        String.format("$%.1f", d.getUnitPrice()), 
+        String.format("%.0f%%", d.getDiscount()*100)
+        };
+        model.addRow(row);
+        });
     }
 
     @Override
     public void addDrinkToBill() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    String quantity = XDialog.prompt("Số lượng?");
+        if(quantity != null && quantity.length() > 0){
+            Drink drink = drinks.get(tblDrinks.getSelectedRow());
+            BillDetail detail = new BillDetail();
+            detail.setBillId(bill.getId());
+            detail.setDrinkId(drink.getId());
+            detail.setUnitPrice(drink.getUnitPrice());
+            detail.setDiscount(drink.getDiscount());
+            detail.setQuantity(Integer.parseInt(quantity));
+            new BillDetailDAOImpl().create(detail);
+        }
     }
 }
