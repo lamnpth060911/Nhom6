@@ -12,7 +12,7 @@ import javax.swing.table.DefaultTableModel;
 import poly.quanao.dao.CategoryDAO;
 import poly.quanao.dao.ProductsDAO;
 import poly.quanao.dao.impl.CategoryDAOImpl;
-import poly.quanao.dao.impl.ProductDAOImpl;
+import poly.quanao.dao.impl.ProductsDAOImpl;
 import poly.quanao.entity.Products;
 import poly.quanao.entity.Category;
 import poly.quanao.util.XDialog;
@@ -456,7 +456,7 @@ public class ProductsManagerJDialog extends javax.swing.JDialog implements Produ
     private javax.swing.JTextField txtPrice;
     // End of variables declaration//GEN-END:variables
 
-  ProductsDAO dao = new ProductDAOImpl();
+  ProductsDAO dao = new ProductsDAOImpl();
     List<Products> items = List.of();
     List<Category> items2 = List.of();
     @Override
@@ -469,7 +469,7 @@ public class ProductsManagerJDialog extends javax.swing.JDialog implements Produ
         items2 = cdao.findAll();
         items2.forEach(category -> {
         cboModel.addElement(category);
-        tblModel.addRow(new Object[]{category.getName()});
+        tblModel.addRow(new Object[]{category.getCategoryName()});
         });
         tblCategories.setRowSelectionInterval(0, 0);
     }
@@ -495,58 +495,113 @@ public class ProductsManagerJDialog extends javax.swing.JDialog implements Produ
 
     @Override
     public void setForm(Products entity) {
-        txtId.setText(entity.getId());
-        txtName.setText(entity.getName());    
-        txtPrice.setText(String.valueOf(entity.getUnitPrice()));
-        if (entity.isInStock()){
-            rdoConhang.setSelected(true);
-        }else{
-            rdoHethang.setSelected(true);
+    txtId.setText(String.valueOf(entity.getProductId())); // ✅ int -> String
+    txtName.setText(entity.getProductName());             // ✅ đúng tên field
+    txtPrice.setText(String.valueOf(entity.getPrice()));  // ✅ double -> String
+    
+    if (entity.isInStock()) {
+        rdoConhang.setSelected(true);
+    } else {
+        rdoHethang.setSelected(true);
+    }
+    
+    Sldiscount.setValue((int) entity.getDiscount());
+    
+        int catId = entity.getCategoryId();
+    for (Category c : items2) {
+        // nếu Category.id là String thì giữ nguyên
+        if (c.getCategoryId().equals(catId)) {
+            cboCategories.setSelectedItem(c);
+            break;
         }
-        Sldiscount.setValue((int) entity.getDiscount());
-        String catId = entity.getCategoryId();
-        for (Category c : items2) {
-            if (c.getId().equals(catId)) {
-                cboCategories.setSelectedItem(c);
-                break;
-            }   
+    }
+}
+
+
+    @Override
+public Products getForm() {
+    Products p = new Products();
+
+    // ID sản phẩm
+    if (!txtId.getText().trim().isEmpty()) {
+        p.setProductId(Integer.parseInt(txtId.getText().trim()));
+    }
+
+    p.setProductName(txtName.getText().trim());
+
+    // Giá
+    if (!txtPrice.getText().trim().isEmpty()) {
+        p.setPrice(Double.parseDouble(txtPrice.getText().trim()));
+    } else {
+        p.setPrice(0.0);
+    }
+
+    // Tình trạng hàng
+    p.setInStock(rdoConhang.isSelected());
+
+    // Discount slider: nếu slider 0–100 thì lưu dạng phần trăm
+    p.setDiscount(Sldiscount.getValue() / 100.0);
+
+    // Lấy Category đang chọn
+    Category c = (Category) cboCategories.getSelectedItem();
+    if (c != null && c.getCategoryId() != null) {
+        try {
+            p.setCategoryId(Integer.parseInt(c.getCategoryId())); // ✅ ép String -> int
+        } catch (NumberFormatException e) {
+            System.err.println("Category ID không hợp lệ: " + c.getCategoryId());
+            p.setCategoryId(0);
         }
     }
 
-    @Override
-    public Products getForm() {
-        Products entity = new Products();
-        entity.setId(txtId.getText());
-        entity.setName(txtName.getText());        
-        entity.setUnitPrice(Double.parseDouble(txtPrice.getText()));
-        entity.setInStock(rdoConhang.isSelected()? true:false);
-        entity.setDiscount(Sldiscount.getValue());
-        Category selectedCategory = (Category) cboCategories.getSelectedItem();
-        String categoryId = selectedCategory.getId();
-        entity.setCategoryId(categoryId);
-        return entity;   
-    }
+    return p;
+}
+
+
 
     @Override
-    public void fillToTable() {
-        DefaultTableModel model = (DefaultTableModel) tblProducts.getModel();
-        model.setRowCount(0);
-        Category category = items2.get(tblCategories.getSelectedRow());
-        items = dao.findByCategoryId(category.getId()); 
-        items.forEach(item -> {
-            Object[]rowData={
-                item.getId(),
-                item.getName(),
-                item.getUnitPrice()+" VND",
-                item.getDiscount()+"%",
-                item.isInStock()? "Có sẵn":"Hết hàng",
-                item.getColor(),
-                false
-            };
+public void fillToTable() {
+    DefaultTableModel model = (DefaultTableModel) tblProducts.getModel();
+    model.setRowCount(0);
+
+    // Kiểm tra xem có dòng nào được chọn chưa
+    int selectedRow = tblCategories.getSelectedRow();
+    if (selectedRow < 0) {
+        return; // Không có category nào được chọn -> không load sản phẩm
+    }
+
+    // Lấy category được chọn
+    Category category = items2.get(selectedRow);
+
+    // Ép categoryId từ String -> int
+    int categoryId = 0;
+    try {
+        categoryId = Integer.parseInt(category.getCategoryId());
+    } catch (NumberFormatException e) {
+        System.err.println("Lỗi chuyển đổi categoryId: " + category.getCategoryId());
+        return; // Không load nếu ID sai
+    }
+
+    // Lấy sản phẩm theo categoryId
+    items = dao.findByCategoryId(categoryId);
+
+    // Đổ dữ liệu lên bảng
+    items.forEach(item -> {
+        Object[] rowData = {
+            item.getProductId(),                        // ✅ int productId
+            item.getProductName(),                      // ✅ productName
+            String.format("%.0f VND", item.getPrice()), // ✅ format giá
+            String.format("%.0f%%", item.getDiscount() * 100), // ✅ discount %
+            item.isInStock() ? "Có sẵn" : "Hết hàng",   // ✅ inStock
+            item.getColor(),                            // ✅ color
+            false                                       // Checkbox chọn xóa
+        };
         model.addRow(rowData);
-        });
-        this.clear();
-    }
+    });
+
+    this.clear(); // reset form sau khi fill
+}
+
+
 
     @Override
     public void edit() {
@@ -573,13 +628,18 @@ public void create() {
 
     @Override
     public void delete() {
-        if (XDialog.confirm("Bạn thực sự muốn xóa?")) {
-            String Id = txtId.getText();
-            dao.deleteById(Id);
+    if (XDialog.confirm("Bạn thực sự muốn xóa?")) {
+        try {
+            int id = Integer.parseInt(txtId.getText());  // ✅ ép sang int
+            dao.deleteById(id);                         // ✅ truyền int
             this.fillToTable();
             this.clear();
-        }   
+        } catch (NumberFormatException e) {
+            XDialog.alert("ID không hợp lệ!");
+        }
     }
+}
+
 
     @Override
     public void clear() {
@@ -619,7 +679,7 @@ public void create() {
          if (XDialog.confirm("Bạn thực sự muốn xóa các mục chọn?")) {
             for (int i = 0; i < tblProducts.getRowCount(); i++) {
                 if ((Boolean) tblProducts.getValueAt(i, 2)) {
-                    dao.deleteById(items.get(i).getId());
+                    dao.deleteById(items.get(i).getProductId());
                 }
             }
             this.fillToTable();

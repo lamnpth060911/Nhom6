@@ -21,20 +21,12 @@ public class CategoryDAOImpl implements CategoryDAO{
     String findAllSql = "SELECT * FROM Categories";
     String findByIdSql = "SELECT * FROM Categories WHERE CategoryId=?";
     
-    @Override
-    public Category create(Category entity) {
-        Object[] values = {
-        entity.getId(),
-        entity.getName()
-        };
-        XJdbc.executeUpdate(createSql, values);
- return entity;    }
 
     @Override
     public void update(Category entity) {
         Object[] values = {
-         entity.getName(),
-        entity.getId()
+         entity.getCategoryName(),
+        entity.getCategoryId()
         };
         XJdbc.executeUpdate(updateSql, values);    }
 
@@ -51,6 +43,15 @@ public class CategoryDAOImpl implements CategoryDAO{
     @Override
     public Category findById(String id) {
         return XQuery.getSingleBean(Category.class, findByIdSql, id);    
+    }
+
+    @Override
+    public void create(Category entity) {
+        Object[] values = {
+        entity.getCategoryId(),
+        entity.getCategoryName()
+        };
+        XJdbc.executeUpdate(createSql, values);   
     }
     
 }

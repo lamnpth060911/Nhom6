@@ -423,15 +423,15 @@ public class ProductCategoriesManager extends javax.swing.JFrame implements Prod
 
     @Override
     public void setForm(Category entity) {
-        txtId.setText(entity.getId());
-        txtName.setText(entity.getName());    
+        txtId.setText(entity.getCategoryId());
+        txtName.setText(entity.getCategoryName());    
     }
 
     @Override
     public Category getForm() {
         Category entity = new Category();
-        entity.setId(txtId.getText());
-        entity.setName(txtName.getText());
+        entity.setCategoryId(txtId.getText());
+        entity.setCategoryName(txtName.getText());
         return entity;    
     }
 
@@ -442,8 +442,8 @@ public class ProductCategoriesManager extends javax.swing.JFrame implements Prod
         items = dao.findAll();
         items.forEach(item -> {
         Object[] rowData = {
-        item.getId(),
-        item.getName(),
+        item.getCategoryId(),
+        item.getCategoryName(),
         false
         };
         model.addRow(rowData);
@@ -521,7 +521,7 @@ public class ProductCategoriesManager extends javax.swing.JFrame implements Prod
         if (XDialog.confirm("Bạn thực sự muốn xóa các mục chọn?")) {
             for (int i = 0; i < tblCategories.getRowCount(); i++) {
                 if ((Boolean) tblCategories.getValueAt(i, 2)) {
-                    dao.deleteById(items.get(i).getId());
+                    dao.deleteById(items.get(i).getCategoryId());
                 }
             }
             this.fillToTable();

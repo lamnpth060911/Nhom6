@@ -20,19 +20,7 @@ public class UserDAOImpl implements UserDAO{
     String deleteSql = "DELETE FROM Users where Username=?";
     String findAllSql = "SELECT * FROM Users";
     String findByIdSql = "SELECT * FROM Users where Username=?";
-    @Override
-    public User create(User entity) {
-        Object[] values = {
-        entity.getUsername(),
-        entity.getPassword(),
-        entity.isEnabled(),
-        entity.getFullname(),
-        entity.getPhoto(),
-        entity.isManager()
-        };
-        XJdbc.executeUpdate(createSql, values);  
-        return entity;
-    }
+   
 
     @Override
     public void update(User entity) {
@@ -60,5 +48,19 @@ public class UserDAOImpl implements UserDAO{
     @Override
     public User findById(String username) {
         return XQuery.getSingleBean(User.class, findByIdSql, username);
+    }
+
+    @Override
+    public void create(User entity) {
+       Object[] values = {
+        entity.getUsername(),
+        entity.getPassword(),
+        entity.isEnabled(),
+        entity.getFullname(),
+        entity.getPhoto(),
+        entity.isManager()
+        };
+        XJdbc.executeUpdate(createSql, values);  
+       
     }
 }

@@ -11,6 +11,10 @@ import poly.quanao.entity.Products;
  *
  * @author ADMIN
  */
-    public interface ProductsDAO extends CrudDAO<Products, String>{
-    List<Products> findByCategoryId(String categoryId);
+
+public interface ProductsDAO extends CrudDAO<Products, Integer> {
+    List<Products> findByCategoryId(int categoryId);
 }
+
+
+

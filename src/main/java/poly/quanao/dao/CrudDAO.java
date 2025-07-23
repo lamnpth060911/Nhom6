@@ -2,10 +2,10 @@ package poly.quanao.dao;
 
 import java.util.List;
 
-public interface CrudDAO<T, ID> {
-   T create(T entity);
+public interface CrudDAO<T, K> {   // K = kiểu khóa chính
+    void create(T entity);
     void update(T entity);
-    void deleteById(ID id);
+    void deleteById(K id);
+    T findById(K id);
     List<T> findAll();
-    T findById(ID id);
 }

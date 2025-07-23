@@ -11,7 +11,7 @@ import poly.quanao.dao.CategoryDAO;
 import poly.quanao.dao.ProductsDAO;
 import poly.quanao.dao.impl.CategoryDAOImpl;
 import poly.quanao.dao.impl.OrderDetailDAOImpl;
-import poly.quanao.dao.impl.ProductDAOImpl;
+import poly.quanao.dao.impl.ProductsDAOImpl;
 import poly.quanao.entity.Category;
 import poly.quanao.entity.Order;
 import poly.quanao.entity.OrderDetail;
@@ -48,7 +48,7 @@ public class ProductsJDialog extends javax.swing.JDialog implements ProductsCont
         jButton1 = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         jScrollPane3 = new javax.swing.JScrollPane();
-        tblProducts = new javax.swing.JTable();
+        tblProduct = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -85,7 +85,7 @@ public class ProductsJDialog extends javax.swing.JDialog implements ProductsCont
             }
         });
 
-        tblProducts.setModel(new javax.swing.table.DefaultTableModel(
+        tblProduct.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -96,12 +96,12 @@ public class ProductsJDialog extends javax.swing.JDialog implements ProductsCont
                 "Mã", "Tên quần áo", "Đơn giá", "Giảm giá"
             }
         ));
-        tblProducts.addMouseListener(new java.awt.event.MouseAdapter() {
+        tblProduct.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblProductsMouseClicked(evt);
+                tblProductMouseClicked(evt);
             }
         });
-        jScrollPane3.setViewportView(tblProducts);
+        jScrollPane3.setViewportView(tblProduct);
 
         jScrollPane4.setViewportView(jScrollPane3);
 
@@ -143,12 +143,12 @@ public class ProductsJDialog extends javax.swing.JDialog implements ProductsCont
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void tblProductsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductsMouseClicked
+    private void tblProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductMouseClicked
   if(evt.getClickCount() == 1){
             this.addProductToOrder();
         }    
         
-    }//GEN-LAST:event_tblProductsMouseClicked
+    }//GEN-LAST:event_tblProductMouseClicked
 
     private void formWindowIconified(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowIconified
         // TODO add your handling code here:
@@ -205,12 +205,12 @@ this.open();        // TODO add your handling code here:
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTable tblCategory;
-    private javax.swing.JTable tblProducts;
+    private javax.swing.JTable tblProduct;
     // End of variables declaration//GEN-END:variables
     @Setter Order order;
     CategoryDAO categoryDao = new CategoryDAOImpl();
     List<Category> categories = List.of();
-    ProductsDAO ProductsDao = new ProductDAOImpl();
+    ProductsDAO ProductsDao = new ProductsDAOImpl();
     List<Products> Products = List.of();
     @Override
     public void open() {
@@ -224,40 +224,68 @@ this.open();        // TODO add your handling code here:
         categories = categoryDao.findAll();
         DefaultTableModel model = (DefaultTableModel) tblCategory.getModel();
         model.setRowCount(0);
-        categories.forEach(d -> model.addRow(new Object[] {d.getName()}));
+        categories.forEach(d -> model.addRow(new Object[] {d.getCategoryName()}));
         tblCategory.setRowSelectionInterval(0, 0);
     }
 
     @Override
-    public void fillProducts() {
-        Category category = categories.get(tblCategory.getSelectedRow());
-        Products = ProductsDao.findByCategoryId(category.getId());
-        DefaultTableModel model = (DefaultTableModel) tblProducts.getModel();
-        model.setRowCount(0);
-        Products.forEach(d -> {
+public void fillProducts() {
+    // ✅ Lấy category đang chọn
+    Category category = categories.get(tblCategory.getSelectedRow());
+
+    // ✅ Ép String -> int
+    int categoryId = Integer.parseInt(category.getCategoryId());
+
+    // ✅ Lấy danh sách sản phẩm theo categoryId
+    List<Products> products = ProductsDao.findByCategoryId(categoryId);
+
+    // ✅ Đổ dữ liệu vào JTable
+    DefaultTableModel model = (DefaultTableModel) tblProduct.getModel();
+    model.setRowCount(0);
+
+    for (Products p : products) {
         Object[] row = {
-        d.getId(), 
-        d.getName(), 
-        String.format("$%.1f", d.getUnitPrice()), 
-        String.format("%.0f%%", d.getDiscount()*100)
+            p.getProductId(),                       // int -> hiển thị OK
+            p.getProductName(),                     // String
+            String.format("%.1f VND", p.getPrice()), // giá tiền
+            String.format("%.0f%%", p.getDiscount()) // nếu DB lưu 10 là 10%
+            // Nếu DB lưu 0.1 (tỷ lệ) → dùng: p.getDiscount() * 100
         };
         model.addRow(row);
-        });
     }
+}
 
-    @Override
-    public void addProductToOrder() {
-        String quantity = XDialog.prompt("Số lượng?");
-        if(quantity != null && quantity.length() > 0){
-            Products product = Products.get(tblProducts.getSelectedRow());
-            OrderDetail detail = new OrderDetail();
-            detail.setOrderId(order.getId());
-            detail.setProductId(product.getId());
-            detail.setUnitPrice(product.getUnitPrice());
-            detail.setDiscount(product.getDiscount());
-            detail.setQuantity(Integer.parseInt(quantity));
-            new OrderDetailDAOImpl().create(detail);
+
+
+   @Override
+public void addProductToOrder() {
+    String quantity = XDialog.prompt("Số lượng?");
+    if (quantity != null && !quantity.isEmpty()) {
+
+        // Lấy sản phẩm đang chọn từ danh sách (giả sử bạn có list products)
+        int selectedRow = tblProduct.getSelectedRow();
+        if (selectedRow < 0) {
+            XDialog.alert("Vui lòng chọn sản phẩm!");
+            return;
         }
+        Products product = Products.get(selectedRow);  // lấy sản phẩm từ list
+
+        // Tạo chi tiết đơn hàng
+        OrderDetail detail = new OrderDetail();
+        detail.setOrderId((long) order.getOrderId());    // ✅ ép sang Long vì OrderDetail.orderId là Long
+        detail.setProductId(product.getProductId());
+        detail.setUnitPrice(product.getPrice());
+        detail.setDiscount(product.getDiscount());
+        detail.setQuantity(Integer.parseInt(quantity));
+        detail.setProductName(product.getProductName()); // nếu muốn lưu tên sản phẩm
+
+        // Lưu vào DB
+        new OrderDetailDAOImpl().create(detail);
     }
+}
+
+
+
+
 
 }

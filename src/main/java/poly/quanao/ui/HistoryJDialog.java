@@ -240,25 +240,33 @@ public class HistoryJDialog extends javax.swing.JDialog implements HistoryContro
     }
 
     @Override
-    public void fillBills() {
-         String username = XAuth.user.getUsername();
-        Date begin = XDate.parse(txtBegin.getText(), "MM/dd/yyyy");
-        Date end = XDate.parse(txtEnd.getText(), "MM/dd/yyyy");
-        bills = billDao.findByUserAndTimeRange(username, begin, end);
-        DefaultTableModel model = (DefaultTableModel) tblBills.getModel();
-        model.setRowCount(0);
-        String[] statuses = {"Servicing", "Completed", "Canceled"};
-        bills.forEach(b -> {
-        Object[] row = { 
-        b.getId(), 
-        "Card #" + b.getCardId(),
-        XDate.format(b.getCheckin(), "HH:mm:ss dd-MM-yyyy"),
-        XDate.format(b.getCheckout(), "HH:mm:ss dd-MM-yyyy"),
-        statuses[b.getStatus()]
+public void fillBills() {
+    // ✅ Lấy username hiện tại
+    String username = XAuth.user.getUsername();
+
+    // ✅ Lấy khoảng thời gian
+    Date begin = XDate.parse(txtBegin.getText(), "MM/dd/yyyy");
+    Date end = XDate.parse(txtEnd.getText(), "MM/dd/yyyy");
+
+    // ✅ Lấy danh sách bills theo User + Time Range
+    bills = billDao.findByUserAndTimeRange(username, begin, end);
+
+    // ✅ Reset table
+    DefaultTableModel model = (DefaultTableModel) tblBills.getModel();
+    model.setRowCount(0);
+
+    // ✅ Đổ dữ liệu
+    for (Order b : bills) {
+        Object[] row = {
+            b.getOrderId(),                       // Mã hóa đơn
+            "Card #" + b.getCardId(),             // Thẻ
+            XDate.format(b.getOrderDate(), "HH:mm:ss dd-MM-yyyy"), // Thời gian Order
+            b.getStatus()                         // Trạng thái (Servicing/Completed/Canceled)
         };
         model.addRow(row);
-        });
     }
+}
+
 
     @Override
     public void showOrderJDialog() {

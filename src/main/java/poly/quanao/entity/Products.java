@@ -10,16 +10,12 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 public class Products {
-    private String id;
-    private String name;
-
-    @Builder.Default
-    private String image = "product.png";
-
-    private double unitPrice;
+    private int productId;
+    private String productName;
+    private double price;
     private double discount;
-    private boolean InStock;
-    private String categoryId;
-
-    private String color; // Added to support color field in DB
+    private boolean inStock;
+    private String color;
+    private String imagePath;
+    private int categoryId;  // ✅ sửa sang int
 }

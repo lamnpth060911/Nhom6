@@ -27,18 +27,7 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
         return XQuery.getBeanList(OrderDetail.class, findByDrinkIdSql, drinkId);
     }
 
-    @Override
-    public OrderDetail create(OrderDetail entity) {
-        Object[] values = {
-            entity.getOrderId(),
-            entity.getProductId(),
-            entity.getUnitPrice(),
-            entity.getDiscount(),
-            entity.getQuantity()
-        };
-        XJdbc.executeUpdate(createSql, values);
-        return entity;
-    }
+
 
     @Override
     public void update(OrderDetail entity) {
@@ -67,5 +56,16 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
     public OrderDetail findById(Long id) {
         return XQuery.getSingleBean(OrderDetail.class, findByIdSql, id);
     }
+
+    @Override
+    public void create(OrderDetail entity) {
+        Object[] values = {
+            entity.getOrderId(),
+            entity.getProductId(),
+            entity.getUnitPrice(),
+            entity.getDiscount(),
+            entity.getQuantity()
+        };
+        XJdbc.executeUpdate(createSql, values);}
 
 }

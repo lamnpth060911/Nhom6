@@ -1,9 +1,11 @@
 package poly.quanao.util;
 
+import java.beans.PropertyDescriptor;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 /**
@@ -133,7 +135,6 @@ public class XJdbc {
         }
         return stmt;
     }
-
     public static void main(String[] args) {
         demo1();
         demo2();
@@ -141,17 +142,17 @@ public class XJdbc {
     }
 
     private static void demo1() {
-        String sql = "SELECT * FROM Products WHERE UnitPrice BETWEEN ? AND ?";
+        String sql = "SELECT * FROM Products WHERE Price BETWEEN ? AND ?";
         var rs = XJdbc.executeQuery(sql, 1.5, 5.0);
     }
 
     private static void demo2() {
-        String sql = "SELECT max(UnitPrice) FROM Products WHERE UnitPrice > ?";
+        String sql = "SELECT max(Price) FROM Products WHERE UnitPrice > ?";
         var maxPrice = XJdbc.getValue(sql, 1.5);
     }
 
     private static void demo3() {
-        String sql = "DELETE FROM Products WHERE UnitPrice < ?";
+        String sql = "DELETE FROM Products WHERE Price < ?";
         var count = XJdbc.executeUpdate(sql, 0.0);
     }
 }
