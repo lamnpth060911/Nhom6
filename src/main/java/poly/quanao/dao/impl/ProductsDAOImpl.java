@@ -8,65 +8,62 @@ import poly.quanao.util.XQuery;
 
 public class ProductsDAOImpl implements ProductsDAO {
 
-    String createSql = 
-        "INSERT INTO Products(ProductId, ProductName, Price, Discount, ImagePath, InStock, Color, CategoryId) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
-    
-    String updateSql = 
-        "UPDATE Products SET ProductName=?, Price=?, Discount=?, ImagePath=?, InStock=?, Color=?, CategoryId=? WHERE ProductId=?";
-    
-    String deleteSql = 
-        "DELETE FROM Products WHERE ProductId=?";
-    
-    String findAllSql = 
-        "SELECT * FROM Products";
-    
-    String findByIdSql = 
-        "SELECT * FROM Products WHERE ProductId=?";
-    
-    String findByCategoryIdSql = 
-        "SELECT ProductId, ProductName, Price, Discount, ImagePath, InStock, CategoryId FROM Products WHERE CategoryId=?";
+    String createSql
+            = "INSERT INTO Products(ProductId, ProductName, Price, Discount, InStock, CategoryId, Color , ImagePath) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+
+    String updateSql
+            = "UPDATE Products SET ProductName=?, Price=?, Discount=?, CategoryId=?, InStock=?, Color=?, ImagePath=? WHERE ProductId=?";
+
+    String deleteSql
+            = "DELETE FROM Products WHERE ProductId=?";
+
+    String findAllSql
+            = "SELECT * FROM Products";
+
+    String findByIdSql
+            = "SELECT * FROM Products WHERE ProductId=?";
+
+    String findByCategoryIdSql
+            = "SELECT ProductId, ProductName, Price, Discount, InStock, CategoryId ,Color,ImagePath FROM Products WHERE CategoryId=?";
 
     @Override
-public void create(Products entity) {
-    XJdbc.executeUpdate(createSql,
-        entity.getProductId(),
-        entity.getProductName(),
-        entity.getPrice(),
-        entity.getDiscount(),
-        entity.getImagePath(),
-        entity.isInStock() ? 1 : 0,   // ✅ ép boolean sang 1/0
-        entity.getColor(),
-        entity.getCategoryId()
-    );
-}
-
-
-    @Override
-public void update(Products entity) {
-    XJdbc.executeUpdate(updateSql,
-        entity.getProductName(),
-        entity.getPrice(),
-        entity.getDiscount(),
-        entity.getImagePath(),
-        entity.isInStock() ? 1 : 0,  // ✅ ép boolean → 1/0
-        entity.getColor(),
-        entity.getCategoryId(),
-        entity.getProductId()
-    );
-}
-
-
-    @Override
-    public void deleteById(Integer id) {  // ✅ Dùng Integer
-        XJdbc.executeUpdate(deleteSql, id);
+    public void create(Products entity) {
+        XJdbc.executeUpdate(createSql,
+                entity.getProductId(),
+                entity.getProductName(),
+                entity.getPrice(),
+                entity.getDiscount(),
+                entity.isInStock() ? 1 : 0, // ✅ ép boolean → 1/0
+                entity.getCategoryId(),
+                entity.getColor(),
+                entity.getImagePath()
+        );
     }
 
     @Override
-public Products findById(Integer id) {
-    List<Products> list = XQuery.getBeanList(Products.class, findByIdSql, id);
-    return list.isEmpty() ? null : list.get(0);
-}
+    public void update(Products entity) {
+        XJdbc.executeUpdate(updateSql,
+                entity.getProductId(),
+                entity.getProductName(),
+                entity.getPrice(),
+                entity.getDiscount(),
+                entity.isInStock() ? 1 : 0, // ✅ ép boolean → 1/0
+                entity.getCategoryId(),
+                entity.getColor(),
+                entity.getImagePath()
+        );
+    }
 
+    @Override
+    public void deleteById(Integer ProductId) {  // ✅ Dùng Integer
+        XJdbc.executeUpdate(deleteSql, ProductId);
+    }
+
+    @Override
+    public Products findById(Integer ProductId) {
+        List<Products> list = XQuery.getBeanList(Products.class, findByIdSql, ProductId);
+        return list.isEmpty() ? null : list.get(0);
+    }
 
     @Override
     public List<Products> findAll() {
