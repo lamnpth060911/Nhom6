@@ -17,7 +17,7 @@ import poly.quanao.util.XDialog;
  *
  * @author ADMIN
  */
-public class UserManagerJDialog extends javax.swing.JDialog implements UserManagerController {
+public final class UserManagerJDialog extends javax.swing.JDialog implements UserManagerController {
 
     /**
      * Creates new form UserManagerJDialog
@@ -27,6 +27,7 @@ public class UserManagerJDialog extends javax.swing.JDialog implements UserManag
     public UserManagerJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        fillToTable();
     }
 
     /**

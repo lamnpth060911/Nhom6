@@ -15,7 +15,7 @@ import poly.quanao.util.XQuery;
  * @author LENOVO
  */
 public class UserDAOImpl implements UserDAO{
-    String createSql = "INSERT INTO Users(Username,Password, Enabled ,Fullname, Photo,Manager) VALUES(?, ?, ?, ?, ?, ?)";
+    String createSql = "INSERT INTO Users(Username, Password, Enabled ,Fullname, Photo, Manager) VALUES(?, ?, ?, ?, ?, ?)";
     String updateSql = "UPDATE Users SET Password=?, Enabled=?, Fullname=?, Photo=?, Manager=? where Username=?";
     String deleteSql = "DELETE FROM Users where Username=?";
     String findAllSql = "SELECT * FROM Users";

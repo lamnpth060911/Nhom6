@@ -213,5 +213,6 @@ ClothingShopController {
     public void showChangePasswordJDialog(JFrame frame) {
         ClothingShopController.super.showChangePasswordJDialog(frame); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
+    
 }
 

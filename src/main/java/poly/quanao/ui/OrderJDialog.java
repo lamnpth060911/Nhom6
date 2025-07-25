@@ -330,23 +330,7 @@ public class OrderJDialog extends javax.swing.JDialog implements OrderController
     OrderDetailDAO orderDetailDao = new OrderDetailDAOImpl();
     OrderDAO orderDao= new OrderDAOImpl();
     List<OrderDetail> orderDetails = List.of();
-    @Override
-    public void setOrder(Order order) {
-        txtId.setText(String.valueOf(order.getOrderId()));
-        txtCardId.setText("Card #" + order.getCardId());
-        txtCheckin.setText(XDate.format(order.getCheckin(), "HH:mm:ss dd-MM-yyyy"));
-        txtUsername.setText(order.getUsername());
-        String[] statuses = {"Servicing", "Completed", "Canceled"};
-        txtStatus.setText(statuses[order.getStatus()]);
-        if (order.getCheckout() != null) {
-        txtCheckout.setText(XDate.format(order.getCheckout(), "HH:mm:ss dd-MM-yyyy"));
-        }
-        boolean editable = (order.getStatus() == 0);
-        btnAdd.setEnabled(editable);
-        btnCancel.setEnabled(editable);
-        btnCheckout.setEnabled(editable);
-        btnRemove.setEnabled(editable);
-    }
+    
 
     @Override
     public void open() {
