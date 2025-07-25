@@ -21,7 +21,7 @@ import poly.quanao.util.XIcon;
  *
  * @author ADMIN
  */
-public class ProductsManagerJDialog extends javax.swing.JDialog implements ProductsManagerController {
+public final class ProductsManagerJDialog extends javax.swing.JDialog implements ProductsManagerController {
 
     /**
      * Creates new form Clothings
@@ -31,6 +31,8 @@ public class ProductsManagerJDialog extends javax.swing.JDialog implements Produ
     public ProductsManagerJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        fillToTable();
+        fillCategories();
     }
 
     /**
@@ -690,48 +692,38 @@ public Products getForm() {
 
 
 
-    @Override
+@Override
 public void fillToTable() {
     DefaultTableModel model = (DefaultTableModel) tblProducts.getModel();
     model.setRowCount(0);
 
-    // Kiểm tra xem có dòng nào được chọn chưa
     int selectedRow = tblCategories.getSelectedRow();
-    if (selectedRow < 0) {
-        return; // Không có category nào được chọn -> không load sản phẩm
-    }
+    if (selectedRow < 0) return;
 
-    // Lấy category được chọn
+    // Lấy CategoryId kiểu String
     Category category = items2.get(selectedRow);
+    String categoryId = category.getCategoryId(); // ✅ giữ nguyên String
 
-    // Ép categoryId từ String -> int
-    int categoryId = 0;
-    try {
-        categoryId = Integer.parseInt(category.getCategoryId());
-    } catch (NumberFormatException e) {
-        System.err.println("Lỗi chuyển đổi categoryId: " + category.getCategoryId());
-        return; // Không load nếu ID sai
-    }
-
-    // Lấy sản phẩm theo categoryId
+    // Lấy sản phẩm theo categoryId (String)
     items = dao.findByCategoryId(categoryId);
 
     // Đổ dữ liệu lên bảng
     items.forEach(item -> {
         Object[] rowData = {
-            item.getProductId(),                        // ✅ int productId
-            item.getProductName(),                      // ✅ productName
-            String.format("%.0f VND", item.getPrice()), // ✅ format giá
-            String.format("%.0f%%", item.getDiscount() * 100), // ✅ discount %
-            item.isInStock() ? "Có sẵn" : "Hết hàng",   // ✅ inStock
-            item.getColor(),                            // ✅ color
-            false                                       // Checkbox chọn xóa
+            item.getProductId(),
+            item.getProductName(),
+            String.format("%.0f VND", item.getPrice()),
+            String.format("%.0f%%", item.getDiscount() * 100),
+            item.isInStock() ? "Có sẵn" : "Hết hàng",
+            item.getColor(),
+            false
         };
         model.addRow(rowData);
     });
 
-    this.clear(); // reset form sau khi fill
+    this.clear();
 }
+
 
 
 

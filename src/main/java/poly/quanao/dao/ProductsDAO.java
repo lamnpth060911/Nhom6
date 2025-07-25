@@ -13,7 +13,7 @@ import poly.quanao.entity.Products;
  */
 
 public interface ProductsDAO extends CrudDAO<Products, Integer> {
-    List<Products> findByCategoryId(int categoryId);
+    List<Products> findByCategoryId(String categoryId);
 }
 
 

@@ -231,12 +231,15 @@ this.open();        // TODO add your handling code here:
     @Override
 public void fillProducts() {
     // ✅ Lấy category đang chọn
-    Category category = categories.get(tblCategory.getSelectedRow());
+    int selectedRow = tblCategory.getSelectedRow();
+    if (selectedRow < 0) return; // không chọn category nào thì dừng
 
-    // ✅ Ép String -> int
-    int categoryId = Integer.parseInt(category.getCategoryId());
+    Category category = categories.get(selectedRow);
 
-    // ✅ Lấy danh sách sản phẩm theo categoryId
+    // ✅ Lấy CategoryId dạng String, KHÔNG parseInt
+    String categoryId = category.getCategoryId();
+
+    // ✅ Lấy danh sách sản phẩm theo categoryId (String)
     List<Products> products = ProductsDao.findByCategoryId(categoryId);
 
     // ✅ Đổ dữ liệu vào JTable
@@ -245,15 +248,15 @@ public void fillProducts() {
 
     for (Products p : products) {
         Object[] row = {
-            p.getProductId(),                       // int -> hiển thị OK
-            p.getProductName(),                     // String
-            String.format("%.1f VND", p.getPrice()), // giá tiền
-            String.format("%.0f%%", p.getDiscount()) // nếu DB lưu 10 là 10%
-            // Nếu DB lưu 0.1 (tỷ lệ) → dùng: p.getDiscount() * 100
+            p.getProductId(),                       // int ProductId
+            p.getProductName(),                     // String ProductName
+            String.format("%.1f VND", p.getPrice()), // Giá tiền format
+            String.format("%.0f%%", p.getDiscount() * 100) // nếu DB lưu 0.1 → 10%
         };
         model.addRow(row);
     }
 }
+
 
 
 

@@ -7,12 +7,12 @@ import poly.quanao.util.XJdbc;
 import poly.quanao.util.XQuery;
 
 public class ProductsDAOImpl implements ProductsDAO {
+String createSql =
+    "INSERT INTO Products(ProductName, Price, Discount, InStock, CategoryId, Color, ImagePath) VALUES(?, ?, ?, ?, ?, ?, ?)";
 
-    String createSql
-            = "INSERT INTO Products(ProductId, ProductName, Price, Discount, InStock, CategoryId, Color , ImagePath) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 
-    String updateSql
-            = "UPDATE Products SET ProductName=?, Price=?, Discount=?, CategoryId=?, InStock=?, Color=?, ImagePath=? WHERE ProductId=?";
+    String updateSql =
+    "UPDATE Products SET ProductName=?, Price=?, Discount=?, InStock=?, CategoryId=?, Color=?, ImagePath=? WHERE ProductId=?";
 
     String deleteSql
             = "DELETE FROM Products WHERE ProductId=?";
@@ -29,7 +29,6 @@ public class ProductsDAOImpl implements ProductsDAO {
     @Override
     public void create(Products entity) {
         XJdbc.executeUpdate(createSql,
-                entity.getProductId(),
                 entity.getProductName(),
                 entity.getPrice(),
                 entity.getDiscount(),
@@ -70,8 +69,8 @@ public class ProductsDAOImpl implements ProductsDAO {
         return XQuery.getBeanList(Products.class, findAllSql);
     }
 
+
     @Override
-    public List<Products> findByCategoryId(int categoryId) {
-        return XQuery.getBeanList(Products.class, findByCategoryIdSql, categoryId);
-    }
+    public List<Products> findByCategoryId(String categoryId) {
+       return XQuery.getBeanList(Products.class, findByCategoryIdSql, categoryId); }
 }

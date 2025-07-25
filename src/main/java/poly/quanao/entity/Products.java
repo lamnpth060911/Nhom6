@@ -17,5 +17,5 @@ public class Products {
     private boolean inStock;
     private String color;
     private String imagePath;
-    private String categoryId;  // ✅ sửa sang int
+    private String categoryId; 
 }
