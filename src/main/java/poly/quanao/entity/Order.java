@@ -2,12 +2,23 @@ package poly.quanao.entity;
 
 import java.util.Date;
 import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Data
 public class Order {
-    private int orderId;      // int
+    private long orderId;      // int
     private String username;  // nvarchar(20)
     private int cardId;       // int
-    private Date orderDate;   // datetime
-    private String status;    // nvarchar(50)
+    @Builder.Default
+    private Date checkin = new Date();
+    private Date checkout;
+    private int status; 
+    public enum Status {
+    Servicing, Completed, Canceled;
+    }// nvarchar(50)
 }

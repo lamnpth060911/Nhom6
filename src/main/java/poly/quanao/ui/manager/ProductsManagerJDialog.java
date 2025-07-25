@@ -495,26 +495,22 @@ public class ProductsManagerJDialog extends javax.swing.JDialog implements Produ
 
     @Override
     public void setForm(Products entity) {
-    txtId.setText(String.valueOf(entity.getProductId())); // ✅ int -> String
-    txtName.setText(entity.getProductName());             // ✅ đúng tên field
-    txtPrice.setText(String.valueOf(entity.getPrice()));  // ✅ double -> String
-    
-    if (entity.isInStock()) {
-        rdoConhang.setSelected(true);
-    } else {
-        rdoHethang.setSelected(true);
-    }
-    
-    Sldiscount.setValue((int) entity.getDiscount());
-    
-        int catId = entity.getCategoryId();
-    for (Category c : items2) {
-        // nếu Category.id là String thì giữ nguyên
-        if (c.getCategoryId().equals(catId)) {
-            cboCategories.setSelectedItem(c);
-            break;
+        txtId.setText(Integer.toString(entity.getProductId()));
+        txtName.setText(entity.getProductName());    
+        txtPrice.setText(String.valueOf(entity.getPrice()));
+        if (entity.isInStock()){
+            rdoConhang.setSelected(true);
+        }else{
+            rdoHethang.setSelected(true);
         }
-    }
+        Sldiscount.setValue((int) entity.getDiscount());
+        String catId = entity.getCategoryId();
+        for (Category c : items2) {
+            if (c.getCategoryId().equals(catId)) {
+                cboCategories.setSelectedItem(c);
+                break;
+            }   
+        }
 }
 
 
@@ -546,10 +542,10 @@ public Products getForm() {
     Category c = (Category) cboCategories.getSelectedItem();
     if (c != null && c.getCategoryId() != null) {
         try {
-            p.setCategoryId(Integer.parseInt(c.getCategoryId())); // ✅ ép String -> int
+            p.setCategoryId(c.getCategoryId());
         } catch (NumberFormatException e) {
             System.err.println("Category ID không hợp lệ: " + c.getCategoryId());
-            p.setCategoryId(0);
+            p.setCategoryId("0");
         }
     }
 

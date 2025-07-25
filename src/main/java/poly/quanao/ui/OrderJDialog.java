@@ -4,8 +4,19 @@
  */
 package poly.quanao.ui;
 
+import java.awt.Frame;
+import java.util.Date;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 import lombok.Setter;
+import poly.quanao.dao.OrderDAO;
+import poly.quanao.dao.OrderDetailDAO;
+import poly.quanao.dao.impl.OrderDAOImpl;
+import poly.quanao.dao.impl.OrderDetailDAOImpl;
 import poly.quanao.entity.Order;
+import poly.quanao.entity.OrderDetail;
+import poly.quanao.util.XDate;
+import poly.quanao.util.XDialog;
 
 /**
  *
@@ -316,49 +327,121 @@ public class OrderJDialog extends javax.swing.JDialog implements OrderController
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
     @Setter Order order;
+    OrderDetailDAO orderDetailDao = new OrderDetailDAOImpl();
+    OrderDAO orderDao= new OrderDAOImpl();
+    List<OrderDetail> orderDetails = List.of();
     @Override
     public void setOrder(Order order) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        txtId.setText(String.valueOf(order.getOrderId()));
+        txtCardId.setText("Card #" + order.getCardId());
+        txtCheckin.setText(XDate.format(order.getCheckin(), "HH:mm:ss dd-MM-yyyy"));
+        txtUsername.setText(order.getUsername());
+        String[] statuses = {"Servicing", "Completed", "Canceled"};
+        txtStatus.setText(statuses[order.getStatus()]);
+        if (order.getCheckout() != null) {
+        txtCheckout.setText(XDate.format(order.getCheckout(), "HH:mm:ss dd-MM-yyyy"));
+        }
+        boolean editable = (order.getStatus() == 0);
+        btnAdd.setEnabled(editable);
+        btnCancel.setEnabled(editable);
+        btnCheckout.setEnabled(editable);
+        btnRemove.setEnabled(editable);
     }
 
     @Override
     public void open() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+       this.setLocationRelativeTo(null);
+        this.setOrder(order);
+        this.fillOrderDetails();
     }
 
     @Override
     public void close() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if(orderDetails.isEmpty()){
+            orderDao.deleteById(order.getOrderId());
+        }
     }
 
     @Override
     public void showProductsJDialog() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ProductsJDialog dialog = new ProductsJDialog((Frame) this.getOwner(), true);
+        dialog.setOrder(order); // Khai báo vào DrinkJDialog @Setter Bill bill
+        dialog.setVisible(true);
+        dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+        @Override
+        public void windowClosed(java.awt.event.WindowEvent e) {
+            OrderJDialog.this.fillOrderDetails();
+        }
+        });
     }
 
     @Override
-    public void removeDrinks() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void removeProduct() {
+        for (int i = 0; i < tblOrderDetails.getRowCount(); i++) {
+             Boolean checked = (Boolean) tblOrderDetails.getValueAt(i, 0);
+            if(checked)
+                orderDetailDao.deleteById(orderDetails.get(i).getOrderdetailid());
+            }
+        this.fillOrderDetails();
     }
 
     @Override
     public void updateQuantity() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public void checkout() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if (order.getStatus() == 0) { // chưa thanh toán hoặc chưa bị canceled
+            String input = XDialog.prompt("Số lượng mới?");
+            if (input != null && input.length() > 0) {
+            OrderDetail detail = orderDetails.get(tblOrderDetails.getSelectedRow());
+            detail.setQuantity(Integer.parseInt(input));
+            orderDetailDao.update(detail);
+            this.fillOrderDetails();
+            }
+        }
     }
 
     @Override
     public void cancel() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        if (orderDetails.isEmpty()) {
+            orderDao.deleteById(order.getOrderId());
+            this.dispose();
+        } else if (XDialog.confirm("Bạn muốn hủy phiếu bán hàng?")) {
+            order.setStatus(Order.Status.Canceled.ordinal());
+            orderDao.update(order);
+            this.setOrder(order);
+        }
     }
 
     @Override
-    public void fillBillDetails() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void fillOrderDetails() {
+        DefaultTableModel model = (DefaultTableModel) tblOrderDetails.getModel();
+        model.setRowCount(0);
+        orderDetails = List.of();
+        if (!txtId.getText().isBlank()) {
+        Long orderId = Long.valueOf(txtId.getText());
+        orderDetails = orderDetailDao.findByOrderId(orderId);
+        } 
+        orderDetails.forEach(d -> {
+        var amount = d.getUnitPrice() * d.getQuantity() * (1 - d.getDiscount());
+        Object[] rowData = {
+            false,
+            d.getOrderId(),
+            d.getProductName(),
+            String.format("%.1f VNĐ", d.getUnitPrice()),
+            String.format("%.0f%%", d.getDiscount() * 100),
+            d.getQuantity(), String.format("%.1f VNĐ", amount),
+        };
+
+        model.addRow(rowData);
+        });
+    }
+
+    @Override
+    public void checkout() {
+       if (XDialog.confirm("Bạn muốn thanh toán phiếu bán hàng?")) {
+            order.setStatus(Order.Status.Completed.ordinal());
+            order.setCheckout(new Date());
+            orderDao.update(order);
+            this.setOrder(order);
+        }
     }
 
 }

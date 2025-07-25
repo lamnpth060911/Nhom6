@@ -9,13 +9,38 @@ import poly.quanao.util.XQuery;
 
 public class OrderDetailDAOImpl implements OrderDetailDAO {
 
-    String createSql = "INSERT INTO OrderDetails(OrderId, ProductId, UnitPrice, Discount, Quantity) VALUES(?, ?, ?, ?, ?)";
-    String updateSql = "UPDATE OrderDetails SET OrderId=?, ProductId=?, UnitPrice=?, Discount=?, Quantity=? WHERE Id=?";
-    String deleteSql = "DELETE FROM OrderDetails WHERE Id=?";
-    String findAllSql = "SELECT bd.*, d.name AS productsName FROM OrderDetails bd JOIN Products d ON d.Id=bd.ProductId";
-    String findByIdSql = "SELECT bd.*, d.name AS productsName FROM OrderDetails bd JOIN Products d ON d.Id=bd.ProductId WHERE bd.Id=?";
-    String findByOrderIdSql = "SELECT bd.*, d.name AS productName FROM OrderDetails bd JOIN Products d ON d.Id=bd.ProductId WHERE bd.OrderId=?";
-    String findByDrinkIdSql = "SELECT bd.*, d.name AS productName FROM OrderDetails bd JOIN Products d ON d.Id=bd.ProductId WHERE bd.ProductsId=?";
+    String createSql = 
+    "INSERT INTO OrderDetails (OrderId, ProductId, UnitPrice, Discount, Quantity) VALUES (?, ?, ?, ?, ?)";
+
+String updateSql = 
+    "UPDATE OrderDetails SET OrderId=?, ProductId=?, UnitPrice=?, Discount=?, Quantity=? WHERE OrderDetailId=?";
+
+String deleteSql = 
+    "DELETE FROM OrderDetails WHERE OrderDetailId=?";
+
+String findAllSql = 
+    "SELECT od.*, p.Name AS productName " +
+    "FROM OrderDetails od " +
+    "JOIN Products p ON p.ProductId = od.ProductId";
+
+String findByIdSql = 
+    "SELECT od.*, p.Name AS productName " +
+    "FROM OrderDetails od " +
+    "JOIN Products p ON p.ProductId = od.ProductId " +
+    "WHERE od.OrderDetailId=?";
+
+String findByOrderIdSql = 
+    "SELECT od.*, p.Name AS productName " +
+    "FROM OrderDetails od " +
+    "JOIN Products p ON p.ProductId = od.ProductId " +
+    "WHERE od.OrderId=?";
+
+String findByProductIdSql = 
+    "SELECT od.*, p.Name AS productName " +
+    "FROM OrderDetails od " +
+    "JOIN Products p ON p.ProductId = od.ProductId " +
+    "WHERE od.ProductId=?";
+
 
     @Override
     public List<OrderDetail> findByOrderId(Long orderId) {
@@ -24,7 +49,7 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
 
     @Override
     public List<OrderDetail> findByProductId(String drinkId) {
-        return XQuery.getBeanList(OrderDetail.class, findByDrinkIdSql, drinkId);
+        return XQuery.getBeanList(OrderDetail.class, findByOrderIdSql, drinkId);
     }
 
 
@@ -37,7 +62,7 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
             entity.getUnitPrice(),
             entity.getDiscount(),
             entity.getQuantity(),
-            entity.getId()
+            entity.getOrderdetailid()
         };
         XJdbc.executeUpdate(updateSql, values);
     }

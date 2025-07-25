@@ -15,9 +15,9 @@ public interface OrderController {
     void open(); // Hiển thị bill
     void close(); // Xóa bill nếu ko chứa đồ uống nào
     void showProductsJDialog(); 
-    void removeDrinks(); // Xóa đồ uống khỏi bil
+    void removeProduct(); // Xóa đồ uống khỏi bil
     void updateQuantity(); // Thay đổi số lượng đồ uống
     void checkout(); // Thanh toán
     void cancel(); // Hủy bill
-    void fillBillDetails();
+    void fillOrderDetails();
 }

@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 public class OrderDetail {
-    private Long id;
+    private Long orderdetailid;
     private Long orderId;
     private int productId;
     private double unitPrice;
