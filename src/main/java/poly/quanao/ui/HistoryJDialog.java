@@ -19,7 +19,7 @@ import poly.quanao.util.XDate;
  *
  * @author ADMIN
  */
-public class HistoryJDialog extends javax.swing.JDialog implements HistoryController {
+public final class HistoryJDialog extends javax.swing.JDialog implements HistoryController {
 
     /**
      * Creates new form HistoryJDialog
@@ -27,6 +27,7 @@ public class HistoryJDialog extends javax.swing.JDialog implements HistoryContro
     public HistoryJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        fillBills();
     }
 
     /**
@@ -208,6 +209,7 @@ public class HistoryJDialog extends javax.swing.JDialog implements HistoryContro
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 HistoryJDialog dialog = new HistoryJDialog(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -231,8 +233,8 @@ public class HistoryJDialog extends javax.swing.JDialog implements HistoryContro
     private javax.swing.JTextField txtBegin;
     private javax.swing.JTextField txtEnd;
     // End of variables declaration//GEN-END:variables
-    OrderDAO billDao = new OrderDAOImpl();
-    List<Order> bills = List.of();
+    OrderDAO orderDao = new OrderDAOImpl();
+    List<Order> orders = List.of();
     @Override
     public void open() {
         this.setLocationRelativeTo(null);
@@ -244,11 +246,11 @@ public void fillBills() {
     String username = XAuth.user.getUsername();
         Date begin = XDate.parse(txtBegin.getText(), "MM/dd/yyyy");
         Date end = XDate.parse(txtEnd.getText(), "MM/dd/yyyy");
-        bills = billDao.findByUserAndTimeRange(username, begin, end);
+        orders = orderDao.findByUserAndTimeRange(username, begin, end);
         DefaultTableModel model = (DefaultTableModel) tblBills.getModel();
         model.setRowCount(0);
         String[] statuses = {"Servicing", "Completed", "Canceled"};
-        bills.forEach(b -> {
+        orders.forEach(b -> {
         Object[] row = { 
         b.getOrderId(), 
         "Card #" + b.getCardId(),
@@ -263,7 +265,7 @@ public void fillBills() {
 
     @Override
     public void showOrderJDialog() {
-        Order bill = bills.get(tblBills.getSelectedRow());
+        Order bill = orders.get(tblBills.getSelectedRow());
         OrderJDialog dialog = new OrderJDialog((Frame) this.getOwner(), true);
         dialog.setOrder(bill); // truyền bill vào cửa sổ BillJDialog
         dialog.setVisible(true);

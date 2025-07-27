@@ -56,7 +56,7 @@ String findByTimeRangeSql =
 
     @Override
 public Order findServicingByCardId(Integer cardId) {
-    String sql = "SELECT * FROM Orders WHERE CardId=? AND Status=0";
+    String sql = "SELECT * FROM Orders WHERE CardId=? AND Status=1";
     Order bill = XQuery.getSingleBean(Order.class, sql, cardId);
 
     if (bill == null) { // không tìm thấy -> tạo mới
@@ -78,7 +78,7 @@ public Order findServicingByCardId(Integer cardId) {
 
     @Override
     public List<Order> findByUserAndTimeRange(String username, Date begin, Date end) {
-        String sql = "SELECT * FROM Bills " + " WHERE Username=? AND Checkin BETWEEN ? AND ?";
+        String sql = "SELECT * FROM Orders " + " WHERE Username=? AND Checkin BETWEEN ? AND ?";
         return XQuery.getBeanList(Order.class, sql, username, begin, end);
     }
 
