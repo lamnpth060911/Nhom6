@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 public class Order {
-    private long orderId;      // int
+    private Long orderId;      // int
     private String username;  // nvarchar(20)
-    private int cardId;       // int
+    private Integer cardId;       // int
     @Builder.Default
     private Date checkin = new Date();
     private Date checkout;

@@ -4,14 +4,33 @@
  */
 package poly.quanao.ui.manager;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import poly.quanao.dao.OrderDAO;
+import poly.quanao.dao.OrderDetailDAO;
+import poly.quanao.dao.impl.OrderDAOImpl;
+import poly.quanao.dao.impl.OrderDetailDAOImpl;
+import poly.quanao.entity.Order;
+import poly.quanao.entity.OrderDetail;
+import poly.quanao.util.TimeRange;
+import poly.quanao.util.XDate;
+import poly.quanao.util.XDialog;
+
 /**
  *
  * @author ADMIN
  */
-public class OrderManagerJDialog extends javax.swing.JDialog {
+public class OrderManagerJDialog extends javax.swing.JDialog implements OrderManagerController{
 
     /**
      * Creates new form OrderManagerJDialog
+     * @param parent
+     * @param modal
      */
     public OrderManagerJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -27,7 +46,7 @@ public class OrderManagerJDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        tabs = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         btnuncheck = new javax.swing.JButton();
         btncheckAll = new javax.swing.JButton();
@@ -67,6 +86,11 @@ public class OrderManagerJDialog extends javax.swing.JDialog {
         btnMoveNext = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         btnuncheck.setText("Bỏ chọn tất cả");
         btnuncheck.addActionListener(new java.awt.event.ActionListener() {
@@ -187,7 +211,7 @@ public class OrderManagerJDialog extends javax.swing.JDialog {
                 .addContainerGap(170, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Danh sách", jPanel1);
+        tabs.addTab("Danh sách", jPanel1);
 
         jLabel9.setText("Người tạo");
 
@@ -396,7 +420,7 @@ public class OrderManagerJDialog extends javax.swing.JDialog {
                 .addGap(260, 260, 260))
         );
 
-        jTabbedPane1.addTab("Biểu mẫu", jPanel2);
+        tabs.addTab("Biểu mẫu", jPanel2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -404,14 +428,14 @@ public class OrderManagerJDialog extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(33, 33, 33)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1052, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 1052, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 608, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 608, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -419,19 +443,19 @@ public class OrderManagerJDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnuncheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnuncheckActionPerformed
-     
+     this.uncheckAll();
     }//GEN-LAST:event_btnuncheckActionPerformed
 
     private void btncheckAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncheckAllActionPerformed
-      
+      this.checkAll();
     }//GEN-LAST:event_btncheckAllActionPerformed
 
     private void btndeleteCheckedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndeleteCheckedActionPerformed
-      
+      this.deleteCheckedItems();
     }//GEN-LAST:event_btndeleteCheckedActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       
+       this.selectTimeRange();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void cboTimeRangesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTimeRangesActionPerformed
@@ -439,7 +463,9 @@ public class OrderManagerJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_cboTimeRangesActionPerformed
 
     private void tblBillsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBillsMouseClicked
-        
+        if (evt.getClickCount() == 2) {
+            this.edit();
+        }
     }//GEN-LAST:event_tblBillsMouseClicked
 
     private void txtCardidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCardidActionPerformed
@@ -451,36 +477,40 @@ public class OrderManagerJDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_txtCheckinActionPerformed
 
     private void btnMoveLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveLastActionPerformed
-  
+  this.moveLast();
     }//GEN-LAST:event_btnMoveLastActionPerformed
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
-       
+       this.create();
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-       
+       this.update();
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-       
+       this.delete();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
-       
+       this.clear();
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnMoveFirstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveFirstActionPerformed
-       
+       this.moveFirst();
     }//GEN-LAST:event_btnMoveFirstActionPerformed
 
     private void btnMovePreviousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMovePreviousActionPerformed
-        
+        this.movePrevious();
     }//GEN-LAST:event_btnMovePreviousActionPerformed
 
     private void btnMoveNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveNextActionPerformed
-     
+     this.moveNext();
     }//GEN-LAST:event_btnMoveNextActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        this.open();
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -550,10 +580,10 @@ public class OrderManagerJDialog extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JRadioButton rdStatus1;
     private javax.swing.JRadioButton rdStatus2;
     private javax.swing.JRadioButton rdStatus3;
+    private javax.swing.JTabbedPane tabs;
     private javax.swing.JTable tblBillDetails;
     private javax.swing.JTable tblBills;
     private javax.swing.JTextField txtBegin;
@@ -564,4 +594,256 @@ public class OrderManagerJDialog extends javax.swing.JDialog {
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
+    OrderDAO dao = new OrderDAOImpl();
+    List<Order> items= List.of(); // phiếu bán hàng
+    OrderDetailDAO orderDetailDao = new OrderDetailDAOImpl();
+    List<OrderDetail> details = List.of(); // chi tiết phiếu bán hàng
+
+    
+    @Override
+    public void fillOrderDetails() {
+        DefaultTableModel model = (DefaultTableModel) tblBillDetails.getModel();
+     model.setRowCount(0);
+     details = List.of();
+     if (!txtId.getText().isBlank()) {
+     Long billId = Long.valueOf(txtId.getText());
+     details = orderDetailDao.findByOrderId(billId);
+     } 
+     details.forEach(d -> {
+     var amount = d.getUnitPrice() * d.getQuantity() * (1 - d.getDiscount());
+     Object[] rowData = {
+     d.getProductName(),
+     String.format("%.1f VNĐ", d.getUnitPrice()),
+     String.format("%.0f%%", d.getDiscount() * 100),
+     d.getQuantity(), String.format("%.1f VNĐ", amount)
+     };
+
+     model.addRow(rowData);
+     });}
+
+    @Override
+    public void selectTimeRange() {
+       TimeRange range = TimeRange.today();
+     switch (cboTimeRanges.getSelectedIndex()) {
+     case 0 -> range = TimeRange.today();
+     case 1 -> range = TimeRange.thisWeek();
+     case 2 -> range = TimeRange.thisMonth();
+     case 3 -> range = TimeRange.thisQuarter();
+     case 4 -> range = TimeRange.thisYear();
+     }
+     txtBegin.setText(XDate.format(range.getBegin(), "MM/dd/yyyy"));
+     txtEnd.setText(XDate.format(range.getEnd(), "MM/dd/yyyy"));
+     this.fillToTable();
+    }
+
+    @Override
+    public void open() {
+       this.setLocationRelativeTo(null);
+     this.selectTimeRange();
+     this.fillOrderDetails();
+     this.clear();
+    }
+
+    @Override
+    public void setForm(Order entity) {
+        txtId.setText(entity.getOrderId() != null ? entity.getOrderId().toString() : "");
+    txtUsername.setText(entity.getUsername() != null ? entity.getUsername() : "");    
+    txtCardid.setText(entity.getCardId() != null ? entity.getCardId().toString() : "");
+    txtCheckin.setText(entity.getCheckin() != null ? XDate.format(entity.getCheckin(), XDate.PATTERN_FULL) : "");
+    txtCheckout.setText(entity.getCheckout() != null ? XDate.format(entity.getCheckout(), XDate.PATTERN_FULL) : "");
+    
+    switch (entity.getStatus()) {
+        case 0:
+            rdStatus1.setSelected(true);
+            break;
+        case 1:
+            rdStatus2.setSelected(true);
+            break;
+        case 2:
+            rdStatus3.setSelected(true);
+            break;
+        default:
+            // Nếu status không hợp lệ thì có thể clear chọn
+            rdStatus1.setSelected(false);
+            rdStatus2.setSelected(false);
+            rdStatus3.setSelected(false);
+            break;
+    }
+    this.fillOrderDetails();
+    }
+
+    @Override
+    public Order getForm() {
+        Order entity = new Order();
+        entity.setOrderId(Long.valueOf(txtId.getText()));
+        entity.setCardId(Integer.valueOf(txtCardid.getText()));             
+        String checkinText = txtCheckin.getText();
+        String checkoutText = txtCheckout.getText();        
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        try {
+            Date checkinDate = formatter.parse(checkinText);
+            Date checkoutDate = formatter.parse(checkoutText);
+            entity.setCheckin(checkinDate);  // Lưu vào kiểu Date
+            entity.setCheckout(checkoutDate);
+        } catch (ParseException ex) {
+            Logger.getLogger(OrderManagerJDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+        entity.setUsername(txtUsername.getText());
+        if(rdStatus1.isSelected()){
+            entity.setStatus(0);
+        }else if(rdStatus2.isSelected()){
+            entity.setStatus(1);
+        }else if(rdStatus3.isSelected()){
+            entity.setStatus(2);
+        }
+        return entity; 
+    }
+
+    @Override
+    public void fillToTable() {
+        DefaultTableModel model = (DefaultTableModel) tblBills.getModel();
+    model.setRowCount(0);
+    Date begin = XDate.parse(txtBegin.getText(), "MM/dd/yyyy");
+    Date end = XDate.parse(txtEnd.getText(), "MM/dd/yyyy");
+    items = dao.findByTimeRange(begin, end);
+    items.forEach(item -> {   
+        String statusText;
+        switch (item.getStatus()) {
+            case 0:
+                statusText = "Servicing";
+                break;
+            case 1:
+                statusText = "Completed";
+                break;
+            case 2:
+                statusText = "Canceled";
+                break;
+            default:
+                statusText = "Unknown";
+        }
+            Object[]rowData={
+            item.getOrderId(),
+            item.getCardId(),
+            XDate.format(item.getCheckin(), XDate.PATTERN_SHORT),
+            XDate.format(item.getCheckout(), XDate.PATTERN_SHORT), 
+            statusText, 
+            item.getUsername(),
+            false
+        };
+    model.addRow(rowData);});
+    }
+
+    @Override
+    public void edit() {
+       Order entity = items.get(tblBills.getSelectedRow());
+        this.setForm(entity);
+        this.setEditable(true);
+        tabs.setSelectedIndex(1);
+    }
+
+    @Override
+    public void create() {
+        Order entity = this.getForm();
+        dao.create(entity);
+        this.fillToTable();
+        this.clear();
+    }
+
+    @Override
+    public void update() {
+        Order entity = this.getForm();
+        dao.update(entity);
+        this.fillToTable();
+    }
+
+    @Override
+    public void delete() {
+        if (XDialog.confirm("Bạn thực sự muốn xóa?")) {
+            Long Id = Long.valueOf(txtId.getText());
+            dao.deleteById(Id);
+            this.fillToTable();
+            this.clear();
+        } 
+    }
+
+    @Override
+    public void clear() {
+      this.setForm(new Order());
+        this.setEditable(false);
+    }
+
+    @Override
+    public void setEditable(boolean editable) {
+       txtId.setEnabled(!editable);
+        btnCreate.setEnabled(!editable);
+        btnUpdate.setEnabled(editable);
+        btnDelete.setEnabled(editable);
+        int rowCount = tblBills.getRowCount();
+        btnMoveFirst.setEnabled(editable && rowCount > 0);
+        btnMovePrevious.setEnabled(editable && rowCount > 0);
+        btnMoveNext.setEnabled(editable && rowCount > 0);
+        btnMoveLast.setEnabled(editable && rowCount > 0); 
+    }
+
+    @Override
+    public void checkAll() {
+       this.setCheckedAll(true);
+    }
+
+    @Override
+    public void uncheckAll() {
+        this.setCheckedAll(false);
+    }
+    private void setCheckedAll(boolean checked) {
+        for (int i = 0; i < tblBills.getRowCount(); i++) {
+        tblBills.setValueAt(checked, i, 2);
+        }
+    }
+
+    @Override
+    public void deleteCheckedItems() {
+        if (XDialog.confirm("Bạn thực sự muốn xóa các mục chọn?")) {
+            for (int i = 0; i < tblBills.getRowCount(); i++) {
+                if ((Boolean) tblBills.getValueAt(i, 2)) {
+                    dao.deleteById(items.get(i).getOrderId());
+                }
+            }
+            this.fillToTable();
+        }    
+    }
+
+    @Override
+    public void moveFirst() {
+        this.moveTo(0); 
+    }
+
+    @Override
+    public void movePrevious() {
+        this.moveTo(tblBills.getSelectedRow() - 1);
+    }
+
+    @Override
+    public void moveNext() {
+        this.moveTo(tblBills.getSelectedRow() + 1);
+    }
+
+    @Override
+    public void moveLast() {
+        this.moveTo(tblBills.getRowCount() - 1);
+    }
+
+    @Override
+    public void moveTo(int rowIndex) {
+        if (rowIndex < 0) {
+            this.moveLast();
+        } else if (rowIndex >= tblBills.getRowCount()) {
+            this.moveFirst();
+        } else {
+            tblBills.clearSelection();
+            tblBills.setRowSelectionInterval(rowIndex, rowIndex);
+            this.edit();
+        }
+    }
+    
+    
 }

@@ -4,10 +4,13 @@
  */
 package poly.quanao.ui.manager;
 
+import poly.quanao.entity.Order;
+
 /**
  *
  * @author Admin
  */
-public interface OrderManagerController {
-    
+public interface OrderManagerController extends CrudController<Order> {
+    void fillOrderDetails(); // tải và hiển thị chi tiết phiếu
+    void selectTimeRange(); // xử lý chọn khoảng thời gian trong cboTimeRanges
 }
