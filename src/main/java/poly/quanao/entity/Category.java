@@ -18,6 +18,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @Data
 public class Category {
-    String CategoryId;
-    String CategoryName;
+   private String CategoryId;
+  private  String CategoryName;
 }
