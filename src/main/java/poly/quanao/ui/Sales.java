@@ -4,18 +4,35 @@
  */
 package poly.quanao.ui;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Frame;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.util.List;
+import javax.swing.JButton;
+import poly.quanao.dao.CardDAO;
+import poly.quanao.dao.OrderDAO;
+import poly.quanao.dao.impl.CardDAOImpl;
+import poly.quanao.dao.impl.OrderDAOImpl;
+import poly.quanao.entity.Card;
+import poly.quanao.entity.Order;
+
 /**
  *
  * @author Admin
  */
-public class Sales extends javax.swing.JDialog {
+public class Sales extends javax.swing.JDialog implements SalesController {
 
     /**
      * Creates new form Sales
+     * @param parent
+     * @param modal
      */
     public Sales(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
     }
 
     /**
@@ -30,6 +47,11 @@ public class Sales extends javax.swing.JDialog {
         pnlCard = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         pnlCard.setLayout(new java.awt.GridLayout(0, 6, 5, 5));
 
@@ -48,6 +70,10 @@ public class Sales extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        this.open();
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -78,6 +104,7 @@ public class Sales extends javax.swing.JDialog {
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 Sales dialog = new Sales(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -94,4 +121,45 @@ public class Sales extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel pnlCard;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void open() {
+       this.setLocationRelativeTo(null);
+        this.loadCards(); // tải và hiển thị các thẻ lên cửa sổ bán hàng
+    }
+
+    @Override
+    public void showOrderJDialog(int cardId) {
+       OrderDAO dao = new OrderDAOImpl();
+        Order order = dao.findServicingByCardId(cardId); // tải bill đang phục vụ của thẻ
+        OrderJDialog dialog = new OrderJDialog((Frame) this.getOwner(), true);
+        dialog.setOrder(order);// Cần khai báo vào BillJDialog @Setter Bill bill
+        dialog.setVisible(true);
+    }
+    private void loadCards() {// tải và hiển thị các thẻ lên cửa sổ bán hàng
+        CardDAO dao1 = new CardDAOImpl();
+        List<Card> cards = dao1.findAll();
+        pnlCard.removeAll();
+        int cols = 3; // Số cột bạn muốn hiển thị
+        int rows = Math.max(1, (int) Math.ceil((double) cards.size() / cols));
+        pnlCard.setLayout(new GridLayout(rows, cols, 10, 10));
+        cards.forEach(card -> pnlCard.add(createButton(card)));
+        pnlCard.revalidate();
+        pnlCard.repaint();
+    }
+    private JButton createButton(Card card) { // tạo Jbutton cho thẻ
+        JButton btnCard = new JButton();
+        btnCard.setText(String.format("Card #%d", card.getId()));
+        btnCard.setPreferredSize(new Dimension(100, 80));
+        btnCard.setEnabled(card.getStatus() == 0);
+        btnCard.setBackground(btnCard.isEnabled() ? Color.GREEN : Color.GRAY);
+        btnCard.setActionCommand(String.valueOf(card.getId()));
+        btnCard.addActionListener((ActionEvent e) -> {
+            int cardId = Integer.parseInt(e.getActionCommand());
+            Sales.this.showOrderJDialog(cardId);
+        });
+        return btnCard;
+    }
 }
+
+
