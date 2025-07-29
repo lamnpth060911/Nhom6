@@ -22,7 +22,7 @@ import poly.quanao.util.XDialog;
  *
  * @author ADMIN
  */
-public class OrderJDialog extends javax.swing.JDialog implements OrderController {
+public final class OrderJDialog extends javax.swing.JDialog implements OrderController {
 
     /**
      * Creates new form OrderJDialog
@@ -32,6 +32,7 @@ public class OrderJDialog extends javax.swing.JDialog implements OrderController
     public OrderJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        fillOrderDetails();
     }
 
     /**
@@ -64,6 +65,14 @@ public class OrderJDialog extends javax.swing.JDialog implements OrderController
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel7.setText("Trạng thái");
 
@@ -234,33 +243,42 @@ public class OrderJDialog extends javax.swing.JDialog implements OrderController
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblOrderDetailsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblOrderDetailsMouseClicked
-        
-        
+        if (evt.getClickCount() == 2) {
+            this.updateQuantity();
+        }
     }//GEN-LAST:event_tblOrderDetailsMouseClicked
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-      
+      this.cancel();
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        
+        this.showProductsJDialog();
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveActionPerformed
-     
+     this.removeProduct();
     }//GEN-LAST:event_btnRemoveActionPerformed
 
     private void btnCheckoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckoutActionPerformed
-     
+     this.checkout();
     }//GEN-LAST:event_btnCheckoutActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-  
+    this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtCardIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCardIdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCardIdActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+         this.open();
+    }//GEN-LAST:event_formWindowOpened
+
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        this.close();
+    }//GEN-LAST:event_formWindowClosed
 
     /**
      * @param args the command line arguments

@@ -469,11 +469,11 @@ this.uncheckAll();    }//GEN-LAST:event_btnUncheckAllActionPerformed
     }//GEN-LAST:event_tblProductsMouseClicked
 
     private void tblCategoriesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCategoriesMouseClicked
-this.fillToTable();
+    this.fillToTable();
     }//GEN-LAST:event_tblCategoriesMouseClicked
 
     private void lblImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImageMouseClicked
-    this.chooseFile();        // TODO add your handling code here:
+    this.chooseFile();  
     }//GEN-LAST:event_lblImageMouseClicked
 
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
@@ -481,15 +481,15 @@ this.fillToTable();
     }//GEN-LAST:event_btnCreateActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-this.open()   ;     // TODO add your handling code here:
+    this.open()   ;     // TODO add your handling code here:
     }//GEN-LAST:event_formWindowOpened
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-this.update()  ;      // TODO add your handling code here:
+    this.update()  ;      // TODO add your handling code here:
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
-this.clear()  ;      // TODO add your handling code here:
+    this.clear()  ;      // TODO add your handling code here:
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnMoveFirstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveFirstActionPerformed
@@ -497,7 +497,7 @@ this.clear()  ;      // TODO add your handling code here:
     }//GEN-LAST:event_btnMoveFirstActionPerformed
 
     private void btnMovePreviousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMovePreviousActionPerformed
- this.movePrevious();        // TODO add your handling code here:
+    this.movePrevious();        // TODO add your handling code here:
     }//GEN-LAST:event_btnMovePreviousActionPerformed
 
     private void btnMoveNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveNextActionPerformed

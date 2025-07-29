@@ -25,7 +25,7 @@ import poly.quanao.util.XDialog;
  *
  * @author ADMIN
  */
-public class OrderManagerJDialog extends javax.swing.JDialog implements OrderManagerController{
+public final class OrderManagerJDialog extends javax.swing.JDialog implements OrderManagerController{
 
     /**
      * Creates new form OrderManagerJDialog
@@ -35,6 +35,7 @@ public class OrderManagerJDialog extends javax.swing.JDialog implements OrderMan
     public OrderManagerJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        fillToTable();
     }
 
     /**
@@ -459,7 +460,7 @@ public class OrderManagerJDialog extends javax.swing.JDialog implements OrderMan
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void cboTimeRangesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTimeRangesActionPerformed
-        // TODO add your handling code here:
+      
     }//GEN-LAST:event_cboTimeRangesActionPerformed
 
     private void tblBillsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBillsMouseClicked

@@ -21,6 +21,8 @@ public class RevenueManagerJDialog extends javax.swing.JDialog implements Revenu
 
     /**
      * Creates new form RevenueManagerJDialog
+     * @param parent
+     * @param modal
      */
     public RevenueManagerJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -51,6 +53,11 @@ public class RevenueManagerJDialog extends javax.swing.JDialog implements Revenu
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel2.setText("Đến ngày:");
 
@@ -181,16 +188,20 @@ public class RevenueManagerJDialog extends javax.swing.JDialog implements Revenu
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterActionPerformed
-       
+       this.fillRevenue(); 
     }//GEN-LAST:event_btnFilterActionPerformed
 
     private void cboTimeRangesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTimeRangesActionPerformed
-    
+    this.selectTimeRange();
     }//GEN-LAST:event_cboTimeRangesActionPerformed
 
     private void tabsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabsStateChanged
-
+    this.fillRevenue();
     }//GEN-LAST:event_tabsStateChanged
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        this.open();
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -221,6 +232,7 @@ public class RevenueManagerJDialog extends javax.swing.JDialog implements Revenu
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 RevenueManagerJDialog dialog = new RevenueManagerJDialog(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {

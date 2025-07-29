@@ -322,7 +322,7 @@ public class ProductCategoriesManager extends javax.swing.JFrame implements Prod
     private void btnDeleteCheckeditemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteCheckeditemsActionPerformed
 
         this.deleteCheckedItems();
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_btnDeleteCheckeditemsActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
@@ -333,7 +333,7 @@ public class ProductCategoriesManager extends javax.swing.JFrame implements Prod
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         this.delete();
-        // TODO add your handling code here:
+        // TODO add your handling code hddđ
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed

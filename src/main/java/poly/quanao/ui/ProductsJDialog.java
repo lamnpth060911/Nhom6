@@ -22,7 +22,7 @@ import poly.quanao.util.XDialog;
  *
  * @author ADMIN
  */
-public class ProductsJDialog extends javax.swing.JDialog implements ProductsController {
+public final class ProductsJDialog extends javax.swing.JDialog implements ProductsController {
 
     /**
      * Creates new form Products
@@ -32,6 +32,8 @@ public class ProductsJDialog extends javax.swing.JDialog implements ProductsCont
     public ProductsJDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        fillProducts();
+        fillCategories();
     }
 
     /**
@@ -151,7 +153,7 @@ public class ProductsJDialog extends javax.swing.JDialog implements ProductsCont
     }//GEN-LAST:event_tblProductMouseClicked
 
     private void formWindowIconified(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowIconified
-        // TODO add your handling code here:
+        // TODO add your handlingcode here:
     }//GEN-LAST:event_formWindowIconified
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened

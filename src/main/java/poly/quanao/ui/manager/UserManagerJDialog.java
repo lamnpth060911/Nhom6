@@ -76,6 +76,11 @@ public final class UserManagerJDialog extends javax.swing.JDialog implements Use
         txtPassword = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         btnCheckAll.setText("Chọn tất cả");
         btnCheckAll.addActionListener(new java.awt.event.ActionListener() {
@@ -432,6 +437,10 @@ public final class UserManagerJDialog extends javax.swing.JDialog implements Use
             this.edit();
         }
     }//GEN-LAST:event_tblUserMouseClicked
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+      this.open();
+    }//GEN-LAST:event_formWindowOpened
                                
 
     /**
