@@ -2,6 +2,13 @@ package poly.quanao.ui;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import poly.quanao.ui.manager.CardManager;
+import poly.quanao.ui.manager.OrderManagerJDialog;
+import poly.quanao.ui.manager.ProductCategoriesManager;
+import poly.quanao.ui.manager.ProductsManagerJDialog;
+import poly.quanao.ui.manager.RevenueManagerJDialog;
+import poly.quanao.ui.manager.UserManagerJDialog;
+import poly.quanao.util.XDialog;
 
 /**
  */
@@ -10,13 +17,18 @@ public interface ClothingShopController {
      void init();
 
     default void exit() {
+       if(XDialog.confirm("Bạn muốn kết thúc?")){
         System.exit(0);
+        }
     }
+    
+
 
     default void showJDialog(JDialog dialog) {
         dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
     }
+
 
     default void showWelcomeJDialog(JFrame frame){
         this.showJDialog(new WelcomeJDialog(frame, true));
@@ -32,34 +44,29 @@ public interface ClothingShopController {
     }
 
     default void showSalesJDialog(JFrame frame) {
-        // TODO: Mở giao diện bán hàng
+         this.showJDialog(new Sales(frame, true));
     }
 
     default void showHistoryJDialog(JFrame frame) {
-        // TODO: Mở giao diện lịch sử đơn hàng
+        this.showJDialog(new HistoryJDialog(frame, true));
     }
 
-    default void showProductJDialog(JFrame frame) {
-        // TODO: Mở giao diện sản phẩm
+    default void showProductsManagerJDialog(JFrame frame){
+        this.showJDialog(new ProductsManagerJDialog(frame, true));
     }
-
-    default void showCardJDialog(JFrame frame) {
-        // TODO: Mở giao diện quản lý thẻ
+    default void showProductCategoriesManager(JFrame frame){
+       this.showJDialog(new ProductCategoriesManager(frame, true));
     }
-
-    default void showOrderJDialog(JFrame frame) {
-        // TODO: Mở giao diện phiếu bán hàng
+    default void showCardManagerJDialog(JFrame frame){
+        this.showJDialog(new CardManager(frame, true));
     }
-
-    default void showUserJDialog(JFrame frame) {
-        // TODO: Mở giao diện tài khoản người dùng
+    default void showOrderManagerJDialog(JFrame frame){
+        this.showJDialog(new OrderManagerJDialog(frame, true));
     }
-
-    default void showWarehouseJDialog(JFrame frame) {
-        // TODO: Mở giao diện quản lý kho hàng
+    default void showUserManagerJDialog(JFrame frame){
+        this.showJDialog(new UserManagerJDialog(frame, true));
     }
-
-    default void showRevenueJDialog(JFrame frame) {
-        // TODO: Mở giao diện thống kê doanh thu
+    default void showRevenueManagerJDialog(JFrame frame){
+        this.showJDialog(new RevenueManagerJDialog(frame, true));
     }
 }

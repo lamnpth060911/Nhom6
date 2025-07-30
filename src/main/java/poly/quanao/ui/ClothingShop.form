@@ -103,9 +103,9 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="jButton1" max="32767" attributes="0"/>
-                          <Component id="jButton18" alignment="0" pref="184" max="32767" attributes="0"/>
-                          <Component id="jButton16" alignment="1" pref="184" max="32767" attributes="0"/>
+                          <Component id="btnExit" max="32767" attributes="0"/>
+                          <Component id="btnHistory" alignment="0" pref="184" max="32767" attributes="0"/>
+                          <Component id="btnSales" alignment="1" pref="184" max="32767" attributes="0"/>
                           <Component id="btnChangePassword1" alignment="1" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -118,11 +118,11 @@
                       <EmptySpace min="0" pref="6" max="32767" attributes="0"/>
                       <Component id="btnChangePassword1" min="-2" pref="39" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButton16" min="-2" pref="39" max="-2" attributes="0"/>
+                      <Component id="btnSales" min="-2" pref="39" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButton18" min="-2" pref="39" max="-2" attributes="0"/>
+                      <Component id="btnHistory" min="-2" pref="39" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButton1" min="-2" pref="43" max="-2" attributes="0"/>
+                      <Component id="btnExit" min="-2" pref="43" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="pnlManager" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
@@ -139,12 +139,12 @@
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jButton3" alignment="1" max="32767" attributes="0"/>
-                              <Component id="jButton17" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jButton11" alignment="1" pref="184" max="32767" attributes="0"/>
-                              <Component id="jButton13" alignment="0" pref="184" max="32767" attributes="0"/>
-                              <Component id="jButton14" alignment="0" max="32767" attributes="0"/>
-                              <Component id="jButton15" alignment="1" pref="184" max="32767" attributes="0"/>
+                              <Component id="btnProductsManager" alignment="1" max="32767" attributes="0"/>
+                              <Component id="btnOrderManager" alignment="0" max="32767" attributes="0"/>
+                              <Component id="btnCardManager" alignment="1" pref="184" max="32767" attributes="0"/>
+                              <Component id="btnUserManager" alignment="0" pref="184" max="32767" attributes="0"/>
+                              <Component id="btnProductCategoriesManager" alignment="0" max="32767" attributes="0"/>
+                              <Component id="btnRevenueManager" alignment="1" pref="184" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -154,66 +154,87 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jButton3" min="-2" pref="39" max="-2" attributes="0"/>
+                          <Component id="btnProductsManager" min="-2" pref="39" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jButton17" min="-2" pref="39" max="-2" attributes="0"/>
+                          <Component id="btnOrderManager" min="-2" pref="39" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jButton11" min="-2" pref="39" max="-2" attributes="0"/>
+                          <Component id="btnCardManager" min="-2" pref="39" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jButton13" min="-2" pref="41" max="-2" attributes="0"/>
+                          <Component id="btnUserManager" min="-2" pref="41" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jButton14" min="-2" pref="39" max="-2" attributes="0"/>
+                          <Component id="btnProductCategoriesManager" min="-2" pref="39" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jButton15" min="-2" pref="39" max="-2" attributes="0"/>
+                          <Component id="btnRevenueManager" min="-2" pref="39" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JButton" name="jButton3">
+                <Component class="javax.swing.JButton" name="btnProductsManager">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Th&#x1ebb;"/>
+                    <Property name="text" type="java.lang.String" value="Qu&#x1ea7;n &#xe1;o"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProductsManagerActionPerformed"/>
+                  </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="jButton17">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="QL Kho h&#xe0;ng"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JButton" name="jButton11">
+                <Component class="javax.swing.JButton" name="btnOrderManager">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Phi&#x1ebf;u b&#xe1;n h&#xe0;ng"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnOrderManagerActionPerformed"/>
+                  </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="jButton13">
+                <Component class="javax.swing.JButton" name="btnCardManager">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="TK Ng&#x1b0;&#x1edd;i d&#xf9;ng"/>
+                    <Property name="text" type="java.lang.String" value="Th&#x1ebb; &#x111;&#x1ecb;nh danh"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCardManagerActionPerformed"/>
+                  </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="jButton14">
+                <Component class="javax.swing.JButton" name="btnUserManager">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="QL S&#x1ea3;n ph&#x1ea9;m"/>
+                    <Property name="text" type="java.lang.String" value="Ng&#x1b0;&#x1edd;i s&#x1eed; d&#x1ee5;ng"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUserManagerActionPerformed"/>
+                  </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="jButton15">
+                <Component class="javax.swing.JButton" name="btnProductCategoriesManager">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Lo&#x1ea1;i qu&#x1ea7;n &#xe1;o"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProductCategoriesManagerActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="btnRevenueManager">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Doanh thu"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRevenueManagerActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="jButton16">
+            <Component class="javax.swing.JButton" name="btnSales">
               <Properties>
                 <Property name="text" type="java.lang.String" value="B&#xe1;n h&#xe0;ng"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSalesActionPerformed"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton18">
+            <Component class="javax.swing.JButton" name="btnHistory">
               <Properties>
                 <Property name="text" type="java.lang.String" value="L&#x1ecb;ch s&#x1eed;"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton18ActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHistoryActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnChangePassword1">
@@ -224,10 +245,13 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnChangePassword1ActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton1">
+            <Component class="javax.swing.JButton" name="btnExit">
               <Properties>
                 <Property name="text" type="java.lang.String" value="K&#x1ebf;t th&#xfa;c"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExitActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

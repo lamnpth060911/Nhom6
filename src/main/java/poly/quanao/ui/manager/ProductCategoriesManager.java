@@ -1,6 +1,6 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
 package poly.quanao.ui.manager;
 
@@ -15,12 +15,13 @@ import poly.quanao.util.XDialog;
  *
  * @author Admin
  */
-public class ProductCategoriesManager extends javax.swing.JFrame implements ProductCategoryController{
+public class ProductCategoriesManager extends javax.swing.JDialog implements ProductCategoryController {
 
     /**
-     * Creates new form Product
+     * Creates new form ProductCategoriesManager
      */
-    public ProductCategoriesManager() {
+    public ProductCategoriesManager(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
         initComponents();
     }
 
@@ -41,9 +42,6 @@ public class ProductCategoriesManager extends javax.swing.JFrame implements Prod
         btnuncheck = new javax.swing.JButton();
         btnDeleteCheckeditems = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        txtId = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
         txtName = new javax.swing.JTextField();
         btnUpdate = new javax.swing.JButton();
         btnClear = new javax.swing.JButton();
@@ -52,15 +50,13 @@ public class ProductCategoriesManager extends javax.swing.JFrame implements Prod
         btnMoveFirst = new javax.swing.JButton();
         btnMovePrevious = new javax.swing.JButton();
         btnMoveNext = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
         btnMoveLast = new javax.swing.JButton();
+        txtId = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
+        jLabel2 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowOpened(java.awt.event.WindowEvent evt) {
-                formWindowOpened(evt);
-            }
-        });
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tblCategories.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -116,7 +112,7 @@ public class ProductCategoriesManager extends javax.swing.JFrame implements Prod
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 719, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(98, Short.MAX_VALUE))
+                .addContainerGap(63, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btncheckAll)
@@ -136,14 +132,10 @@ public class ProductCategoriesManager extends javax.swing.JFrame implements Prod
                     .addComponent(btncheckAll)
                     .addComponent(btnuncheck)
                     .addComponent(btnDeleteCheckeditems))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
 
-        tabs.addTab("Danh sách", jPanel1);
-
-        jLabel3.setText("Mã loại");
-
-        jLabel2.setText("Tên loại");
+        tabs.addTab("Danh sách ", jPanel1);
 
         btnUpdate.setText("Cập nhật");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
@@ -194,6 +186,8 @@ public class ProductCategoriesManager extends javax.swing.JFrame implements Prod
             }
         });
 
+        jLabel3.setText("Mã loại");
+
         btnMoveLast.setText(">>");
         btnMoveLast.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -201,12 +195,14 @@ public class ProductCategoriesManager extends javax.swing.JFrame implements Prod
             }
         });
 
+        jLabel2.setText("Tên loại");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 33, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(btnCreate)
                 .addGap(18, 18, 18)
                 .addComponent(btnUpdate)
@@ -246,7 +242,7 @@ public class ProductCategoriesManager extends javax.swing.JFrame implements Prod
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 157, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(47, 47, 47)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -268,62 +264,20 @@ public class ProductCategoriesManager extends javax.swing.JFrame implements Prod
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 852, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(tabs, javax.swing.GroupLayout.DEFAULT_SIZE, 817, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(tabs, javax.swing.GroupLayout.PREFERRED_SIZE, 537, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(tabs, javax.swing.GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnMoveFirstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveFirstActionPerformed
-        this.moveFirst();
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnMoveFirstActionPerformed
-
-    private void btnMoveLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveLastActionPerformed
-        this.moveLast();
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnMoveLastActionPerformed
-
-    private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
-      
-                this.create();
-// TODO add your handling code here:
-    }//GEN-LAST:event_btnCreateActionPerformed
-
-    private void tblCategoriesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCategoriesMouseClicked
-        // TODO add your handling code here:
-        if (evt.getClickCount() == 2) {
-            this.edit();
-        }
-    }//GEN-LAST:event_tblCategoriesMouseClicked
-
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-    this.open();
-        // TODO add your handling code here:
-    }//GEN-LAST:event_formWindowOpened
-
-    private void btncheckAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncheckAllActionPerformed
-  this.checkAll();    }//GEN-LAST:event_btncheckAllActionPerformed
-
-    private void btnuncheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnuncheckActionPerformed
-               this.uncheckAll();
- // TODO add your handling code here:
-    }//GEN-LAST:event_btnuncheckActionPerformed
-
-    private void btnDeleteCheckeditemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteCheckeditemsActionPerformed
-
-        this.deleteCheckedItems();
-       
-    }//GEN-LAST:event_btnDeleteCheckeditemsActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
 
@@ -331,15 +285,26 @@ public class ProductCategoriesManager extends javax.swing.JFrame implements Prod
         // TODO add your handling code here:
     }//GEN-LAST:event_btnUpdateActionPerformed
 
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
+        this.clear();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnClearActionPerformed
+
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
         this.delete();
         // TODO add your handling code hddđ
     }//GEN-LAST:event_btnDeleteActionPerformed
 
-    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
-        this.clear();
+    private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
+
+        this.create();
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnClearActionPerformed
+    }//GEN-LAST:event_btnCreateActionPerformed
+
+    private void btnMoveFirstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveFirstActionPerformed
+        this.moveFirst();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnMoveFirstActionPerformed
 
     private void btnMovePreviousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMovePreviousActionPerformed
         this.movePrevious();
@@ -350,6 +315,33 @@ public class ProductCategoriesManager extends javax.swing.JFrame implements Prod
         this.moveNext();
         // TODO add your handling code here:
     }//GEN-LAST:event_btnMoveNextActionPerformed
+
+    private void btnMoveLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveLastActionPerformed
+        this.moveLast();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnMoveLastActionPerformed
+
+    private void tblCategoriesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCategoriesMouseClicked
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 2) {
+            this.edit();
+        }
+    }//GEN-LAST:event_tblCategoriesMouseClicked
+
+    private void btncheckAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncheckAllActionPerformed
+
+    }//GEN-LAST:event_btncheckAllActionPerformed
+
+    private void btnuncheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnuncheckActionPerformed
+        this.uncheckAll();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnuncheckActionPerformed
+
+    private void btnDeleteCheckeditemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteCheckeditemsActionPerformed
+
+        this.deleteCheckedItems();
+
+    }//GEN-LAST:event_btnDeleteCheckeditemsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -377,14 +369,18 @@ public class ProductCategoriesManager extends javax.swing.JFrame implements Prod
             java.util.logging.Logger.getLogger(ProductCategoriesManager.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
 
-        /* Create and display the form */
+        /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ProductCategoriesManager().setVisible(true);
+                ProductCategoriesManager dialog = new ProductCategoriesManager(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
             }
         });
     }
@@ -412,19 +408,20 @@ public class ProductCategoriesManager extends javax.swing.JFrame implements Prod
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtName;
     // End of variables declaration//GEN-END:variables
- CategoryDAO dao = new CategoryDAOImpl();
+
+    CategoryDAO dao = new CategoryDAOImpl();
     List<Category> items = List.of();
     @Override
     public void open() {
-        this.setLocationRelativeTo(null);
+       this.setLocationRelativeTo(null);
         this.fillToTable();
-        this.clear();    
+        this.clear();
     }
 
     @Override
     public void setForm(Category entity) {
         txtId.setText(entity.getCategoryId());
-        txtName.setText(entity.getCategoryName());    
+        txtName.setText(entity.getCategoryName());  
     }
 
     @Override
@@ -432,7 +429,7 @@ public class ProductCategoriesManager extends javax.swing.JFrame implements Prod
         Category entity = new Category();
         entity.setCategoryId(txtId.getText());
         entity.setCategoryName(txtName.getText());
-        return entity;    
+        return entity;   
     }
 
     @Override
@@ -447,7 +444,7 @@ public class ProductCategoriesManager extends javax.swing.JFrame implements Prod
         false
         };
         model.addRow(rowData);
-        });    
+        });  
     }
 
     @Override
@@ -455,7 +452,7 @@ public class ProductCategoriesManager extends javax.swing.JFrame implements Prod
         Category entity = items.get(tblCategories.getSelectedRow());
         this.setForm(entity);
         this.setEditable(true);
-        tabs.setSelectedIndex(1);    
+        tabs.setSelectedIndex(1);
     }
 
     @Override
@@ -463,19 +460,19 @@ public class ProductCategoriesManager extends javax.swing.JFrame implements Prod
         Category entity = this.getForm();
         dao.create(entity);
         this.fillToTable();
-        this.clear();    
+        this.clear(); 
     }
 
     @Override
     public void update() {
         Category entity = this.getForm();
         dao.update(entity);
-        this.fillToTable();    
+        this.fillToTable();
     }
 
     @Override
     public void delete() {
-        if (XDialog.confirm("Bạn thực sự muốn xóa?")) {
+         if (XDialog.confirm("Bạn thực sự muốn xóa?")) {
             String id = txtId.getText();
             dao.deleteById(id);
             this.fillToTable();
@@ -485,13 +482,13 @@ public class ProductCategoriesManager extends javax.swing.JFrame implements Prod
 
     @Override
     public void clear() {
-        this.setForm(new Category());
-        this.setEditable(false);    
+         this.setForm(new Category());
+        this.setEditable(false);   
     }
 
     @Override
     public void setEditable(boolean editable) {
-        txtId.setEnabled(!editable);
+       txtId.setEnabled(!editable);
         btnCreate.setEnabled(!editable);
         btnUpdate.setEnabled(editable);
         btnDelete.setEnabled(editable);
@@ -504,18 +501,19 @@ public class ProductCategoriesManager extends javax.swing.JFrame implements Prod
 
     @Override
     public void checkAll() {
-        this.setCheckedAll(true);    
+        this.setCheckedAll(true);  
     }
 
     @Override
     public void uncheckAll() {
-        this.setCheckedAll(false);    
+       this.setCheckedAll(false); 
     }
     private void setCheckedAll(boolean checked) {
         for (int i = 0; i < tblCategories.getRowCount(); i++) {
         tblCategories.setValueAt(checked, i, 2);
         }
     }
+
     @Override
     public void deleteCheckedItems() {
         if (XDialog.confirm("Bạn thực sự muốn xóa các mục chọn?")) {
@@ -525,40 +523,39 @@ public class ProductCategoriesManager extends javax.swing.JFrame implements Prod
                 }
             }
             this.fillToTable();
-        }    
+        }  
     }
 
     @Override
     public void moveFirst() {
-        this.moveTo(0);    
+        this.moveTo(0);   
     }
 
     @Override
     public void movePrevious() {
-        this.moveTo(tblCategories.getSelectedRow() - 1);
+       this.moveTo(tblCategories.getSelectedRow() - 1);
     }
 
     @Override
     public void moveNext() {
-        this.moveTo(tblCategories.getSelectedRow() + 1);
+      this.moveTo(tblCategories.getSelectedRow() + 1);
     }
 
     @Override
     public void moveLast() {
-        this.moveTo(tblCategories.getRowCount() - 1);
+       this.moveTo(tblCategories.getRowCount() - 1);
     }
 
     @Override
-    public void moveTo(int index) {
-        if (index < 0) {
+    public void moveTo(int rowIndex) {
+        if (rowIndex < 0) {
             this.moveLast();
-        } else if (index >= tblCategories.getRowCount()) {
+        } else if (rowIndex >= tblCategories.getRowCount()) {
             this.moveFirst();
         } else {
             tblCategories.clearSelection();
-            tblCategories.setRowSelectionInterval(index, index);
+            tblCategories.setRowSelectionInterval(rowIndex, rowIndex);
             this.edit();
-        }    
+        } 
     }
 }
-
