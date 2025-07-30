@@ -230,34 +230,31 @@ this.open();        // TODO add your handling code here:
         tblCategory.setRowSelectionInterval(0, 0);
     }
 
-    @Override
+   @Override
 public void fillProducts() {
-    // ✅ Lấy category đang chọn
     int selectedRow = tblCategory.getSelectedRow();
-    if (selectedRow < 0) return; // không chọn category nào thì dừng
+    if (selectedRow < 0) return;
 
     Category category = categories.get(selectedRow);
-
-    // ✅ Lấy CategoryId dạng String, KHÔNG parseInt
     String categoryId = category.getCategoryId();
 
-    // ✅ Lấy danh sách sản phẩm theo categoryId (String)
-    List<Products> products = ProductsDao.findByCategoryId(categoryId);
+    // Gán vào biến this.Products để dùng ở nơi khác
+    this.Products = ProductsDao.findByCategoryId(categoryId);
 
-    // ✅ Đổ dữ liệu vào JTable
     DefaultTableModel model = (DefaultTableModel) tblProduct.getModel();
     model.setRowCount(0);
 
-    for (Products p : products) {
+    for (Products p : this.Products) {
         Object[] row = {
-            p.getProductId(),                       // int ProductId
-            p.getProductName(),                     // String ProductName
-            String.format("%.1f VND", p.getPrice()), // Giá tiền format
-            String.format("%.0f%%", p.getDiscount() * 100) // nếu DB lưu 0.1 → 10%
+            p.getProductId(),
+            p.getProductName(),
+            String.format("%.1f VND", p.getPrice()),
+            String.format("%.0f%%", p.getDiscount() * 100)
         };
         model.addRow(row);
     }
 }
+
 
 
 

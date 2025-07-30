@@ -19,24 +19,24 @@ String deleteSql =
     "DELETE FROM OrderDetails WHERE OrderDetailId=?";
 
 String findAllSql = 
-    "SELECT od.*, p.Name AS productName " +
+    "SELECT od.*, p.ProductName AS productName " +
     "FROM OrderDetails od " +
     "JOIN Products p ON p.ProductId = od.ProductId";
 
 String findByIdSql = 
-    "SELECT od.*, p.Name AS productName " +
+    "SELECT od.*, p.ProductName AS productName " +
     "FROM OrderDetails od " +
     "JOIN Products p ON p.ProductId = od.ProductId " +
     "WHERE od.OrderDetailId=?";
 
 String findByOrderIdSql = 
-    "SELECT od.*, p.Name AS productName " +
+    "SELECT od.*, p.ProductName AS productName " +
     "FROM OrderDetails od " +
     "JOIN Products p ON p.ProductId = od.ProductId " +
     "WHERE od.OrderId=?";
 
 String findByProductIdSql = 
-    "SELECT od.*, p.Name AS productName " +
+    "SELECT od.*,p.ProductName AS productName " +
     "FROM OrderDetails od " +
     "JOIN Products p ON p.ProductId = od.ProductId " +
     "WHERE od.ProductId=?";
@@ -48,9 +48,10 @@ String findByProductIdSql =
     }
 
     @Override
-    public List<OrderDetail> findByProductId(String drinkId) {
-        return XQuery.getBeanList(OrderDetail.class, findByOrderIdSql, drinkId);
-    }
+public List<OrderDetail> findByProductId(String productId) {
+    return XQuery.getBeanList(OrderDetail.class, findByProductIdSql, productId);
+}
+
 
 
 
@@ -67,10 +68,17 @@ String findByProductIdSql =
         XJdbc.executeUpdate(updateSql, values);
     }
 
-    @Override
-    public void deleteById(Long id) {
-        XJdbc.executeUpdate(deleteSql, id);
-    }
+   @Override
+public void deleteById(Long id) {
+    // Xóa các chi tiết hóa đơn trước
+    String deleteOrderDetailsSql = "DELETE FROM OrderDetails WHERE OrderId = ?";
+    XJdbc.executeUpdate(deleteOrderDetailsSql, id);
+
+    // Sau đó xóa hóa đơn chính
+    XJdbc.executeUpdate(deleteSql, id);
+}
+
+
 
     @Override
     public List<OrderDetail> findAll() {

@@ -54,26 +54,26 @@ String findByTimeRangeSql =
         return XQuery.getBeanList(Order.class, findByTimeRangeSql, begin, end);
     }
 
-    @Override
+   @Override
 public Order findServicingByCardId(Integer cardId) {
-    String sql = "SELECT * FROM Orders WHERE CardId=? AND Status=1";
+    String sql = "SELECT * FROM Orders WHERE CardId=? AND Status=0"; // ✅ đúng rồi
     Order bill = XQuery.getSingleBean(Order.class, sql, cardId);
 
-    if (bill == null) { // không tìm thấy -> tạo mới
+    if (bill == null) {
         Order newBill = new Order();
         newBill.setCardId(cardId);
         newBill.setCheckin(new Date());
         newBill.setStatus(0); // đang phục vụ
         newBill.setUsername(XAuth.user.getUsername());
 
-        // Chỉ insert
         this.create(newBill);
 
-        // Sau khi insert, gọi lại để lấy bản ghi mới
         bill = XQuery.getSingleBean(Order.class, sql, cardId);
     }
+
     return bill;
 }
+
 
 
     @Override

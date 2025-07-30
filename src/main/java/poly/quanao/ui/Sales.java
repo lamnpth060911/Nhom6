@@ -11,6 +11,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.util.List;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import poly.quanao.dao.CardDAO;
 import poly.quanao.dao.OrderDAO;
 import poly.quanao.dao.impl.CardDAOImpl;
@@ -129,13 +130,23 @@ public class Sales extends javax.swing.JDialog implements SalesController {
     }
 
     @Override
-    public void showOrderJDialog(int cardId) {
-       OrderDAO dao = new OrderDAOImpl();
-        Order order = dao.findServicingByCardId(cardId); // tải bill đang phục vụ của thẻ
-        OrderJDialog dialog = new OrderJDialog((Frame) this.getOwner(), true);
-        dialog.setOrder(order);// Cần khai báo vào BillJDialog @Setter Bill bill
+public void showOrderJDialog(int cardId) {
+    OrderDAO dao = new OrderDAOImpl();
+    Order order = dao.findServicingByCardId(cardId); // tải bill đang phục vụ của thẻ
+
+    OrderJDialog dialog = new OrderJDialog((Frame) this.getOwner(), true);
+
+    if (order != null) {
+        dialog.setOrder(order);
         dialog.setVisible(true);
+    } else {
+        JOptionPane.showMessageDialog(this, 
+            "Không tìm thấy hóa đơn đang phục vụ cho thẻ #" + cardId, 
+            "Thông báo", 
+            JOptionPane.WARNING_MESSAGE);
     }
+}
+
     private void loadCards() {// tải và hiển thị các thẻ lên cửa sổ bán hàng
         CardDAO dao1 = new CardDAOImpl();
         List<Card> cards = dao1.findAll();

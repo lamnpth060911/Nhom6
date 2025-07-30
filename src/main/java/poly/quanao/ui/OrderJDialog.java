@@ -348,102 +348,134 @@ public final class OrderJDialog extends javax.swing.JDialog implements OrderCont
     OrderDetailDAO orderDetailDao = new OrderDetailDAOImpl();
     OrderDAO orderDao= new OrderDAOImpl();
     List<OrderDetail> orderDetails = List.of();
+
+
+
+// Mở form
+@Override
+public void open() {
+    this.setLocationRelativeTo(null);
+    this.setForm(order);        // Hiển thị dữ liệu hóa đơn lên form
+    this.fillOrderDetails();  
+    // Hiển thị chi tiết đơn hàng
+}
+
+// Đóng form: nếu đơn hàng rỗng thì xóa
+@Override
+public void close() {
+    if (order != null && orderDetails.isEmpty()) {
+        orderDao.deleteById(order.getOrderId());
+    }
+}
+
+// Mở form chọn sản phẩm để thêm vào hóa đơn
+@Override
+public void showProductsJDialog() {
+    ProductsJDialog dialog = new ProductsJDialog((Frame) this.getOwner(), true);
+    dialog.setOrder(order); // Gán hóa đơn cho form chọn sản phẩm
+    dialog.setVisible(true);
     
-
-    @Override
-    public void open() {
-       this.setLocationRelativeTo(null);
-        this.setOrder(order);
-        this.fillOrderDetails();
-    }
-
-    @Override
-    public void close() {
-        if(orderDetails.isEmpty()){
-            orderDao.deleteById(order.getOrderId());
-        }
-    }
-
-    @Override
-    public void showProductsJDialog() {
-        ProductsJDialog dialog = new ProductsJDialog((Frame) this.getOwner(), true);
-        dialog.setOrder(order); // Khai báo vào DrinkJDialog @Setter Bill bill
-        dialog.setVisible(true);
-        dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
         @Override
         public void windowClosed(java.awt.event.WindowEvent e) {
-            OrderJDialog.this.fillOrderDetails();
+            OrderJDialog.this.fillOrderDetails(); // Reload lại chi tiết hóa đơn
         }
-        });
-    }
+    });
+}
 
-    @Override
-    public void removeProduct() {
-        for (int i = 0; i < tblOrderDetails.getRowCount(); i++) {
-             Boolean checked = (Boolean) tblOrderDetails.getValueAt(i, 0);
-            if(checked)
-                orderDetailDao.deleteById(orderDetails.get(i).getOrderdetailid());
-            }
-        this.fillOrderDetails();
+// Xóa sản phẩm được chọn trong bảng
+@Override
+public void removeProduct() {
+    for (int i = 0; i < tblOrderDetails.getRowCount(); i++) {
+        Boolean checked = (Boolean) tblOrderDetails.getValueAt(i, 0);
+        if (checked) {
+            orderDetailDao.deleteById(orderDetails.get(i).getOrderdetailid());
+        }
     }
+    this.fillOrderDetails();
+}
 
-    @Override
-    public void updateQuantity() {
-        if (order.getStatus() == 0) { // chưa thanh toán hoặc chưa bị canceled
-            String input = XDialog.prompt("Số lượng mới?");
-            if (input != null && input.length() > 0) {
+// Cập nhật số lượng sản phẩm
+@Override
+public void updateQuantity() {
+    if (order.getStatus() == 0) { // Nếu chưa thanh toán
+        String input = XDialog.prompt("Số lượng mới?");
+        if (input != null && !input.isBlank()) {
             OrderDetail detail = orderDetails.get(tblOrderDetails.getSelectedRow());
             detail.setQuantity(Integer.parseInt(input));
             orderDetailDao.update(detail);
             this.fillOrderDetails();
-            }
         }
     }
+}
 
-    @Override
-    public void cancel() {
-        if (orderDetails.isEmpty()) {
-            orderDao.deleteById(order.getOrderId());
-            this.dispose();
-        } else if (XDialog.confirm("Bạn muốn hủy phiếu bán hàng?")) {
-            order.setStatus(Order.Status.Canceled.ordinal());
-            orderDao.update(order);
-            this.setOrder(order);
-        }
+// Hủy đơn hàng
+@Override
+public void cancel() {
+    if (orderDetails.isEmpty()) {
+        orderDao.deleteById(order.getOrderId());
+        this.dispose();
+    } else if (XDialog.confirm("Bạn muốn hủy phiếu bán hàng?")) {
+        order.setStatus(Order.Status.Canceled.ordinal());
+        orderDao.update(order);
     }
+}
 
-    @Override
-    public void fillOrderDetails() {
-        DefaultTableModel model = (DefaultTableModel) tblOrderDetails.getModel();
-        model.setRowCount(0);
-        orderDetails = List.of();
-        if (!txtId.getText().isBlank()) {
+// Hiển thị các chi tiết đơn hàng vào bảng
+@Override
+public void fillOrderDetails() {
+    DefaultTableModel model = (DefaultTableModel) tblOrderDetails.getModel();
+    model.setRowCount(0);
+    orderDetails = List.of();
+    
+    if (!txtId.getText().isBlank()) {
         Long orderId = Long.valueOf(txtId.getText());
         orderDetails = orderDetailDao.findByOrderId(orderId);
-        } 
-        orderDetails.forEach(d -> {
-        var amount = d.getUnitPrice() * d.getQuantity() * (1 - d.getDiscount());
+    }
+
+    for (OrderDetail d : orderDetails) {
+        double amount = d.getUnitPrice() * d.getQuantity() * (1 - d.getDiscount());
         Object[] rowData = {
             false,
             d.getOrderId(),
             d.getProductName(),
             String.format("%.1f VNĐ", d.getUnitPrice()),
             String.format("%.0f%%", d.getDiscount() * 100),
-            d.getQuantity(), String.format("%.1f VNĐ", amount),
+            d.getQuantity(),
+            String.format("%.1f VNĐ", amount),
         };
-
         model.addRow(rowData);
-        });
+    }
+}
+
+// Thanh toán đơn hàng
+@Override
+public void checkout() {
+    if (XDialog.confirm("Bạn muốn thanh toán phiếu bán hàng?")) {
+        order.setStatus(Order.Status.Completed.ordinal());
+        order.setCheckout(new Date());
+        orderDao.update(order);
+    }
+}
+
+// Hiển thị thông tin đơn hàng lên form
+private void setForm(Order order) {
+   txtId.setText(String.valueOf(order.getOrderId()));
+    txtCardId.setText("Card #" + order.getCardId());
+    txtCheckin.setText(XDate.format(order.getCheckin(), "HH:mm:ss dd-MM-yyyy"));
+    txtUsername.setText(order.getUsername());
+
+    String[] statuses = {"Servicing", "Completed", "Canceled"};
+    txtStatus.setText(statuses[order.getStatus()]);
+
+    if (order.getCheckout() != null) {
+        txtCheckout.setText(XDate.format(order.getCheckout(), "HH:mm:ss dd-MM-yyyy"));
     }
 
-    @Override
-    public void checkout() {
-       if (XDialog.confirm("Bạn muốn thanh toán phiếu bán hàng?")) {
-            order.setStatus(Order.Status.Completed.ordinal());
-            order.setCheckout(new Date());
-            orderDao.update(order);
-            this.setOrder(order);
-        }
-    }
-
+    boolean editable = (order.getStatus() == 0);
+    btnAdd.setEnabled(editable);
+    btnCancel.setEnabled(editable);
+    btnCheckout.setEnabled(editable);
+    btnRemove.setEnabled(editable);
+}
 }
