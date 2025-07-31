@@ -14,7 +14,7 @@ public class Products {
     private String productName;
     private double price;
     private double discount;
-    private boolean inStock;
+    private int quantity;
     private String color;
     private String imagePath;
     private String categoryId; 

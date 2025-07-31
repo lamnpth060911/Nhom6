@@ -19,27 +19,35 @@ String deleteSql =
     "DELETE FROM OrderDetails WHERE OrderDetailId=?";
 
 String findAllSql = 
-    "SELECT od.*, p.ProductName AS productName " +
+    "SELECT od.OrderDetailId, od.OrderId, od.ProductId, od.UnitPrice, od.Discount, od.Quantity, " +
+    "p.ProductName AS productName " +
     "FROM OrderDetails od " +
     "JOIN Products p ON p.ProductId = od.ProductId";
 
+
 String findByIdSql = 
-    "SELECT od.*, p.ProductName AS productName " +
+    "SELECT od.OrderDetailId, od.OrderId, od.ProductId, od.UnitPrice, od.Discount, od.Quantity, " +
+    "p.ProductName AS productName " +
     "FROM OrderDetails od " +
     "JOIN Products p ON p.ProductId = od.ProductId " +
     "WHERE od.OrderDetailId=?";
 
+
 String findByOrderIdSql = 
-    "SELECT od.*, p.ProductName AS productName " +
+    "SELECT od.OrderDetailId, od.OrderId, od.ProductId, od.UnitPrice, od.Discount, od.Quantity, " +
+    "p.ProductName AS productName " +
     "FROM OrderDetails od " +
     "JOIN Products p ON p.ProductId = od.ProductId " +
     "WHERE od.OrderId=?";
 
+
 String findByProductIdSql = 
-    "SELECT od.*,p.ProductName AS productName " +
+    "SELECT od.OrderDetailId, od.OrderId, od.ProductId, od.UnitPrice, od.Discount, od.Quantity, " +
+    "p.ProductName AS productName " +
     "FROM OrderDetails od " +
     "JOIN Products p ON p.ProductId = od.ProductId " +
     "WHERE od.ProductId=?";
+
 
 
     @Override
@@ -48,9 +56,9 @@ String findByProductIdSql =
     }
 
     @Override
-public List<OrderDetail> findByProductId(String productId) {
+    public List<OrderDetail> findByProductId(String productId) {
     return XQuery.getBeanList(OrderDetail.class, findByProductIdSql, productId);
-}
+    }
 
 
 
@@ -63,13 +71,13 @@ public List<OrderDetail> findByProductId(String productId) {
             entity.getUnitPrice(),
             entity.getDiscount(),
             entity.getQuantity(),
-            entity.getOrderdetailid()
+            entity.getOrderDetailId()
         };
         XJdbc.executeUpdate(updateSql, values);
     }
 
    @Override
-public void deleteById(Long id) {
+    public void deleteById(Long id) {
     // Xóa các chi tiết hóa đơn trước
     String deleteOrderDetailsSql = "DELETE FROM OrderDetails WHERE OrderId = ?";
     XJdbc.executeUpdate(deleteOrderDetailsSql, id);

@@ -389,7 +389,7 @@ public void removeProduct() {
     for (int i = 0; i < tblOrderDetails.getRowCount(); i++) {
         Boolean checked = (Boolean) tblOrderDetails.getValueAt(i, 0);
         if (checked) {
-            orderDetailDao.deleteById(orderDetails.get(i).getOrderdetailid());
+            orderDetailDao.deleteById(orderDetails.get(i).getOrderDetailId());
         }
     }
     this.fillOrderDetails();
