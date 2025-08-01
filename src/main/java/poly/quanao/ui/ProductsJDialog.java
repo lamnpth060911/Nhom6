@@ -89,13 +89,13 @@ public final class ProductsJDialog extends javax.swing.JDialog implements Produc
 
         tblProduct.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Mã", "Tên quần áo", "Đơn giá", "Giảm giá"
+                "Mã", "Tên quần áo", "Đơn giá", "Giảm giá", "Số lượng"
             }
         ));
         tblProduct.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -215,22 +215,22 @@ this.open();        // TODO add your handling code here:
     ProductsDAO ProductsDao = new ProductsDAOImpl();
     List<Products> Products = List.of();
     @Override
-    public void open() {
-        this.setLocationRelativeTo(null);
-        this.fillCategories();
-        this.fillProducts();
-    }
+public void open() {
+    this.setLocationRelativeTo(null);
+    this.fillCategories();
+    this.fillProducts();
+}
 
     @Override
-    public void fillCategories() {
-        categories = categoryDao.findAll();
-        DefaultTableModel model = (DefaultTableModel) tblCategory.getModel();
-        model.setRowCount(0);
-        categories.forEach(d -> model.addRow(new Object[] {d.getCategoryName()}));
-        tblCategory.setRowSelectionInterval(0, 0);
-    }
+public void fillCategories() {
+    categories = categoryDao.findAll();
+    DefaultTableModel model = (DefaultTableModel) tblCategory.getModel();
+    model.setRowCount(0);
+    categories.forEach(d -> model.addRow(new Object[]{d.getCategoryName()}));
+    tblCategory.setRowSelectionInterval(0, 0);
+}
 
-   @Override
+@Override
 public void fillProducts() {
     int selectedRow = tblCategory.getSelectedRow();
     if (selectedRow < 0) return;
@@ -238,22 +238,31 @@ public void fillProducts() {
     Category category = categories.get(selectedRow);
     String categoryId = category.getCategoryId();
 
-    // Gán vào biến this.Products để dùng ở nơi khác
     this.Products = ProductsDao.findByCategoryId(categoryId);
 
-    DefaultTableModel model = (DefaultTableModel) tblProduct.getModel();
-    model.setRowCount(0);
+    // Tạo bảng với 5 cột: Mã, Tên, Giá, Giảm giá, Số lượng tồn
+    String[] columns = {"Mã", "Tên quần áo", "Đơn giá", "Giảm giá", "Số lượng"};
+    DefaultTableModel model = new DefaultTableModel(columns, 0) {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return column == 5; // chỉ cho sửa nếu bạn muốn thêm số lượng đặt
+        }
+    };
 
     for (Products p : this.Products) {
         Object[] row = {
             p.getProductId(),
             p.getProductName(),
-            String.format("%.1f VND", p.getPrice()),
-            String.format("%.0f%%", p.getDiscount() * 100)
+            String.format("%.1f", p.getPrice()),
+            String.format("%.0f%%", p.getDiscount() * 100),
+            p.getQuantity()  // ✅ lấy đúng số lượng tồn kho từ DB
         };
         model.addRow(row);
     }
+
+    tblProduct.setModel(model);
 }
+
 
 
 
@@ -261,33 +270,48 @@ public void fillProducts() {
 
    @Override
 public void addProductToOrder() {
-    String quantity = XDialog.prompt("Số lượng?");
-    if (quantity != null && !quantity.isEmpty()) {
+    int selectedRow = tblProduct.getSelectedRow();
+    if (selectedRow < 0) {
+        XDialog.alert("Vui lòng chọn sản phẩm!");
+        return;
+    }
 
-        // Lấy sản phẩm đang chọn từ danh sách (giả sử bạn có list products)
-        int selectedRow = tblProduct.getSelectedRow();
-        if (selectedRow < 0) {
-            XDialog.alert("Vui lòng chọn sản phẩm!");
+    Products product = Products.get(selectedRow); // lấy từ list
+    int maxQuantity = product.getQuantity();      // số lượng tồn kho
+
+    String quantityStr = XDialog.prompt("Nhập số lượng (Tối đa: " + maxQuantity + "):");
+    if (quantityStr == null || quantityStr.trim().isEmpty()) return;
+
+    try {
+        int quantity = Integer.parseInt(quantityStr.trim());
+
+        if (quantity <= 0 || quantity > maxQuantity) {
+            XDialog.alert("Số lượng phải từ 1 đến " + maxQuantity);
             return;
         }
-        Products product = Products.get(selectedRow);  // lấy sản phẩm từ list
 
         // Tạo chi tiết đơn hàng
         OrderDetail detail = new OrderDetail();
-        detail.setOrderId((long) order.getOrderId());    // ✅ ép sang Long vì OrderDetail.orderId là Long
+        detail.setOrderId((long) order.getOrderId());
         detail.setProductId(product.getProductId());
         detail.setUnitPrice(product.getPrice());
         detail.setDiscount(product.getDiscount());
-        detail.setQuantity(Integer.parseInt(quantity));
-        detail.setProductName(product.getProductName()); // nếu muốn lưu tên sản phẩm
+        detail.setQuantity(quantity);  // ✅ đúng số lượng người dùng nhập
+        detail.setProductName(product.getProductName());
 
         // Lưu vào DB
         new OrderDetailDAOImpl().create(detail);
+
+        // Giảm tồn kho
+        product.setQuantity(maxQuantity - quantity);
+        new ProductsDAOImpl().update(product); // cập nhật tồn kho
+
+        // Refresh lại bảng sản phẩm
+        fillProducts();
+
+    } catch (NumberFormatException e) {
+        XDialog.alert("Số lượng phải là số nguyên!");
     }
 }
-
-
-
-
 
 }

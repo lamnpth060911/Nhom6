@@ -1,8 +1,11 @@
 package poly.quanao.dao.impl;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import poly.quanao.dao.OrderDetailDAO;
 import poly.quanao.entity.OrderDetail;
+import poly.quanao.util.XDialog;
 import poly.quanao.util.XJdbc;
 import poly.quanao.util.XQuery;
 
@@ -99,14 +102,38 @@ String findByProductIdSql =
     }
 
     @Override
-    public void create(OrderDetail entity) {
-        Object[] values = {
-            entity.getOrderId(),
-            entity.getProductId(),
-            entity.getUnitPrice(),
-            entity.getDiscount(),
-            entity.getQuantity()
-        };
-        XJdbc.executeUpdate(createSql, values);}
+public void create(OrderDetail entity) {
+    // Lấy số lượng hiện tại
+    String checkQuantitySql = "SELECT Quantity FROM Products WHERE ProductId = ?";
+    ResultSet rs = XJdbc.executeQuery(checkQuantitySql, entity.getProductId());
+    try {
+        if (rs.next()) {
+            int available = rs.getInt("Quantity");
+            if (available < entity.getQuantity()) {
+                XDialog.alert(null, "Không đủ hàng tồn kho! Hiện còn " + available + " sản phẩm.");
+                return;
+            }
+        }
+        rs.getStatement().getConnection().close();
+    } catch (SQLException ex) {
+        throw new RuntimeException(ex);
+    }
 
+    // Tạo chi tiết đơn hàng
+    Object[] values = {
+        entity.getOrderId(),
+        entity.getProductId(),
+        entity.getUnitPrice(),
+        entity.getDiscount(),
+        entity.getQuantity()
+    };
+    XJdbc.executeUpdate(createSql, values);
+
+    // Trừ số lượng tồn kho
+    String sqlUpdateQuantity = "UPDATE Products SET Quantity = Quantity - ? WHERE ProductId = ?";
+    XJdbc.executeUpdate(sqlUpdateQuantity, entity.getQuantity(), entity.getProductId());
+}
+
+
+    
 }
