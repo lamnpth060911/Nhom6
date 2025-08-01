@@ -22,14 +22,14 @@ public class ProductsDAOImpl implements ProductsDAO {
 
     @Override
     public void create(Products entity) {
-        XJdbc.executeUpdate(createSql,
-                entity.getProductName(),
-                entity.getPrice(),
-                entity.getDiscount(),
-                entity.getQuantity(), // ✅ mới thêm
-                entity.getCategoryId(),
-                entity.getColor(),
-                entity.getImagePath()
+         XJdbc.executeUpdate(createSql,
+        entity.getProductName(),
+        entity.getPrice(),
+        entity.getDiscount(),
+        entity.getQuantity(),
+        entity.getCategoryId(),
+        entity.getColor(),           // 🟩 phải có dòng này
+        entity.getImagePath()
         );
     }
 

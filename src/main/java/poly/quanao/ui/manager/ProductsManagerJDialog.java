@@ -65,7 +65,7 @@ public final class ProductsManagerJDialog extends javax.swing.JDialog implements
         jLabel7 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
         txtName = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        txtColor = new javax.swing.JTextField();
         cboCategories = new javax.swing.JComboBox<>();
         Sldiscount = new javax.swing.JSlider();
         jSeparator2 = new javax.swing.JSeparator();
@@ -215,9 +215,9 @@ public final class ProductsManagerJDialog extends javax.swing.JDialog implements
 
         jLabel7.setText("Loại");
 
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        txtColor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                txtColorActionPerformed(evt);
             }
         });
 
@@ -322,7 +322,7 @@ public final class ProductsManagerJDialog extends javax.swing.JDialog implements
                 .addGap(218, 218, 218)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtColor, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
@@ -388,7 +388,7 @@ public final class ProductsManagerJDialog extends javax.swing.JDialog implements
                 .addGap(19, 19, 19)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtColor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -440,9 +440,9 @@ public final class ProductsManagerJDialog extends javax.swing.JDialog implements
        lblDiscountValue.setText(Sldiscount.getValue() + "%");
     }//GEN-LAST:event_SldiscountStateChanged
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void txtColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtColorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_txtColorActionPerformed
 
     private void btncheckAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncheckAllActionPerformed
         this.checkAll();
@@ -579,12 +579,12 @@ this.uncheckAll();    }//GEN-LAST:event_btnUncheckAllActionPerformed
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextField jTextField3;
     private javax.swing.JLabel lblDiscountValue;
     private javax.swing.JLabel lblImage;
     private javax.swing.JTabbedPane tabs;
     private javax.swing.JTable tblCategories;
     private javax.swing.JTable tblProducts;
+    private javax.swing.JTextField txtColor;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPrice;
@@ -629,16 +629,21 @@ this.uncheckAll();    }//GEN-LAST:event_btnUncheckAllActionPerformed
     }
 
     @Override
-    public void setForm(Products entity) {
+public void setForm(Products entity) {
     txtId.setText(Integer.toString(entity.getProductId()));
     txtName.setText(entity.getProductName());    
     txtPrice.setText(String.valueOf(entity.getPrice()));
     
-    // Thay vì inStock, ta set số lượng
-    txtSoLuong.setText(String.valueOf(entity.getQuantity()));  // 👉 phải có txtSoLuong
-
-    Sldiscount.setValue((int) entity.getDiscount());
+    // Số lượng
+    txtSoLuong.setText(String.valueOf(entity.getQuantity()));  // 👈 Phải có
     
+    // Màu sắc
+    txtColor.setText(entity.getColor());                       // ✅ Thêm dòng này
+
+    // Discount
+    Sldiscount.setValue((int) entity.getDiscount());
+
+    // Danh mục
     String catId = entity.getCategoryId();
     for (Category c : items2) {
         if (c.getCategoryId().equals(catId)) {
@@ -647,6 +652,7 @@ this.uncheckAll();    }//GEN-LAST:event_btnUncheckAllActionPerformed
         }   
     }
 }
+
 
 
 
@@ -667,10 +673,13 @@ public Products getForm() {
     }
 
     if (!txtSoLuong.getText().trim().isEmpty()) {
-        p.setQuantity(Integer.parseInt(txtSoLuong.getText().trim()));  // ✅ đã thêm
+        p.setQuantity(Integer.parseInt(txtSoLuong.getText().trim()));
     } else {
         p.setQuantity(0);
     }
+
+    // 👇 Thêm dòng này để lưu màu
+    p.setColor(txtColor.getText().trim());
 
     p.setDiscount(Sldiscount.getValue() / 100.0);
 
@@ -681,7 +690,6 @@ public Products getForm() {
 
     return p;
 }
-
 
 
 
@@ -720,6 +728,7 @@ public void fillToTable() {
 
 
 
+
     @Override
     public void edit() {
         Products entity = items.get(tblProducts.getSelectedRow());
@@ -745,17 +754,46 @@ public void create() {
 
     @Override
     public void delete() {
-    if (XDialog.confirm("Bạn thực sự muốn xóa?")) {
+    DefaultTableModel model = (DefaultTableModel) tblProducts.getModel();
+
+    if (model.getRowCount() == 0) {
+        XDialog.alert("Không có sản phẩm nào để xóa!");
+        return;
+    }
+
+    boolean hasSelection = false;
+    for (int i = 0; i < model.getRowCount(); i++) {
+        Boolean checked = (Boolean) model.getValueAt(i, 7); // Cột checkbox
+        if (Boolean.TRUE.equals(checked)) {
+            hasSelection = true;
+            break;
+        }
+    }
+
+    if (!hasSelection) {
+        XDialog.alert("Bạn chưa chọn sản phẩm nào để xóa!");
+        return;
+    }
+
+    if (XDialog.confirm("Bạn có chắc chắn muốn xóa các sản phẩm đã chọn?")) {
         try {
-            int id = Integer.parseInt(txtId.getText());  // ✅ ép sang int
-            dao.deleteById(id);                         // ✅ truyền int
-            this.fillToTable();
+            for (int i = model.getRowCount() - 1; i >= 0; i--) {
+                Boolean checked = (Boolean) model.getValueAt(i, 7);
+                if (Boolean.TRUE.equals(checked)) {
+                    int productId = Integer.parseInt(model.getValueAt(i, 0).toString());
+                    dao.deleteById(productId); // gọi DAO xóa theo ID
+                    model.removeRow(i);        // xóa khỏi bảng
+                }
+            }
+
             this.clear();
-        } catch (NumberFormatException e) {
-            XDialog.alert("ID không hợp lệ!");
+            XDialog.alert("Đã xóa thành công các sản phẩm được chọn!");
+        } catch (Exception e) {
+            XDialog.alert("Lỗi khi xóa sản phẩm: " + e.getMessage());
         }
     }
 }
+
 
 
     @Override
@@ -788,14 +826,14 @@ public void create() {
     }
     private void setCheckedAll(boolean checked) {
         for (int i = 0; i < tblProducts.getRowCount(); i++) {
-        tblProducts.setValueAt(checked, i, 2);
+        tblProducts.setValueAt(checked, i, 7);
         }
     }
     @Override
     public void deleteCheckedItems() {
          if (XDialog.confirm("Bạn thực sự muốn xóa các mục chọn?")) {
             for (int i = 0; i < tblProducts.getRowCount(); i++) {
-                if ((Boolean) tblProducts.getValueAt(i, 2)) {
+                if ((Boolean) tblProducts.getValueAt(i, 7)) {
                     dao.deleteById(items.get(i).getProductId());
                 }
             }

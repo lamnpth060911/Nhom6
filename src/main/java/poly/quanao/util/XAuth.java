@@ -17,6 +17,6 @@ public class XAuth {
     .enabled(true)
     .manager(true)
     .Fullname("NguyenPhuclam hehehe")
-    .photo("mlemlem")
+    .photo("aaa.png")
     .build(); // biến user này sẽ được thay thế sau khi đăng nhập
 }
