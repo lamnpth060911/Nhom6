@@ -47,10 +47,15 @@ ClothingShopController {
         btnHistory = new javax.swing.JButton();
         btnChangePassword1 = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
-        lblPhoto = new javax.swing.JLabel();
+        alo = new javax.swing.JLabel();
         lblFullname = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 102, 0));
@@ -212,7 +217,7 @@ ClothingShopController {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        lblPhoto.setIcon(new javax.swing.ImageIcon("C:\\Users\\Admin\\Documents\\NetBeansProjects\\Nhom6\\src\\main\\resources\\icons\\aaa.png")); // NOI18N
+        alo.setIcon(new javax.swing.ImageIcon("C:\\Users\\Admin\\Documents\\NetBeansProjects\\Nhom6\\src\\main\\resources\\icons\\aaa.png")); // NOI18N
 
         lblFullname.setText("Ten nguoi dung");
 
@@ -222,13 +227,10 @@ ClothingShopController {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblPhoto))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addComponent(lblFullname, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(alo)
+                    .addComponent(lblFullname, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -238,7 +240,7 @@ ClothingShopController {
                 .addGap(18, 18, 18)
                 .addComponent(lblFullname)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblPhoto)
+                .addComponent(alo)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -285,6 +287,10 @@ ClothingShopController {
         this.showRevenueManagerJDialog(this);
     }//GEN-LAST:event_btnRevenueManagerActionPerformed
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        // TODO add your handling code here:
+    }//GEN-LAST:event_formWindowOpened
+
     /**
      * @param args the command line arguments
      */
@@ -319,6 +325,7 @@ ClothingShopController {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel alo;
     private javax.swing.JButton btnCardManager;
     private javax.swing.JButton btnChangePassword1;
     private javax.swing.JButton btnExit;
@@ -332,18 +339,17 @@ ClothingShopController {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblFullname;
-    private javax.swing.JLabel lblPhoto;
     private javax.swing.JPanel pnlCenter;
     private javax.swing.JPanel pnlManager;
     // End of variables declaration//GEN-END:variables
  @Override
     public void init() {
-        this.setIconImage(XIcon.getIcon("/icons/aaa.png").getImage());
+        this.setIconImage(XIcon.getIcon("/icons").getImage());
         this.setLocationRelativeTo(null);
         
         this.showWelcomeJDialog(this);
         this.showLoginJDialog(this);
-        XIcon.setIcon(lblPhoto, "photos/" + XAuth.user.getPhoto());
+        XIcon.setIcon(alo, "photos/" + XAuth.user.getPhoto());
         lblFullname.setText(XAuth.user.getFullname());
         if(!XAuth.user.isManager()){
             pnlCenter.remove(pnlManager);

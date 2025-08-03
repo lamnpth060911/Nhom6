@@ -12,25 +12,11 @@ import javax.swing.JLabel;
 public class XIcon {
 
     public static ImageIcon getIcon(String path) {
-        // Trường hợp là tên file ngắn, ví dụ "logo.png"
-        if (!path.contains("/") && !path.contains("\\")) {
+        if(!path.contains("/") && !path.contains("\\")){ // resource name
             return XIcon.getIcon("/poly/quanao/icons/" + path);
         }
-
-        // Trường hợp là đường dẫn resource bắt đầu bằng "/"
-        if (path.startsWith("/")) {
-            URL url = XIcon.class.getResource(path);
-            if (url == null) {
-                System.err.println("⚠ Không tìm thấy ảnh: " + path);
-                return new ImageIcon(); // hoặc trả về icon mặc định
-            }
-            return new ImageIcon(url);
-        }
-
-        // Trường hợp là đường dẫn tuyệt đối (File system)
-        File file = new File(path);
-        if (!file.exists()) {
-            System.err.println("⚠ File ảnh không tồn tại: " + file.getAbsolutePath());
+        if(path.startsWith("/")){ // resource path
+            return new ImageIcon(XIcon.class.getResource(path));
         }
         return new ImageIcon(path);
     }
