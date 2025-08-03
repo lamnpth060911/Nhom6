@@ -47,6 +47,7 @@ ClothingShopController {
         btnHistory = new javax.swing.JButton();
         btnChangePassword1 = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
+        lblPhoto = new javax.swing.JLabel();
         alo = new javax.swing.JLabel();
         lblFullname = new javax.swing.JLabel();
 
@@ -164,6 +165,8 @@ ClothingShopController {
             }
         });
 
+        lblPhoto.setIcon(new javax.swing.ImageIcon("C:\\Users\\Admin\\Documents\\NetBeansProjects\\Nhom6\\photos\\lv.png")); // NOI18N
+
         javax.swing.GroupLayout pnlCenterLayout = new javax.swing.GroupLayout(pnlCenter);
         pnlCenter.setLayout(pnlCenterLayout);
         pnlCenterLayout.setHorizontalGroup(
@@ -177,6 +180,10 @@ ClothingShopController {
                     .addComponent(btnSales, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
                     .addComponent(btnChangePassword1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(pnlCenterLayout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addComponent(lblPhoto)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlCenterLayout.setVerticalGroup(
             pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,7 +198,9 @@ ClothingShopController {
                 .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnlManager, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -339,17 +348,18 @@ ClothingShopController {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblFullname;
+    private javax.swing.JLabel lblPhoto;
     private javax.swing.JPanel pnlCenter;
     private javax.swing.JPanel pnlManager;
     // End of variables declaration//GEN-END:variables
  @Override
     public void init() {
-        this.setIconImage(XIcon.getIcon("/icons").getImage());
+        this.setIconImage(XIcon.getIcon("/icons/lv.png").getImage());
         this.setLocationRelativeTo(null);
         
         this.showWelcomeJDialog(this);
         this.showLoginJDialog(this);
-        XIcon.setIcon(alo, "photos/" + XAuth.user.getPhoto());
+        XIcon.setIcon(lblPhoto, "photos/" + XAuth.user.getPhoto());
         lblFullname.setText(XAuth.user.getFullname());
         if(!XAuth.user.isManager()){
             pnlCenter.remove(pnlManager);
