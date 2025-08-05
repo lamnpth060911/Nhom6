@@ -46,6 +46,7 @@ public class ChangePasswordJDialog extends javax.swing.JDialog implements Change
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Đổi mật khẩu");
 
         btnClose.setText("Đóng");
         btnClose.addActionListener(new java.awt.event.ActionListener() {

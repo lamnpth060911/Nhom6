@@ -59,6 +59,7 @@ public class CardManager extends javax.swing.JDialog implements CardController {
         btnMoveNext = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("CardManager");
 
         tblCards.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -279,7 +280,7 @@ public class CardManager extends javax.swing.JDialog implements CardController {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabs, javax.swing.GroupLayout.DEFAULT_SIZE, 721, Short.MAX_VALUE)
+                .addComponent(tabs)
                 .addContainerGap())
         );
         layout.setVerticalGroup(

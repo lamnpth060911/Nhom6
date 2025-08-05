@@ -43,7 +43,7 @@ ClothingShopController {
         btnUserManager = new javax.swing.JButton();
         btnProductCategoriesManager = new javax.swing.JButton();
         btnRevenueManager = new javax.swing.JButton();
-        btnSales = new javax.swing.JButton();
+        btnBanhang = new javax.swing.JButton();
         btnHistory = new javax.swing.JButton();
         btnChangePassword1 = new javax.swing.JButton();
         btnExit = new javax.swing.JButton();
@@ -137,10 +137,10 @@ ClothingShopController {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        btnSales.setText("Bán hàng");
-        btnSales.addActionListener(new java.awt.event.ActionListener() {
+        btnBanhang.setText("Bán hàng");
+        btnBanhang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalesActionPerformed(evt);
+                btnBanhangActionPerformed(evt);
             }
         });
 
@@ -177,7 +177,7 @@ ClothingShopController {
                 .addGroup(pnlCenterLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnExit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnHistory, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
-                    .addComponent(btnSales, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
+                    .addComponent(btnBanhang, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
                     .addComponent(btnChangePassword1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(pnlCenterLayout.createSequentialGroup()
@@ -191,7 +191,7 @@ ClothingShopController {
                 .addGap(0, 6, Short.MAX_VALUE)
                 .addComponent(btnChangePassword1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSales, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnBanhang, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -264,9 +264,9 @@ ClothingShopController {
         this.showHistoryJDialog(this);
     }//GEN-LAST:event_btnHistoryActionPerformed
 
-    private void btnSalesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalesActionPerformed
+    private void btnBanhangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBanhangActionPerformed
         this.showSalesJDialog(this);
-    }//GEN-LAST:event_btnSalesActionPerformed
+    }//GEN-LAST:event_btnBanhangActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
         exit();
@@ -335,6 +335,7 @@ ClothingShopController {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel alo;
+    private javax.swing.JButton btnBanhang;
     private javax.swing.JButton btnCardManager;
     private javax.swing.JButton btnChangePassword1;
     private javax.swing.JButton btnExit;
@@ -343,7 +344,6 @@ ClothingShopController {
     private javax.swing.JButton btnProductCategoriesManager;
     private javax.swing.JButton btnProductsManager;
     private javax.swing.JButton btnRevenueManager;
-    private javax.swing.JButton btnSales;
     private javax.swing.JButton btnUserManager;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;

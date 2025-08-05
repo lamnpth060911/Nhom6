@@ -57,6 +57,7 @@ public class ProductCategoriesManager extends javax.swing.JDialog implements Pro
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Categories");
 
         tblCategories.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -265,14 +266,14 @@ public class ProductCategoriesManager extends javax.swing.JDialog implements Pro
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabs, javax.swing.GroupLayout.DEFAULT_SIZE, 817, Short.MAX_VALUE)
+                .addComponent(tabs)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(tabs, javax.swing.GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)
+                .addComponent(tabs)
                 .addContainerGap())
         );
 
