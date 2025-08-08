@@ -20,4 +20,8 @@ import lombok.NoArgsConstructor;
 public class Category {
    private String CategoryId;
   private  String CategoryName;
+  @Override
+    public String toString() {
+        return this.CategoryName;
+    }
 }
