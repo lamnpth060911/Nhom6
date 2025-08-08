@@ -456,8 +456,8 @@ public void fillOrderDetails() {
             String.format("%.1f VNĐ", d.getUnitPrice()),
             String.format("%.0f%%", d.getDiscount() * 100),
             d.getQuantity(),
+            String.format("%.1f VNĐ", amount),
             d.getColor(), // <<== THÊM DÒNG NÀY
-            String.format("%.1f VNĐ", amount)
         };
         model.addRow(rowData);
     }

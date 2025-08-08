@@ -617,11 +617,13 @@ public final class OrderManagerJDialog extends javax.swing.JDialog implements Or
      d.getProductName(),
      String.format("%.1f VNĐ", d.getUnitPrice()),
      String.format("%.0f%%", d.getDiscount() * 100),
-     d.getQuantity(), String.format("%.1f VNĐ", amount)
+     d.getQuantity(), String.format("%.1f VNĐ", amount),
+     d.getColor()
      };
 
      model.addRow(rowData);
-     });}
+     });
+    }
 
     @Override
     public void selectTimeRange() {
