@@ -39,7 +39,6 @@ ClothingShopController {
         pnlManager = new javax.swing.JPanel();
         btnProductsManager = new javax.swing.JButton();
         btnOrderManager = new javax.swing.JButton();
-        btnCardManager = new javax.swing.JButton();
         btnUserManager = new javax.swing.JButton();
         btnProductCategoriesManager = new javax.swing.JButton();
         btnRevenueManager = new javax.swing.JButton();
@@ -76,13 +75,6 @@ ClothingShopController {
             }
         });
 
-        btnCardManager.setText("Thẻ định danh");
-        btnCardManager.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCardManagerActionPerformed(evt);
-            }
-        });
-
         btnUserManager.setText("Người sử dụng");
         btnUserManager.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,7 +105,6 @@ ClothingShopController {
                 .addGroup(pnlManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnProductsManager, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnOrderManager, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCardManager, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
                     .addComponent(btnUserManager, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)
                     .addComponent(btnProductCategoriesManager, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnRevenueManager, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE))
@@ -127,12 +118,10 @@ ClothingShopController {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnOrderManager, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCardManager, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnUserManager, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnProductCategoriesManager, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRevenueManager, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -198,7 +187,7 @@ ClothingShopController {
                 .addComponent(btnExit, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnlManager, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(69, 69, 69)
                 .addComponent(lblPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -265,7 +254,7 @@ ClothingShopController {
     }//GEN-LAST:event_btnHistoryActionPerformed
 
     private void btnBanhangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBanhangActionPerformed
-        this.showSalesJDialog(this);
+        this.showOrderJDialog(this);
     }//GEN-LAST:event_btnBanhangActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
@@ -279,10 +268,6 @@ ClothingShopController {
     private void btnOrderManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrderManagerActionPerformed
         this.showOrderManagerJDialog(this);
     }//GEN-LAST:event_btnOrderManagerActionPerformed
-
-    private void btnCardManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCardManagerActionPerformed
-         this.showCardManagerJDialog(this);
-    }//GEN-LAST:event_btnCardManagerActionPerformed
 
     private void btnUserManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserManagerActionPerformed
         this.showUserManagerJDialog(this);
@@ -336,7 +321,6 @@ ClothingShopController {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel alo;
     private javax.swing.JButton btnBanhang;
-    private javax.swing.JButton btnCardManager;
     private javax.swing.JButton btnChangePassword1;
     private javax.swing.JButton btnExit;
     private javax.swing.JButton btnHistory;
@@ -376,8 +360,8 @@ ClothingShopController {
     }
     
     @Override
-    public void showSalesJDialog(JFrame frame) {
-        ClothingShopController.super.showSalesJDialog(frame); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    public void showOrderJDialog(JFrame frame) {
+        ClothingShopController.super.showOrderJDialog(frame); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
     
     @Override
@@ -393,11 +377,6 @@ ClothingShopController {
      @Override
     public void showOrderManagerJDialog(JFrame frame) {
         ClothingShopController.super.showOrderManagerJDialog(frame); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
-    }
-    
-    @Override
-    public void showCardManagerJDialog(JFrame frame) {
-        ClothingShopController.super.showCardManagerJDialog(frame); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
     
     @Override

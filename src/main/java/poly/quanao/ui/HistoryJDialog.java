@@ -242,26 +242,28 @@ public final class HistoryJDialog extends javax.swing.JDialog implements History
         this.selectTimeRange();
     }
 
-    @Override
+   @Override
 public void fillBills() {
     String username = XAuth.user.getUsername();
-        Date begin = XDate.parse(txtBegin.getText(), "MM/dd/yyyy");
-        Date end = XDate.parse(txtEnd.getText(), "MM/dd/yyyy");
-        orders = orderDao.findByUserAndTimeRange(username, begin, end);
-        DefaultTableModel model = (DefaultTableModel) tblBills.getModel();
-        model.setRowCount(0);
-        String[] statuses = {"Servicing", "Completed", "Canceled"};
-        orders.forEach(b -> {
-        Object[] row = { 
-        b.getOrderId(), 
-        "Card #" + b.getCardId(),
-        XDate.format(b.getCheckin(), "HH:mm:ss dd-MM-yyyy"),
-        XDate.format(b.getCheckout(), "HH:mm:ss dd-MM-yyyy"),
-        statuses[b.getStatus()]
+    Date begin = XDate.parse(txtBegin.getText(), "MM/dd/yyyy");
+    Date end = XDate.parse(txtEnd.getText(), "MM/dd/yyyy");
+    orders = orderDao.findByUserAndTimeRange(username, begin, end);
+
+    DefaultTableModel model = (DefaultTableModel) tblBills.getModel();
+    model.setRowCount(0);
+    String[] statuses = {"Servicing", "Completed", "Canceled"};
+
+    orders.forEach(b -> {
+        Object[] row = {
+            b.getOrderId(),
+            XDate.format(b.getCheckin(), "HH:mm:ss dd-MM-yyyy"),
+            XDate.format(b.getCheckout(), "HH:mm:ss dd-MM-yyyy"),
+            statuses[b.getStatus()]
         };
         model.addRow(row);
-        });
+    });
 }
+
 
 
     @Override

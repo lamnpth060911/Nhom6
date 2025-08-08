@@ -13,31 +13,25 @@ import poly.quanao.util.XQuery;
 public class OrderDAOImpl implements OrderDAO {
 
     String createSql = 
-    "INSERT INTO Orders (Username, CardId, Checkin, Checkout, Status) VALUES (?, ?, ?, ?, ?)";
+        "INSERT INTO Orders (Username, Checkin, Checkout, Status) VALUES (?, ?, ?, ?)";
 
-String updateSql = 
-    "UPDATE Orders SET Username=?, CardId=?, Checkin=?, Checkout=?, Status=? WHERE OrderId=?";
+    String updateSql = 
+        "UPDATE Orders SET Username=?, Checkin=?, Checkout=?, Status=? WHERE OrderId=?";
 
-String deleteSql = 
-    "DELETE FROM Orders WHERE OrderId=?";
+    String deleteSql = 
+        "DELETE FROM Orders WHERE OrderId=?";
 
-String findAllSql = 
-    "SELECT * FROM Orders";
+    String findAllSql = 
+        "SELECT * FROM Orders";
 
-String findByIdSql = 
-    "SELECT * FROM Orders WHERE OrderId=?";
+    String findByIdSql = 
+        "SELECT * FROM Orders WHERE OrderId=?";
 
-String findByUsernameSql = 
-    "SELECT * FROM Orders WHERE Username=?";
+    String findByUsernameSql = 
+        "SELECT * FROM Orders WHERE Username=?";
 
-String findByCardIdSql = 
-    "SELECT * FROM Orders WHERE CardId=?";
-
-String findByTimeRangeSql = 
-    "SELECT * FROM Orders WHERE Checkin BETWEEN ? AND ? ORDER BY Checkin DESC";
-
-
-    // ✅ Map ResultSet -> Order
+    String findByTimeRangeSql = 
+        "SELECT * FROM Orders WHERE Checkin BETWEEN ? AND ? ORDER BY Checkin DESC";
 
     @Override
     public List<Order> findByUsername(String username) {
@@ -45,51 +39,23 @@ String findByTimeRangeSql =
     }
 
     @Override
-    public List<Order> findByCardId(Integer cardId) {
-       return XQuery.getBeanList(Order.class, findByCardIdSql, cardId);
-    }
-
-    @Override
     public List<Order> findByTimeRange(Date begin, Date end) {
         return XQuery.getBeanList(Order.class, findByTimeRangeSql, begin, end);
     }
 
-   @Override
-public Order findServicingByCardId(Integer cardId) {
-    String sql = "SELECT * FROM Orders WHERE CardId=? AND Status=0"; // ✅ đúng rồi
-    Order bill = XQuery.getSingleBean(Order.class, sql, cardId);
-
-    if (bill == null) {
-        Order newBill = new Order();
-        newBill.setCardId(cardId);
-        newBill.setCheckin(new Date());
-        newBill.setStatus(0); // đang phục vụ
-        newBill.setUsername(XAuth.user.getUsername());
-
-        this.create(newBill);
-
-        bill = XQuery.getSingleBean(Order.class, sql, cardId);
-    }
-
-    return bill;
-}
-
-
-
     @Override
     public List<Order> findByUserAndTimeRange(String username, Date begin, Date end) {
-        String sql = "SELECT * FROM Orders " + " WHERE Username=? AND Checkin BETWEEN ? AND ?";
+        String sql = "SELECT * FROM Orders WHERE Username=? AND Checkin BETWEEN ? AND ?";
         return XQuery.getBeanList(Order.class, sql, username, begin, end);
     }
 
     @Override
     public void create(Order entity) {
         Object[] values = {
-        entity.getUsername(),        
-        entity.getCardId(),
-        entity.getCheckin(),
-        entity.getCheckout(),
-        entity.getStatus()
+            entity.getUsername(),
+            entity.getCheckin(),
+            entity.getCheckout(),
+            entity.getStatus()
         };
         XJdbc.executeUpdate(createSql, values);
     }
@@ -97,12 +63,11 @@ public Order findServicingByCardId(Integer cardId) {
     @Override
     public void update(Order entity) {
         Object[] values = {
-        entity.getUsername(),
-        entity.getCardId(),
-        entity.getCheckin(),
-        entity.getCheckout(),
-        entity.getStatus(),
-        entity.getOrderId()
+            entity.getUsername(),
+            entity.getCheckin(),
+            entity.getCheckout(),
+            entity.getStatus(),
+            entity.getOrderId()
         };
         XJdbc.executeUpdate(updateSql, values);
     }
@@ -114,11 +79,28 @@ public Order findServicingByCardId(Integer cardId) {
 
     @Override
     public Order findById(Long id) {
-         return XQuery.getSingleBean(Order.class, findByIdSql, id);  
+        return XQuery.getSingleBean(Order.class, findByIdSql, id);  
     }
 
     @Override
     public List<Order> findAll() {
-         return XQuery.getBeanList(Order.class, findAllSql);
+        return XQuery.getBeanList(Order.class, findAllSql);
     }
+
+    @Override
+public Long createAndReturnId(Order entity) {
+    String sql = "INSERT INTO Orders (Username, Checkin, Checkout, Status) OUTPUT INSERTED.OrderId VALUES (?, ?, ?, ?)";
+    Object[] values = {
+        entity.getUsername(),
+        entity.getCheckin(),
+        entity.getCheckout(),
+        entity.getStatus()
+    };
+    
+    Object result = XJdbc.getValue(sql, values);
+    return result == null ? null : ((Number) result).longValue();
+}
+
+
+    
 }

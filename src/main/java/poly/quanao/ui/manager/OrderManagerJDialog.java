@@ -647,93 +647,86 @@ public final class OrderManagerJDialog extends javax.swing.JDialog implements Or
     }
 
     @Override
-    public void setForm(Order entity) {
-        txtId.setText(entity.getOrderId() != null ? entity.getOrderId().toString() : "");
+public void setForm(Order entity) {
+    txtId.setText(entity.getOrderId() != null ? entity.getOrderId().toString() : "");
     txtUsername.setText(entity.getUsername() != null ? entity.getUsername() : "");    
-    txtCardid.setText(entity.getCardId() != null ? entity.getCardId().toString() : "");
     txtCheckin.setText(entity.getCheckin() != null ? XDate.format(entity.getCheckin(), XDate.PATTERN_FULL) : "");
     txtCheckout.setText(entity.getCheckout() != null ? XDate.format(entity.getCheckout(), XDate.PATTERN_FULL) : "");
     
     switch (entity.getStatus()) {
-        case 0:
-            rdStatus1.setSelected(true);
-            break;
-        case 1:
-            rdStatus2.setSelected(true);
-            break;
-        case 2:
-            rdStatus3.setSelected(true);
-            break;
-        default:
-            // Nếu status không hợp lệ thì có thể clear chọn
+        case 0 -> rdStatus1.setSelected(true);
+        case 1 -> rdStatus2.setSelected(true);
+        case 2 -> rdStatus3.setSelected(true);
+        default -> {
             rdStatus1.setSelected(false);
             rdStatus2.setSelected(false);
             rdStatus3.setSelected(false);
-            break;
+        }
     }
     this.fillOrderDetails();
-    }
+}
 
-    @Override
-    public Order getForm() {
-        Order entity = new Order();
+@Override
+public Order getForm() {
+    Order entity = new Order();
+
+    if (!txtId.getText().trim().isEmpty()) {
         entity.setOrderId(Long.valueOf(txtId.getText()));
-        entity.setCardId(Integer.valueOf(txtCardid.getText()));             
-        String checkinText = txtCheckin.getText();
-        String checkoutText = txtCheckout.getText();        
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        try {
-            Date checkinDate = formatter.parse(checkinText);
-            Date checkoutDate = formatter.parse(checkoutText);
-            entity.setCheckin(checkinDate);  // Lưu vào kiểu Date
-            entity.setCheckout(checkoutDate);
-        } catch (ParseException ex) {
-            Logger.getLogger(OrderManagerJDialog.class.getName()).log(Level.SEVERE, null, ex);
-        }  
-        entity.setUsername(txtUsername.getText());
-        if(rdStatus1.isSelected()){
-            entity.setStatus(0);
-        }else if(rdStatus2.isSelected()){
-            entity.setStatus(1);
-        }else if(rdStatus3.isSelected()){
-            entity.setStatus(2);
-        }
-        return entity; 
     }
 
-    @Override
-    public void fillToTable() {
-        DefaultTableModel model = (DefaultTableModel) tblBills.getModel();
+    String checkinText = txtCheckin.getText();
+    String checkoutText = txtCheckout.getText();        
+    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+    try {
+        Date checkinDate = formatter.parse(checkinText);
+        Date checkoutDate = formatter.parse(checkoutText);
+        entity.setCheckin(checkinDate);
+        entity.setCheckout(checkoutDate);
+    } catch (ParseException ex) {
+        Logger.getLogger(OrderManagerJDialog.class.getName()).log(Level.SEVERE, null, ex);
+    }  
+
+    entity.setUsername(txtUsername.getText());
+
+    if (rdStatus1.isSelected()) {
+        entity.setStatus(0);
+    } else if (rdStatus2.isSelected()) {
+        entity.setStatus(1);
+    } else if (rdStatus3.isSelected()) {
+        entity.setStatus(2);
+    }
+
+    return entity; 
+}
+
+@Override
+public void fillToTable() {
+    DefaultTableModel model = (DefaultTableModel) tblBills.getModel();
     model.setRowCount(0);
     Date begin = XDate.parse(txtBegin.getText(), "MM/dd/yyyy");
     Date end = XDate.parse(txtEnd.getText(), "MM/dd/yyyy");
     items = dao.findByTimeRange(begin, end);
-    items.forEach(item -> {   
-        String statusText;
-        switch (item.getStatus()) {
-            case 0:
-                statusText = "Servicing";
-                break;
-            case 1:
-                statusText = "Completed";
-                break;
-            case 2:
-                statusText = "Canceled";
-                break;
-            default:
-                statusText = "Unknown";
-        }
-            Object[]rowData={
+
+    for (Order item : items) {
+        String statusText = switch (item.getStatus()) {
+            case 0 -> "Servicing";
+            case 1 -> "Completed";
+            case 2 -> "Canceled";
+            default -> "Unknown";
+        };
+
+        Object[] rowData = {
             item.getOrderId(),
-            item.getCardId(),
             XDate.format(item.getCheckin(), XDate.PATTERN_SHORT),
             XDate.format(item.getCheckout(), XDate.PATTERN_SHORT), 
             statusText, 
             item.getUsername(),
             false
         };
-    model.addRow(rowData);});
+        model.addRow(rowData);
     }
+}
 
     @Override
     public void edit() {

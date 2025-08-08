@@ -48,9 +48,8 @@ public final class ProductsJDialog extends javax.swing.JDialog implements Produc
         jScrollPane5 = new javax.swing.JScrollPane();
         tblCategory = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tblProduct = new javax.swing.JTable();
+        tblProduct = new javax.swing.JScrollPane();
+        tblProducts = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -87,25 +86,31 @@ public final class ProductsJDialog extends javax.swing.JDialog implements Produc
             }
         });
 
-        tblProduct.setModel(new javax.swing.table.DefaultTableModel(
+        tblProducts.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã", "Tên quần áo", "Đơn giá", "Giảm giá", "Số lượng"
+                "Mã quần áo", "Tên quần áo", "Giá", "Giảm giá", "Trạng thái", "Số lượng", "Màu", ""
             }
-        ));
-        tblProduct.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tblProductMouseClicked(evt);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(tblProduct);
-
-        jScrollPane4.setViewportView(jScrollPane3);
+        tblProducts.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblProductsMouseClicked(evt);
+            }
+        });
+        tblProduct.setViewportView(tblProducts);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -115,7 +120,7 @@ public final class ProductsJDialog extends javax.swing.JDialog implements Produc
                 .addGap(16, 16, 16)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 636, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tblProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 636, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -128,7 +133,7 @@ public final class ProductsJDialog extends javax.swing.JDialog implements Produc
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(tblProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
                 .addContainerGap(133, Short.MAX_VALUE))
@@ -145,13 +150,6 @@ public final class ProductsJDialog extends javax.swing.JDialog implements Produc
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void tblProductMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductMouseClicked
-  if(evt.getClickCount() == 1){
-            this.addProductToOrder();
-        }    
-        
-    }//GEN-LAST:event_tblProductMouseClicked
-
     private void formWindowIconified(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowIconified
         // TODO add your handlingcode here:
     }//GEN-LAST:event_formWindowIconified
@@ -159,6 +157,13 @@ public final class ProductsJDialog extends javax.swing.JDialog implements Produc
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
 this.open();        // TODO add your handling code here:
     }//GEN-LAST:event_formWindowOpened
+
+    private void tblProductsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductsMouseClicked
+         if (evt.getClickCount() == 2) {
+        addProductToOrder(); // gọi thêm sản phẩm nếu double click
+    }
+
+    }//GEN-LAST:event_tblProductsMouseClicked
 
     /**
      * @param args the command line arguments
@@ -203,11 +208,11 @@ this.open();        // TODO add your handling code here:
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTable tblCategory;
-    private javax.swing.JTable tblProduct;
+    private javax.swing.JScrollPane tblProduct;
+    private javax.swing.JTable tblProducts;
     // End of variables declaration//GEN-END:variables
     @Setter Order order;
     CategoryDAO categoryDao = new CategoryDAOImpl();
@@ -221,13 +226,15 @@ public void open() {
     this.fillProducts();
 }
 
-    @Override
+@Override
 public void fillCategories() {
     categories = categoryDao.findAll();
     DefaultTableModel model = (DefaultTableModel) tblCategory.getModel();
     model.setRowCount(0);
     categories.forEach(d -> model.addRow(new Object[]{d.getCategoryName()}));
-    tblCategory.setRowSelectionInterval(0, 0);
+    if (!categories.isEmpty()) {
+        tblCategory.setRowSelectionInterval(0, 0);
+    }
 }
 
 @Override
@@ -238,46 +245,44 @@ public void fillProducts() {
     Category category = categories.get(selectedRow);
     String categoryId = category.getCategoryId();
 
-    this.Products = ProductsDao.findByCategoryId(categoryId);
+    this.Products = ProductsDao.findByCategoryId(categoryId); // danh sách sản phẩm
 
-    // Tạo bảng với 5 cột: Mã, Tên, Giá, Giảm giá, Số lượng tồn
-    String[] columns = {"Mã", "Tên quần áo", "Đơn giá", "Giảm giá", "Số lượng"};
+    String[] columns = {"Mã quần áo", "Tên quần áo", "Giá", "Giảm giá", "Trạng thái", "Số lượng", "Màu"};
     DefaultTableModel model = new DefaultTableModel(columns, 0) {
         @Override
         public boolean isCellEditable(int row, int column) {
-            return column == 5; // chỉ cho sửa nếu bạn muốn thêm số lượng đặt
+            return false; // không cho chỉnh sửa trực tiếp trên bảng
         }
     };
 
     for (Products p : this.Products) {
+        String status = p.getQuantity() == 0 ? "Hết hàng" : "Còn hàng";
         Object[] row = {
             p.getProductId(),
             p.getProductName(),
             String.format("%.1f", p.getPrice()),
             String.format("%.0f%%", p.getDiscount() * 100),
-            p.getQuantity()  // ✅ lấy đúng số lượng tồn kho từ DB
+            status,
+            p.getQuantity(),
+            p.getColor()
         };
         model.addRow(row);
     }
 
-    tblProduct.setModel(model);
+    tblProducts.setModel(model);
 }
 
 
-
-
-
-
-   @Override
+@Override
 public void addProductToOrder() {
-    int selectedRow = tblProduct.getSelectedRow();
+    int selectedRow = tblProducts.getSelectedRow(); // Đúng tên bảng
     if (selectedRow < 0) {
         XDialog.alert("Vui lòng chọn sản phẩm!");
         return;
     }
 
-    Products product = Products.get(selectedRow); // lấy từ list
-    int maxQuantity = product.getQuantity();      // số lượng tồn kho
+    Products product = this.Products.get(selectedRow); // dùng danh sách đúng
+    int maxQuantity = product.getQuantity();
 
     String quantityStr = XDialog.prompt("Nhập số lượng (Tối đa: " + maxQuantity + "):");
     if (quantityStr == null || quantityStr.trim().isEmpty()) return;
@@ -290,28 +295,29 @@ public void addProductToOrder() {
             return;
         }
 
-        // Tạo chi tiết đơn hàng
+        if (order == null || order.getOrderId() == null) {
+            XDialog.alert("Vui lòng tạo đơn hàng trước khi thêm sản phẩm!");
+            return;
+        }
+
         OrderDetail detail = new OrderDetail();
-        detail.setOrderId((long) order.getOrderId());
+        detail.setOrderId(order.getOrderId());
         detail.setProductId(product.getProductId());
         detail.setUnitPrice(product.getPrice());
         detail.setDiscount(product.getDiscount());
-        detail.setQuantity(quantity);  // ✅ đúng số lượng người dùng nhập
+        detail.setQuantity(quantity);
         detail.setProductName(product.getProductName());
 
-        // Lưu vào DB
         new OrderDetailDAOImpl().create(detail);
 
         // Giảm tồn kho
         product.setQuantity(maxQuantity - quantity);
-        new ProductsDAOImpl().update(product); // cập nhật tồn kho
+        new ProductsDAOImpl().update(product);
 
-        // Refresh lại bảng sản phẩm
-        fillProducts();
+        fillProducts(); // cập nhật lại bảng sản phẩm
 
     } catch (NumberFormatException e) {
         XDialog.alert("Số lượng phải là số nguyên!");
     }
 }
-
 }

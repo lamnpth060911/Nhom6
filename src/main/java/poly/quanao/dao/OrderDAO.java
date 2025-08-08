@@ -14,8 +14,7 @@ import poly.quanao.entity.Order;
  */
 public interface OrderDAO extends CrudDAO<Order, Long> {
      List<Order> findByUsername(String username);
-    List<Order> findByCardId(Integer cardId);
     List<Order> findByTimeRange(Date begin, Date end);
-    public Order findServicingByCardId(Integer cardId);
     List<Order> findByUserAndTimeRange(String username, Date begin, Date end);
+    Long createAndReturnId(Order entity);
 }

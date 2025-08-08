@@ -128,7 +128,7 @@
                       <Component id="btnExit" min="-2" pref="43" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="pnlManager" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
                       <Component id="lblPhoto" min="-2" pref="88" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -146,7 +146,6 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="btnProductsManager" alignment="1" max="32767" attributes="0"/>
                               <Component id="btnOrderManager" alignment="0" max="32767" attributes="0"/>
-                              <Component id="btnCardManager" alignment="1" pref="184" max="32767" attributes="0"/>
                               <Component id="btnUserManager" alignment="0" pref="184" max="32767" attributes="0"/>
                               <Component id="btnProductCategoriesManager" alignment="0" max="32767" attributes="0"/>
                               <Component id="btnRevenueManager" alignment="1" pref="184" max="32767" attributes="0"/>
@@ -163,12 +162,10 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="btnOrderManager" min="-2" pref="39" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="btnCardManager" min="-2" pref="39" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="btnUserManager" min="-2" pref="41" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="btnProductCategoriesManager" min="-2" pref="39" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                           <Component id="btnRevenueManager" min="-2" pref="39" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
@@ -190,14 +187,6 @@
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnOrderManagerActionPerformed"/>
-                  </Events>
-                </Component>
-                <Component class="javax.swing.JButton" name="btnCardManager">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Th&#x1ebb; &#x111;&#x1ecb;nh danh"/>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCardManagerActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="btnUserManager">

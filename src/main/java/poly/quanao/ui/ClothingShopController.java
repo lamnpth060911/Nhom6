@@ -2,7 +2,6 @@ package poly.quanao.ui;
 
 import javax.swing.JDialog;
 import javax.swing.JFrame;
-import poly.quanao.ui.manager.CardManager;
 import poly.quanao.ui.manager.OrderManagerJDialog;
 import poly.quanao.ui.manager.ProductCategoriesManager;
 import poly.quanao.ui.manager.ProductsManagerJDialog;
@@ -43,8 +42,8 @@ public interface ClothingShopController {
        this.showJDialog(new ChangePasswordJDialog(frame, true));
     }
 
-    default void showSalesJDialog(JFrame frame) {
-         this.showJDialog(new Sales(frame, true));
+    default void showOrderJDialog(JFrame frame) {
+         this.showJDialog(new OrderJDialog(frame, true));
     }
 
     default void showHistoryJDialog(JFrame frame) {
@@ -56,9 +55,6 @@ public interface ClothingShopController {
     }
     default void showProductCategoriesManager(JFrame frame){
        this.showJDialog(new ProductCategoriesManager(frame, true));
-    }
-    default void showCardManagerJDialog(JFrame frame){
-        this.showJDialog(new CardManager(frame, true));
     }
     default void showOrderManagerJDialog(JFrame frame){
         this.showJDialog(new OrderManagerJDialog(frame, true));

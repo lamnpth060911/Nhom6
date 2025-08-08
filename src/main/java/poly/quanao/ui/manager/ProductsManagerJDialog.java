@@ -596,68 +596,60 @@ this.uncheckAll();    }//GEN-LAST:event_btnUncheckAllActionPerformed
     List<Products> items = List.of();
     List<Category> items2 = List.of();
     @Override
-    public void fillCategories() {
-        DefaultComboBoxModel cboModel = (DefaultComboBoxModel) cboCategories.getModel();
-        cboModel.removeAllElements();
-        DefaultTableModel tblModel = (DefaultTableModel) tblCategories.getModel();
-        tblModel.setRowCount(0);
-        CategoryDAO cdao = new CategoryDAOImpl();
-        items2 = cdao.findAll();
-        items2.forEach(category -> {
+public void fillCategories() {
+    DefaultComboBoxModel cboModel = (DefaultComboBoxModel) cboCategories.getModel();
+    cboModel.removeAllElements();
+    DefaultTableModel tblModel = (DefaultTableModel) tblCategories.getModel();
+    tblModel.setRowCount(0);
+    CategoryDAO cdao = new CategoryDAOImpl();
+    items2 = cdao.findAll();
+    items2.forEach(category -> {
         cboModel.addElement(category);
         tblModel.addRow(new Object[]{category.getCategoryName()});
-        });
+    });
+    if (!items2.isEmpty()) {
         tblCategories.setRowSelectionInterval(0, 0);
     }
+}
 
-    @Override
-    public void chooseFile() {
-        JFileChooser fileChooser = new JFileChooser();
-        if(fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
+@Override
+public void chooseFile() {
+    JFileChooser fileChooser = new JFileChooser();
+    if(fileChooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION){
         File selectedFile = fileChooser.getSelectedFile();
         File file = XIcon.copyTo(selectedFile, "images");
         lblImage.setToolTipText(file.getName());
         XIcon.setIcon(lblImage, file);
-        }
     }
+}
 
-    @Override
-    public void open() {
-        this.setLocationRelativeTo(null);
-        this.fillCategories();
-        this.fillToTable();
-        this.clear();
-    }
+@Override
+public void open() {
+    this.setLocationRelativeTo(null);
+    this.fillCategories();
+    this.fillToTable();
+    this.clear();
+}
 
-    @Override
+@Override
 public void setForm(Products entity) {
     txtId.setText(Integer.toString(entity.getProductId()));
-    txtName.setText(entity.getProductName());    
+    txtName.setText(entity.getProductName());
     txtPrice.setText(String.valueOf(entity.getPrice()));
-    
-    // Số lượng
-    txtSoLuong.setText(String.valueOf(entity.getQuantity()));  // 👈 Phải có
-    
-    // Màu sắc
-    txtColor.setText(entity.getColor());                       // ✅ Thêm dòng này
-
-    // Discount
+    txtSoLuong.setText(String.valueOf(entity.getQuantity()));
+    txtColor.setText(entity.getColor());
     Sldiscount.setValue((int) entity.getDiscount());
 
-    // Danh mục
     String catId = entity.getCategoryId();
     for (Category c : items2) {
         if (c.getCategoryId().equals(catId)) {
             cboCategories.setSelectedItem(c);
             break;
-        }   
+        }
     }
 }
 
-
-
-
-    @Override
+@Override
 public Products getForm() {
     Products p = new Products();
 
@@ -666,22 +658,9 @@ public Products getForm() {
     }
 
     p.setProductName(txtName.getText().trim());
-
-    if (!txtPrice.getText().trim().isEmpty()) {
-        p.setPrice(Double.parseDouble(txtPrice.getText().trim()));
-    } else {
-        p.setPrice(0.0);
-    }
-
-    if (!txtSoLuong.getText().trim().isEmpty()) {
-        p.setQuantity(Integer.parseInt(txtSoLuong.getText().trim()));
-    } else {
-        p.setQuantity(0);
-    }
-
-    // 👇 Thêm dòng này để lưu màu
+    p.setPrice(txtPrice.getText().trim().isEmpty() ? 0.0 : Double.parseDouble(txtPrice.getText().trim()));
+    p.setQuantity(txtSoLuong.getText().trim().isEmpty() ? 0 : Integer.parseInt(txtSoLuong.getText().trim()));
     p.setColor(txtColor.getText().trim());
-
     p.setDiscount(Sldiscount.getValue() / 100.0);
 
     Category c = (Category) cboCategories.getSelectedItem();
@@ -691,8 +670,6 @@ public Products getForm() {
 
     return p;
 }
-
-
 
 @Override
 public void fillToTable() {
@@ -704,21 +681,20 @@ public void fillToTable() {
 
     Category category = items2.get(selectedRow);
     String categoryId = category.getCategoryId();
-
     items = dao.findByCategoryId(categoryId);
 
     items.forEach(item -> {
         String status = item.getQuantity() > 0 ? "Còn hàng" : "Hết hàng";
 
         Object[] rowData = {
-            item.getProductId(),                          // Mã quần áo
-            item.getProductName(),                        // Tên quần áo
-            String.format("%.0f VND", item.getPrice()),   // Giá
-            String.format("%.0f%%", item.getDiscount() * 100), // Giảm giá
-            status,                                       // Trạng thái
-            item.getQuantity(),                           // Số lượng
-            item.getColor(),                              // Màu
-            false                                          // Checkbox (nếu dùng để xóa)
+            item.getProductId(),
+            item.getProductName(),
+            String.format("%.0f VND", item.getPrice()),
+            String.format("%.0f%%", item.getDiscount() * 100),
+            status,
+            item.getQuantity(),
+            item.getColor(),
+            false
         };
         model.addRow(rowData);
     });
@@ -726,19 +702,15 @@ public void fillToTable() {
     this.clear();
 }
 
+@Override
+public void edit() {
+    Products entity = items.get(tblProducts.getSelectedRow());
+    this.setForm(entity);
+    this.setEditable(true);
+    tabs.setSelectedIndex(1);
+}
 
-
-
-
-    @Override
-    public void edit() {
-        Products entity = items.get(tblProducts.getSelectedRow());
-        this.setForm(entity);
-        this.setEditable(true);
-        tabs.setSelectedIndex(1);
-    }
-
-   @Override
+@Override
 public void create() {
     Products entity = this.getForm();
     dao.create(entity);
@@ -746,15 +718,15 @@ public void create() {
     this.clear();
 }
 
-    @Override
-    public void update() {
-        Products entity = this.getForm();
-        dao.update(entity);
-        this.fillToTable();
-    }
+@Override
+public void update() {
+    Products entity = this.getForm();
+    dao.update(entity);
+    this.fillToTable();
+}
 
-    @Override
-    public void delete() {
+@Override
+public void delete() {
     DefaultTableModel model = (DefaultTableModel) tblProducts.getModel();
 
     if (model.getRowCount() == 0) {
@@ -764,7 +736,7 @@ public void create() {
 
     boolean hasSelection = false;
     for (int i = 0; i < model.getRowCount(); i++) {
-        Boolean checked = (Boolean) model.getValueAt(i, 7); // Cột checkbox
+        Boolean checked = (Boolean) model.getValueAt(i, 7);
         if (Boolean.TRUE.equals(checked)) {
             hasSelection = true;
             break;
@@ -782,11 +754,10 @@ public void create() {
                 Boolean checked = (Boolean) model.getValueAt(i, 7);
                 if (Boolean.TRUE.equals(checked)) {
                     int productId = Integer.parseInt(model.getValueAt(i, 0).toString());
-                    dao.deleteById(productId); // gọi DAO xóa theo ID
-                    model.removeRow(i);        // xóa khỏi bảng
+                    dao.deleteById(productId);
+                    model.removeRow(i);
                 }
             }
-
             this.clear();
             XDialog.alert("Đã xóa thành công các sản phẩm được chọn!");
         } catch (Exception e) {
@@ -795,86 +766,85 @@ public void create() {
     }
 }
 
+@Override
+public void clear() {
+    this.setForm(new Products());
+    this.setEditable(false);
+}
 
+@Override
+public void setEditable(boolean editable) {
+    txtId.setEnabled(!editable);
+    btnCreate.setEnabled(!editable);
+    btnUpdate.setEnabled(editable);
+    btnDelete.setEnabled(editable);
+    int rowCount = tblProducts.getRowCount();
+    btnMoveFirst.setEnabled(editable && rowCount > 0);
+    btnMovePrevious.setEnabled(editable && rowCount > 0);
+    btnMoveNext.setEnabled(editable && rowCount > 0);
+    btnMoveLast.setEnabled(editable && rowCount > 0);
+}
 
-    @Override
-    public void clear() {
-        this.setForm(new Products());
-        this.setEditable(false);
-    }
+@Override
+public void checkAll() {
+    this.setCheckedAll(true);
+}
 
-    @Override
-    public void setEditable(boolean editable) {
-        txtId.setEnabled(!editable);
-        btnCreate.setEnabled(!editable);
-        btnUpdate.setEnabled(editable);
-        btnDelete.setEnabled(editable);
-        int rowCount = tblProducts.getRowCount();
-        btnMoveFirst.setEnabled(editable && rowCount > 0);
-        btnMovePrevious.setEnabled(editable && rowCount > 0);
-        btnMoveNext.setEnabled(editable && rowCount > 0);
-        btnMoveLast.setEnabled(editable && rowCount > 0);  
-    }
+@Override
+public void uncheckAll() {
+    this.setCheckedAll(false);
+}
 
-    @Override
-    public void checkAll() {
-        this.setCheckedAll(true);    
-    }
-
-    @Override
-    public void uncheckAll() {
-        this.setCheckedAll(false); 
-    }
-    private void setCheckedAll(boolean checked) {
-        for (int i = 0; i < tblProducts.getRowCount(); i++) {
+private void setCheckedAll(boolean checked) {
+    for (int i = 0; i < tblProducts.getRowCount(); i++) {
         tblProducts.setValueAt(checked, i, 7);
-        }
     }
-    @Override
-    public void deleteCheckedItems() {
-         if (XDialog.confirm("Bạn thực sự muốn xóa các mục chọn?")) {
-            for (int i = 0; i < tblProducts.getRowCount(); i++) {
-                if ((Boolean) tblProducts.getValueAt(i, 7)) {
-                    dao.deleteById(items.get(i).getProductId());
-                }
+}
+
+@Override
+public void deleteCheckedItems() {
+    if (XDialog.confirm("Bạn thực sự muốn xóa các mục chọn?")) {
+        for (int i = 0; i < tblProducts.getRowCount(); i++) {
+            if ((Boolean) tblProducts.getValueAt(i, 7)) {
+                dao.deleteById(items.get(i).getProductId());
             }
-            this.fillToTable();
-        }    
+        }
+        this.fillToTable();
     }
+}
 
-    @Override
-    public void moveFirst() {
-        this.moveTo(0); 
+@Override
+public void moveFirst() {
+    this.moveTo(0);
+}
+
+@Override
+public void movePrevious() {
+    this.moveTo(tblProducts.getSelectedRow() - 1);
+}
+
+@Override
+public void moveNext() {
+    this.moveTo(tblProducts.getSelectedRow() + 1);
+}
+
+@Override
+public void moveLast() {
+    this.moveTo(tblProducts.getRowCount() - 1);
+}
+
+@Override
+public void moveTo(int index) {
+    if (index < 0) {
+        this.moveLast();
+    } else if (index >= tblProducts.getRowCount()) {
+        this.moveFirst();
+    } else {
+        tblProducts.clearSelection();
+        tblProducts.setRowSelectionInterval(index, index);
+        this.edit();
     }
-
-    @Override
-    public void movePrevious() {
-        this.moveTo(tblProducts.getSelectedRow() - 1);
-    }
-
-    @Override
-    public void moveNext() {
-        this.moveTo(tblProducts.getSelectedRow() + 1);
-    }
-
-    @Override
-    public void moveLast() {
-        this.moveTo(tblProducts.getRowCount() - 1);
-    }
-
-    @Override
-    public void moveTo(int index) {
-        if (index < 0) {
-            this.moveLast();
-        } else if (index >= tblProducts.getRowCount()) {
-            this.moveFirst();
-        } else {
-            tblProducts.clearSelection();
-            tblProducts.setRowSelectionInterval(index, index);
-            this.edit();
-        }    
-    }
-
+}
 }
 
 

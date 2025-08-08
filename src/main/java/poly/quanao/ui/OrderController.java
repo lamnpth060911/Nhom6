@@ -20,4 +20,5 @@ public interface OrderController {
     void checkout(); // Thanh toán
     void cancel(); // Hủy bill
     void fillOrderDetails();
+    void createNewOrder(); 
 }

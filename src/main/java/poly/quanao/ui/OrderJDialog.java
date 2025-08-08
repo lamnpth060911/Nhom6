@@ -15,6 +15,7 @@ import poly.quanao.dao.impl.OrderDAOImpl;
 import poly.quanao.dao.impl.OrderDetailDAOImpl;
 import poly.quanao.entity.Order;
 import poly.quanao.entity.OrderDetail;
+import poly.quanao.util.XAuth;
 import poly.quanao.util.XDate;
 import poly.quanao.util.XDialog;
 
@@ -58,11 +59,10 @@ public final class OrderJDialog extends javax.swing.JDialog implements OrderCont
         txtCheckin = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         txtUsername = new javax.swing.JTextField();
-        txtCardId = new javax.swing.JTextField();
         txtStatus = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         txtCheckout = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
+        btnNew = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Order");
@@ -85,17 +85,17 @@ public final class OrderJDialog extends javax.swing.JDialog implements OrderCont
 
         tblOrderDetails.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "", "Mã phiếu", "Quần áo", "Đơn giá", "Giảm giá", "Số lượng ", "Thành tiền"
+                "", "Mã phiếu", "Quần áo", "Đơn giá", "Giảm giá", "Số lượng ", "Thành tiền", "Màu"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -144,15 +144,14 @@ public final class OrderJDialog extends javax.swing.JDialog implements OrderCont
             }
         });
 
-        txtCardId.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCardIdActionPerformed(evt);
-            }
-        });
-
         jLabel1.setText("Mã phiếu");
 
-        jLabel2.setText("Thẻ số");
+        btnNew.setText("Đơn hàng mới");
+        btnNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNewActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -165,17 +164,21 @@ public final class OrderJDialog extends javax.swing.JDialog implements OrderCont
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel1))
-                                .addGap(49, 49, 49)
+                                    .addComponent(jLabel1)
+                                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(51, 51, 51)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtCardId, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2)))
+                                    .addComponent(jLabel3)
+                                    .addComponent(txtCheckin, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel7)
+                                    .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addComponent(btnRemove)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnAdd)
-                                .addGap(54, 54, 54)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnNew)
+                                .addGap(29, 29, 29)
                                 .addComponent(btnCheckout, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -188,44 +191,32 @@ public final class OrderJDialog extends javax.swing.JDialog implements OrderCont
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel8)
                                     .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(49, 49, 49)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7)
-                                    .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(48, 48, 48)
+                                .addGap(297, 297, 297)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtCheckout, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel9)
-                                    .addComponent(txtCheckin, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3)))
+                                    .addComponent(jLabel9)))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 765, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 81, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jLabel1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtCheckin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCardId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel7)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel3)
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtCheckout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCheckin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCheckout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
@@ -236,7 +227,8 @@ public final class OrderJDialog extends javax.swing.JDialog implements OrderCont
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCheckout, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnNew, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -269,10 +261,6 @@ public final class OrderJDialog extends javax.swing.JDialog implements OrderCont
     this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void txtCardIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCardIdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCardIdActionPerformed
-
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
          this.open();
     }//GEN-LAST:event_formWindowOpened
@@ -280,6 +268,10 @@ public final class OrderJDialog extends javax.swing.JDialog implements OrderCont
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
         this.close();
     }//GEN-LAST:event_formWindowClosed
+
+    private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
+        createNewOrder();
+    }//GEN-LAST:event_btnNewActionPerformed
 
     /**
      * @param args the command line arguments
@@ -328,17 +320,16 @@ public final class OrderJDialog extends javax.swing.JDialog implements OrderCont
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnCheckout;
+    private javax.swing.JButton btnNew;
     private javax.swing.JButton btnRemove;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblOrderDetails;
-    private javax.swing.JTextField txtCardId;
     private javax.swing.JTextField txtCheckin;
     private javax.swing.JTextField txtCheckout;
     private javax.swing.JTextField txtId;
@@ -356,10 +347,13 @@ public final class OrderJDialog extends javax.swing.JDialog implements OrderCont
 @Override
 public void open() {
     this.setLocationRelativeTo(null);
-    this.setForm(order);        // Hiển thị dữ liệu hóa đơn lên form
-    this.fillOrderDetails();  
-    // Hiển thị chi tiết đơn hàng
+    if (this.order == null) {
+        this.order = new Order(); // Tạo đơn mới nếu chưa có
+    }
+    this.setForm(order);         // Hiển thị thông tin đơn
+    this.fillOrderDetails();     // Hiển thị chi tiết đơn hàng
 }
+
 
 // Đóng form: nếu đơn hàng rỗng thì xóa
 @Override
@@ -369,20 +363,22 @@ public void close() {
     }
 }
 
+
 // Mở form chọn sản phẩm để thêm vào hóa đơn
 @Override
 public void showProductsJDialog() {
     ProductsJDialog dialog = new ProductsJDialog((Frame) this.getOwner(), true);
-    dialog.setOrder(order); // Gán hóa đơn cho form chọn sản phẩm
+    dialog.setOrder(order); // Gán hóa đơn hiện tại
     dialog.setVisible(true);
-    
+
     dialog.addWindowListener(new java.awt.event.WindowAdapter() {
         @Override
         public void windowClosed(java.awt.event.WindowEvent e) {
-            OrderJDialog.this.fillOrderDetails(); // Reload lại chi tiết hóa đơn
+            fillOrderDetails(); // Cập nhật lại bảng chi tiết sau khi đóng
         }
     });
 }
+
 
 // Xóa sản phẩm được chọn trong bảng
 @Override
@@ -393,22 +389,32 @@ public void removeProduct() {
             orderDetailDao.deleteById(orderDetails.get(i).getOrderDetailId());
         }
     }
-    this.fillOrderDetails();
+    fillOrderDetails();
 }
 
 // Cập nhật số lượng sản phẩm
 @Override
 public void updateQuantity() {
-    if (order.getStatus() == 0) { // Nếu chưa thanh toán
+    if (order.getStatus() == 0) {
         String input = XDialog.prompt("Số lượng mới?");
         if (input != null && !input.isBlank()) {
-            OrderDetail detail = orderDetails.get(tblOrderDetails.getSelectedRow());
-            detail.setQuantity(Integer.parseInt(input));
-            orderDetailDao.update(detail);
-            this.fillOrderDetails();
+            try {
+                int quantity = Integer.parseInt(input);
+                if (quantity > 0) {
+                    OrderDetail detail = orderDetails.get(tblOrderDetails.getSelectedRow());
+                    detail.setQuantity(quantity);
+                    orderDetailDao.update(detail);
+                    fillOrderDetails();
+                } else {
+                    XDialog.alert("Số lượng phải lớn hơn 0.");
+                }
+            } catch (NumberFormatException e) {
+                XDialog.alert("Vui lòng nhập số nguyên hợp lệ.");
+            }
         }
     }
 }
+
 
 // Hủy đơn hàng
 @Override
@@ -419,8 +425,10 @@ public void cancel() {
     } else if (XDialog.confirm("Bạn muốn hủy phiếu bán hàng?")) {
         order.setStatus(Order.Status.Canceled.ordinal());
         orderDao.update(order);
+        setForm(order);
     }
 }
+
 
 // Hiển thị các chi tiết đơn hàng vào bảng
 @Override
@@ -428,10 +436,15 @@ public void fillOrderDetails() {
     DefaultTableModel model = (DefaultTableModel) tblOrderDetails.getModel();
     model.setRowCount(0);
     orderDetails = List.of();
-    
-    if (!txtId.getText().isBlank()) {
-        Long orderId = Long.valueOf(txtId.getText());
-        orderDetails = orderDetailDao.findByOrderId(orderId);
+
+    String idText = txtId.getText().trim();
+    if (!idText.isEmpty() && !idText.equalsIgnoreCase("null")) {
+        try {
+            Long orderId = Long.parseLong(idText);
+            orderDetails = orderDetailDao.findByOrderId(orderId);
+        } catch (NumberFormatException e) {
+            System.err.println("⚠️ Không thể chuyển ID đơn hàng thành số: " + idText);
+        }
     }
 
     for (OrderDetail d : orderDetails) {
@@ -443,11 +456,12 @@ public void fillOrderDetails() {
             String.format("%.1f VNĐ", d.getUnitPrice()),
             String.format("%.0f%%", d.getDiscount() * 100),
             d.getQuantity(),
-            String.format("%.1f VNĐ", amount),
+            String.format("%.1f VNĐ", amount)
         };
         model.addRow(rowData);
     }
 }
+
 
 // Thanh toán đơn hàng
 @Override
@@ -456,13 +470,19 @@ public void checkout() {
         order.setStatus(Order.Status.Completed.ordinal());
         order.setCheckout(new Date());
         orderDao.update(order);
+        setForm(order); // Cập nhật lại trạng thái
     }
 }
 
+
 // Hiển thị thông tin đơn hàng lên form
 private void setForm(Order order) {
-   txtId.setText(String.valueOf(order.getOrderId()));
-    txtCardId.setText("Card #" + order.getCardId());
+    if (order == null) {
+        System.err.println("⚠️ setForm: Order truyền vào bị null!");
+        return;
+    }
+
+    txtId.setText(String.valueOf(order.getOrderId()));
     txtCheckin.setText(XDate.format(order.getCheckin(), "HH:mm:ss dd-MM-yyyy"));
     txtUsername.setText(order.getUsername());
 
@@ -478,5 +498,19 @@ private void setForm(Order order) {
     btnCancel.setEnabled(editable);
     btnCheckout.setEnabled(editable);
     btnRemove.setEnabled(editable);
+}
+
+    @Override
+public void createNewOrder() {
+    order = new Order();
+    order.setUsername(XAuth.user.getUsername());
+    order.setCheckin(new Date());
+    order.setStatus(0);
+
+    Long newOrderId = new OrderDAOImpl().createAndReturnId(order);
+    order.setOrderId(newOrderId);
+
+    txtId.setText(String.valueOf(newOrderId));
+    XDialog.alert("Đã tạo đơn hàng mới!");
 }
 }
