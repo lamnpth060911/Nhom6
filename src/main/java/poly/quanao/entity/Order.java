@@ -16,7 +16,8 @@ public class Order {
     @Builder.Default
     private Date checkin = new Date();
     private Date checkout;
-    private int status; 
+    private int status;
+    private String Color;
     public enum Status {
     Servicing, Completed, Canceled;
     }// nvarchar(50)

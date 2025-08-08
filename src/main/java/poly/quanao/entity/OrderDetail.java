@@ -24,5 +24,6 @@ public class OrderDetail {
     private double unitPrice;
     private double discount;
     private int quantity;
+    private String Color;
     private String productName;
 }

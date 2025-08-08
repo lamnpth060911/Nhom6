@@ -1,22 +1,19 @@
 package poly.quanao.dao.impl;
 
-import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import poly.quanao.dao.OrderDAO;
 import poly.quanao.entity.Order;
 import poly.quanao.util.XJdbc;
-import poly.quanao.util.XAuth;
 import poly.quanao.util.XQuery;
 
 public class OrderDAOImpl implements OrderDAO {
 
     String createSql = 
-        "INSERT INTO Orders (Username, Checkin, Checkout, Status) VALUES (?, ?, ?, ?)";
+        "INSERT INTO Orders (Username, Checkin, Checkout, Status, Color) VALUES (?, ?, ?, ?, ?)";
 
     String updateSql = 
-        "UPDATE Orders SET Username=?, Checkin=?, Checkout=?, Status=? WHERE OrderId=?";
+        "UPDATE Orders SET Username=?, Checkin=?, Checkout=?, Status=?, Color=? WHERE OrderId=?";
 
     String deleteSql = 
         "DELETE FROM Orders WHERE OrderId=?";
@@ -55,7 +52,8 @@ public class OrderDAOImpl implements OrderDAO {
             entity.getUsername(),
             entity.getCheckin(),
             entity.getCheckout(),
-            entity.getStatus()
+            entity.getStatus(),
+            entity.getColor() // thêm color vào
         };
         XJdbc.executeUpdate(createSql, values);
     }
@@ -67,6 +65,7 @@ public class OrderDAOImpl implements OrderDAO {
             entity.getCheckin(),
             entity.getCheckout(),
             entity.getStatus(),
+            entity.getColor(), // thêm color vào
             entity.getOrderId()
         };
         XJdbc.executeUpdate(updateSql, values);
@@ -88,19 +87,17 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-public Long createAndReturnId(Order entity) {
-    String sql = "INSERT INTO Orders (Username, Checkin, Checkout, Status) OUTPUT INSERTED.OrderId VALUES (?, ?, ?, ?)";
-    Object[] values = {
-        entity.getUsername(),
-        entity.getCheckin(),
-        entity.getCheckout(),
-        entity.getStatus()
-    };
-    
-    Object result = XJdbc.getValue(sql, values);
-    return result == null ? null : ((Number) result).longValue();
-}
-
-
-    
+    public Long createAndReturnId(Order entity) {
+        String sql = "INSERT INTO Orders (Username, Checkin, Checkout, Status, Color) OUTPUT INSERTED.OrderId VALUES (?, ?, ?, ?, ?)";
+        Object[] values = {
+            entity.getUsername(),
+            entity.getCheckin(),
+            entity.getCheckout(),
+            entity.getStatus(),
+            entity.getColor() // thêm color vào
+        };
+        
+        Object result = XJdbc.getValue(sql, values);
+        return result == null ? null : ((Number) result).longValue();
+    }
 }

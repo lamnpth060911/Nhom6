@@ -441,7 +441,7 @@ public void fillOrderDetails() {
     if (!idText.isEmpty() && !idText.equalsIgnoreCase("null")) {
         try {
             Long orderId = Long.parseLong(idText);
-            orderDetails = orderDetailDao.findByOrderId(orderId);
+            orderDetails = orderDetailDao.findByOrderId(orderId); // phải trả về có Color
         } catch (NumberFormatException e) {
             System.err.println("⚠️ Không thể chuyển ID đơn hàng thành số: " + idText);
         }
@@ -452,15 +452,17 @@ public void fillOrderDetails() {
         Object[] rowData = {
             false,
             d.getOrderId(),
-            d.getProductName(),
+            d.getProductName(), 
             String.format("%.1f VNĐ", d.getUnitPrice()),
             String.format("%.0f%%", d.getDiscount() * 100),
             d.getQuantity(),
+            d.getColor(), // <<== THÊM DÒNG NÀY
             String.format("%.1f VNĐ", amount)
         };
         model.addRow(rowData);
     }
 }
+
 
 
 // Thanh toán đơn hàng
