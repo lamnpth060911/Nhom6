@@ -1,5 +1,7 @@
 package poly.quanao.dao.impl;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.Date;
 import java.util.List;
 import poly.quanao.dao.OrderDAO;
@@ -72,9 +74,38 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public void deleteById(Long id) {
-        XJdbc.executeUpdate(deleteSql, id);
+public void deleteById(Long orderId) {
+    if (orderId == null) return;
+
+    final String SQL_DEL_DETAILS = "DELETE FROM OrderDetails WHERE OrderId = ?";
+    final String SQL_DEL_ORDER   = "DELETE FROM Orders WHERE OrderId = ?";
+
+    Connection conn = null;
+    try {
+        conn = XJdbc.openConnection();
+        conn.setAutoCommit(false);
+
+        try (PreparedStatement ps = conn.prepareStatement(SQL_DEL_DETAILS)) {
+            ps.setLong(1, orderId);
+            ps.executeUpdate(); // xoá hết chi tiết của đơn
+        }
+
+        int affected;
+        try (PreparedStatement ps = conn.prepareStatement(SQL_DEL_ORDER)) {
+            ps.setLong(1, orderId);
+            affected = ps.executeUpdate(); // xoá đơn
+        }
+        if (affected == 0) throw new RuntimeException("OrderId không tồn tại: " + orderId);
+
+        conn.commit();
+    } catch (Exception ex) {
+        if (conn != null) try { conn.rollback(); } catch (Exception ignore) {}
+        throw new RuntimeException(ex);
+    } finally {
+        if (conn != null) try { conn.setAutoCommit(true); conn.close(); } catch (Exception ignore) {}
     }
+}
+
 
     @Override
     public Order findById(Long id) {

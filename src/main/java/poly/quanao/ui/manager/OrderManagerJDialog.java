@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import poly.quanao.dao.OrderDAO;
 import poly.quanao.dao.OrderDetailDAO;
 import poly.quanao.dao.impl.OrderDAOImpl;
@@ -67,23 +68,18 @@ public final class OrderManagerJDialog extends javax.swing.JDialog implements Or
         txtId = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblBillDetails = new javax.swing.JTable();
-        txtCardid = new javax.swing.JTextField();
         txtCheckin = new javax.swing.JTextField();
         btnMoveLast = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        btnCreate = new javax.swing.JButton();
         txtCheckout = new javax.swing.JTextField();
         btnUpdate = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         btnDelete = new javax.swing.JButton();
-        rdStatus1 = new javax.swing.JRadioButton();
-        btnClear = new javax.swing.JButton();
         rdStatus2 = new javax.swing.JRadioButton();
         btnMoveFirst = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         rdStatus3 = new javax.swing.JRadioButton();
         btnMovePrevious = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
         btnMoveNext = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -136,17 +132,17 @@ public final class OrderManagerJDialog extends javax.swing.JDialog implements Or
 
         tblBills.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Mã phiếu", "Thẻ số", "Thời điểm tạo", "Thời điểm thanh toán", "Trạng thái", "Email", ""
+                "Mã phiếu", "Thời điểm tạo", "Thời điểm thanh toán", "Trạng thái", "Email", ""
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -221,22 +217,16 @@ public final class OrderManagerJDialog extends javax.swing.JDialog implements Or
 
         tblBillDetails.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Quần áo", "Đơn giá", "Giảm giá", "Số lượng", "Thành tiền"
+                "Quần áo", "Đơn giá", "Giảm giá", "Số lượng", "Thành tiền", "Màu"
             }
         ));
         jScrollPane2.setViewportView(tblBillDetails);
-
-        txtCardid.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCardidActionPerformed(evt);
-            }
-        });
 
         txtCheckin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -252,13 +242,6 @@ public final class OrderManagerJDialog extends javax.swing.JDialog implements Or
         });
 
         jLabel7.setText("Thời điểm thanh toán");
-
-        btnCreate.setText("Tạo mới");
-        btnCreate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCreateActionPerformed(evt);
-            }
-        });
 
         btnUpdate.setText("Cập nhật");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
@@ -276,15 +259,6 @@ public final class OrderManagerJDialog extends javax.swing.JDialog implements Or
             }
         });
 
-        rdStatus1.setText("Servicing");
-
-        btnClear.setText("Nhập mới");
-        btnClear.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnClearActionPerformed(evt);
-            }
-        });
-
         rdStatus2.setText("Completed");
 
         btnMoveFirst.setText("|<");
@@ -297,6 +271,11 @@ public final class OrderManagerJDialog extends javax.swing.JDialog implements Or
         jLabel2.setText("Mã phiếu");
 
         rdStatus3.setText("Canceled");
+        rdStatus3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdStatus3ActionPerformed(evt);
+            }
+        });
 
         btnMovePrevious.setText("<<");
         btnMovePrevious.addActionListener(new java.awt.event.ActionListener() {
@@ -304,8 +283,6 @@ public final class OrderManagerJDialog extends javax.swing.JDialog implements Or
                 btnMovePreviousActionPerformed(evt);
             }
         });
-
-        jLabel3.setText("Thẻ số");
 
         btnMoveNext.setText(">>");
         btnMoveNext.addActionListener(new java.awt.event.ActionListener() {
@@ -331,47 +308,36 @@ public final class OrderManagerJDialog extends javax.swing.JDialog implements Or
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtCheckin, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(rdStatus1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(rdStatus2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(18, 18, 18)
                                 .addComponent(rdStatus3, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtCardid)
-                            .addComponent(jLabel7)
-                            .addComponent(txtCheckout)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE))
-                        .addGap(0, 200, Short.MAX_VALUE))))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel7)
+                    .addComponent(txtCheckout)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 471, Short.MAX_VALUE))
+                .addGap(0, 200, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGap(519, 519, 519)
-                            .addComponent(btnMoveFirst)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(btnMovePrevious)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnMoveNext)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnMoveLast))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(btnCreate, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnUpdate)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnClear)))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 846, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(btnUpdate)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(368, 368, 368)
+                                .addComponent(btnMoveFirst)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnMovePrevious)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnMoveNext)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnMoveLast))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(39, 39, 39)
+                                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 846, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -380,11 +346,11 @@ public final class OrderManagerJDialog extends javax.swing.JDialog implements Or
                 .addGap(20, 20, 20)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCardid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -394,32 +360,22 @@ public final class OrderManagerJDialog extends javax.swing.JDialog implements Or
                     .addComponent(txtCheckin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtCheckout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
+                .addComponent(jLabel8)
+                .addGap(26, 26, 26)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel9))
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(rdStatus1)
-                            .addComponent(rdStatus2)
-                            .addComponent(rdStatus3)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(rdStatus2)
+                    .addComponent(rdStatus3))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCreate)
-                    .addComponent(btnClear)
                     .addComponent(btnMoveFirst)
                     .addComponent(btnMovePrevious)
                     .addComponent(btnMoveNext)
                     .addComponent(btnUpdate)
                     .addComponent(btnDelete)
                     .addComponent(btnMoveLast))
-                .addGap(260, 260, 260))
+                .addGap(237, 237, 237))
         );
 
         tabs.addTab("Biểu mẫu", jPanel2);
@@ -444,25 +400,9 @@ public final class OrderManagerJDialog extends javax.swing.JDialog implements Or
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnuncheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnuncheckActionPerformed
-     this.uncheckAll();
-    }//GEN-LAST:event_btnuncheckActionPerformed
-
-    private void btncheckAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncheckAllActionPerformed
-      this.checkAll();
-    }//GEN-LAST:event_btncheckAllActionPerformed
-
-    private void btndeleteCheckedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndeleteCheckedActionPerformed
-      this.deleteCheckedItems();
-    }//GEN-LAST:event_btndeleteCheckedActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       this.selectTimeRange();
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void cboTimeRangesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTimeRangesActionPerformed
-      
-    }//GEN-LAST:event_cboTimeRangesActionPerformed
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        this.open();
+    }//GEN-LAST:event_formWindowOpened
 
     private void tblBillsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBillsMouseClicked
         if (evt.getClickCount() == 2) {
@@ -470,49 +410,57 @@ public final class OrderManagerJDialog extends javax.swing.JDialog implements Or
         }
     }//GEN-LAST:event_tblBillsMouseClicked
 
-    private void txtCardidActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCardidActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCardidActionPerformed
+    private void cboTimeRangesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboTimeRangesActionPerformed
+
+    }//GEN-LAST:event_cboTimeRangesActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.selectTimeRange();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btndeleteCheckedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btndeleteCheckedActionPerformed
+        this.deleteCheckedItems();
+    }//GEN-LAST:event_btndeleteCheckedActionPerformed
+
+    private void btncheckAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncheckAllActionPerformed
+        this.checkAll();
+    }//GEN-LAST:event_btncheckAllActionPerformed
+
+    private void btnuncheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnuncheckActionPerformed
+        this.uncheckAll();
+    }//GEN-LAST:event_btnuncheckActionPerformed
 
     private void txtCheckinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCheckinActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCheckinActionPerformed
 
-    private void btnMoveLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveLastActionPerformed
-  this.moveLast();
-    }//GEN-LAST:event_btnMoveLastActionPerformed
-
-    private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
-       this.create();
-    }//GEN-LAST:event_btnCreateActionPerformed
-
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-       this.update();
-    }//GEN-LAST:event_btnUpdateActionPerformed
-
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-       this.delete();
+        this.delete();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
-    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
-       this.clear();
-    }//GEN-LAST:event_btnClearActionPerformed
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        this.update();
+    }//GEN-LAST:event_btnUpdateActionPerformed
 
-    private void btnMoveFirstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveFirstActionPerformed
-       this.moveFirst();
-    }//GEN-LAST:event_btnMoveFirstActionPerformed
+    private void btnMoveLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveLastActionPerformed
+        this.moveLast();
+    }//GEN-LAST:event_btnMoveLastActionPerformed
+
+    private void btnMoveNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveNextActionPerformed
+        this.moveNext();
+    }//GEN-LAST:event_btnMoveNextActionPerformed
 
     private void btnMovePreviousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMovePreviousActionPerformed
         this.movePrevious();
     }//GEN-LAST:event_btnMovePreviousActionPerformed
 
-    private void btnMoveNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveNextActionPerformed
-     this.moveNext();
-    }//GEN-LAST:event_btnMoveNextActionPerformed
+    private void btnMoveFirstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMoveFirstActionPerformed
+        this.moveFirst();
+    }//GEN-LAST:event_btnMoveFirstActionPerformed
 
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        this.open();
-    }//GEN-LAST:event_formWindowOpened
+    private void rdStatus3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdStatus3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rdStatus3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -557,8 +505,6 @@ public final class OrderManagerJDialog extends javax.swing.JDialog implements Or
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnClear;
-    private javax.swing.JButton btnCreate;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnMoveFirst;
     private javax.swing.JButton btnMoveLast;
@@ -571,7 +517,6 @@ public final class OrderManagerJDialog extends javax.swing.JDialog implements Or
     private javax.swing.JComboBox<String> cboTimeRanges;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -582,14 +527,12 @@ public final class OrderManagerJDialog extends javax.swing.JDialog implements Or
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JRadioButton rdStatus1;
     private javax.swing.JRadioButton rdStatus2;
     private javax.swing.JRadioButton rdStatus3;
     private javax.swing.JTabbedPane tabs;
     private javax.swing.JTable tblBillDetails;
     private javax.swing.JTable tblBills;
     private javax.swing.JTextField txtBegin;
-    private javax.swing.JTextField txtCardid;
     private javax.swing.JTextField txtCheckin;
     private javax.swing.JTextField txtCheckout;
     private javax.swing.JTextField txtEnd;
@@ -603,27 +546,30 @@ public final class OrderManagerJDialog extends javax.swing.JDialog implements Or
 
     
     @Override
-    public void fillOrderDetails() {
-        DefaultTableModel model = (DefaultTableModel) tblBillDetails.getModel();
-     model.setRowCount(0);
-     details = List.of();
-     if (!txtId.getText().isBlank()) {
-     Long billId = Long.valueOf(txtId.getText());
-     details = orderDetailDao.findByOrderId(billId);
-     } 
-     details.forEach(d -> {
-     var amount = d.getUnitPrice() * d.getQuantity() * (1 - d.getDiscount());
-     Object[] rowData = {
-     d.getProductName(),
-     String.format("%.1f VNĐ", d.getUnitPrice()),
-     String.format("%.0f%%", d.getDiscount() * 100),
-     d.getQuantity(), String.format("%.1f VNĐ", amount),
-     d.getColor()
-     };
+public void fillOrderDetails() {
+    DefaultTableModel model = (DefaultTableModel) tblBillDetails.getModel();
+    model.setRowCount(0);
 
-     model.addRow(rowData);
-     });
+    details = List.of();
+    if (!txtId.getText().isBlank()) {
+        Long billId = Long.valueOf(txtId.getText());
+        details = orderDetailDao.findByOrderId(billId);
     }
+
+    for (var d : details) {
+        double amount = d.getUnitPrice() * d.getQuantity() * (1 - d.getDiscount());
+        Object[] rowData = {
+            d.getProductName(),
+            String.format("%.1f VNĐ", d.getUnitPrice()),
+            String.format("%.0f%%", d.getDiscount() * 100),
+            d.getQuantity(),
+            String.format("%.1f VNĐ", amount),
+            d.getColor()
+        };
+        model.addRow(rowData);
+    }
+}
+
 
     @Override
     public void selectTimeRange() {
@@ -648,19 +594,17 @@ public final class OrderManagerJDialog extends javax.swing.JDialog implements Or
      this.clear();
     }
 
-    @Override
+   @Override
 public void setForm(Order entity) {
     txtId.setText(entity.getOrderId() != null ? entity.getOrderId().toString() : "");
-    txtUsername.setText(entity.getUsername() != null ? entity.getUsername() : "");    
+    txtUsername.setText(entity.getUsername() != null ? entity.getUsername() : "");
     txtCheckin.setText(entity.getCheckin() != null ? XDate.format(entity.getCheckin(), XDate.PATTERN_FULL) : "");
     txtCheckout.setText(entity.getCheckout() != null ? XDate.format(entity.getCheckout(), XDate.PATTERN_FULL) : "");
-    
+
     switch (entity.getStatus()) {
-        case 0 -> rdStatus1.setSelected(true);
-        case 1 -> rdStatus2.setSelected(true);
-        case 2 -> rdStatus3.setSelected(true);
-        default -> {
-            rdStatus1.setSelected(false);
+        case 1 -> rdStatus2.setSelected(true); // Completed
+        case 2 -> rdStatus3.setSelected(true); // Canceled
+        default -> {                            // Unknown/null -> clear cả 2
             rdStatus2.setSelected(false);
             rdStatus3.setSelected(false);
         }
@@ -668,63 +612,57 @@ public void setForm(Order entity) {
     this.fillOrderDetails();
 }
 
+
 @Override
 public Order getForm() {
     Order entity = new Order();
 
-    if (!txtId.getText().trim().isEmpty()) {
-        entity.setOrderId(Long.valueOf(txtId.getText()));
-    }
-
-    String checkinText = txtCheckin.getText();
-    String checkoutText = txtCheckout.getText();        
-    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    String id = txtId.getText().trim();
+    if (!id.isEmpty()) entity.setOrderId(Long.valueOf(id));
 
     try {
-        Date checkinDate = formatter.parse(checkinText);
-        Date checkoutDate = formatter.parse(checkoutText);
-        entity.setCheckin(checkinDate);
-        entity.setCheckout(checkoutDate);
+        SimpleDateFormat fmt = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        fmt.setLenient(false);
+        String ci = txtCheckin.getText().trim();
+        String co = txtCheckout.getText().trim();
+        if (!ci.isEmpty()) entity.setCheckin(fmt.parse(ci));
+        if (!co.isEmpty()) entity.setCheckout(fmt.parse(co));
     } catch (ParseException ex) {
         Logger.getLogger(OrderManagerJDialog.class.getName()).log(Level.SEVERE, null, ex);
-    }  
-
-    entity.setUsername(txtUsername.getText());
-
-    if (rdStatus1.isSelected()) {
-        entity.setStatus(0);
-    } else if (rdStatus2.isSelected()) {
-        entity.setStatus(1);
-    } else if (rdStatus3.isSelected()) {
-        entity.setStatus(2);
     }
 
-    return entity; 
+    entity.setUsername(txtUsername.getText().trim());
+
+    if (rdStatus2.isSelected())      entity.setStatus(1); // Completed
+    else if (rdStatus3.isSelected()) entity.setStatus(2); // Canceled
+    else                              entity.setStatus(1); // mặc định Completed
+
+    return entity;
 }
+
 
 @Override
 public void fillToTable() {
     DefaultTableModel model = (DefaultTableModel) tblBills.getModel();
     model.setRowCount(0);
+
     Date begin = XDate.parse(txtBegin.getText(), "MM/dd/yyyy");
-    Date end = XDate.parse(txtEnd.getText(), "MM/dd/yyyy");
+    Date end   = XDate.parse(txtEnd.getText(),   "MM/dd/yyyy");
     items = dao.findByTimeRange(begin, end);
 
     for (Order item : items) {
         String statusText = switch (item.getStatus()) {
-            case 0 -> "Servicing";
             case 1 -> "Completed";
             case 2 -> "Canceled";
             default -> "Unknown";
         };
-
         Object[] rowData = {
             item.getOrderId(),
-            XDate.format(item.getCheckin(), XDate.PATTERN_SHORT),
-            XDate.format(item.getCheckout(), XDate.PATTERN_SHORT), 
-            statusText, 
+            item.getCheckin() != null ? XDate.format(item.getCheckin(), XDate.PATTERN_SHORT) : "",
+            item.getCheckout()!= null ? XDate.format(item.getCheckout(),XDate.PATTERN_SHORT) : "",
+            statusText,
             item.getUsername(),
-            false
+            false // checkbox
         };
         model.addRow(rowData);
     }
@@ -770,17 +708,13 @@ public void fillToTable() {
     }
 
     @Override
-    public void setEditable(boolean editable) {
-       txtId.setEnabled(!editable);
-        btnCreate.setEnabled(!editable);
-        btnUpdate.setEnabled(editable);
-        btnDelete.setEnabled(editable);
-        int rowCount = tblBills.getRowCount();
-        btnMoveFirst.setEnabled(editable && rowCount > 0);
-        btnMovePrevious.setEnabled(editable && rowCount > 0);
-        btnMoveNext.setEnabled(editable && rowCount > 0);
-        btnMoveLast.setEnabled(editable && rowCount > 0); 
-    }
+public void setEditable(boolean editable) {
+    txtId.setEnabled(!editable);
+    btnUpdate.setEnabled(editable);   // cập nhật khi đã chọn đơn
+    btnDelete.setEnabled(editable);
+    // Bỏ toàn bộ setEnabled cho các nút điều hướng
+}
+
 
     @Override
     public void checkAll() {
@@ -793,21 +727,55 @@ public void fillToTable() {
     }
     private void setCheckedAll(boolean checked) {
         for (int i = 0; i < tblBills.getRowCount(); i++) {
-        tblBills.setValueAt(checked, i, 2);
+        tblBills.setValueAt(checked, i, 5);
         }
     }
 
     @Override
-    public void deleteCheckedItems() {
-        if (XDialog.confirm("Bạn thực sự muốn xóa các mục chọn?")) {
-            for (int i = 0; i < tblBills.getRowCount(); i++) {
-                if ((Boolean) tblBills.getValueAt(i, 2)) {
-                    dao.deleteById(items.get(i).getOrderId());
-                }
-            }
-            this.fillToTable();
-        }    
+public void deleteCheckedItems() {
+    if (!XDialog.confirm("Bạn thực sự muốn xóa các mục chọn?")) return;
+
+    // CẬP NHẬT: chỉnh đúng index theo table của bạn
+    final int CHECK_COL_VIEW    = 5; // cột checkbox trong VIEW (như bạn đang dùng)
+    final int ORDER_ID_COL_MODEL = 0; // cột OrderId trong MODEL (đặt đúng theo TableModel của bạn)
+
+    int deleted = 0, failed = 0;
+    TableModel model = tblBills.getModel();
+
+    for (int rowView = 0; rowView < tblBills.getRowCount(); rowView++) {
+        Object v = tblBills.getValueAt(rowView, CHECK_COL_VIEW);
+        if (!(v instanceof Boolean) || !((Boolean) v)) continue;
+
+        // view -> model index (rất quan trọng khi có sort/filter)
+        int rowModel = tblBills.convertRowIndexToModel(rowView);
+
+        Object idObj = model.getValueAt(rowModel, ORDER_ID_COL_MODEL);
+        if (idObj == null) continue;
+
+        Long orderId;
+        try {
+            orderId = (idObj instanceof Long) ? (Long) idObj : Long.valueOf(idObj.toString());
+        } catch (Exception castEx) {
+            failed++;
+            System.err.println("[DELETE] Không ép kiểu được OrderId ở rowModel=" + rowModel + ", value=" + idObj);
+            continue;
+        }
+
+        try {
+            dao.deleteById(orderId); // DAO đã xoá chi tiết -> xoá order trong 1 transaction
+            deleted++;
+        } catch (Exception ex) {
+            failed++;
+            System.err.println("[DELETE] Lỗi xoá orderId=" + orderId + " :: " + ex.getMessage());
+        }
     }
+
+    this.fillToTable(); // reload
+ XDialog.alert(null, "Đã xoá: " + deleted + ", lỗi: " + failed);
+
+
+}
+
 
     @Override
     public void moveFirst() {

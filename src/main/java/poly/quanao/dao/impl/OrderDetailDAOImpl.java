@@ -1,5 +1,7 @@
 package poly.quanao.dao.impl;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -17,8 +19,13 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
     String updateSql =
         "UPDATE OrderDetails SET OrderId=?, ProductId=?, UnitPrice=?, Discount=?, Quantity=?, Color=? WHERE OrderDetailId=?";
 
-    String deleteSql =
-        "DELETE FROM OrderDetails WHERE OrderDetailId=?";
+    // Xoá 1 chi tiết (giữ nguyên)
+    private static final String SQL_DELETE_BY_DETAIL_ID =
+    "DELETE FROM OrderDetails WHERE OrderDetailId = ?";
+
+    // Thêm: xoá tất cả chi tiết theo OrderId (dùng khi xoá Order)
+    private static final String SQL_DELETE_BY_ORDER_ID =
+    "DELETE FROM OrderDetails WHERE OrderId = ?";
 
     String findAllSql =
         "SELECT od.OrderDetailId, od.OrderId, od.ProductId, od.UnitPrice, od.Discount, od.Quantity, od.Color, " +
@@ -71,15 +78,17 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
         XJdbc.executeUpdate(updateSql, values);
     }
 
-    @Override
-    public void deleteById(Long id) {
-        // Xóa chi tiết đơn hàng
-        String deleteOrderDetailsSql = "DELETE FROM OrderDetails WHERE OrderId = ?";
-        XJdbc.executeUpdate(deleteOrderDetailsSql, id);
+   @Override
+public void deleteById(Long orderDetailId) {
+    if (orderDetailId == null) return;
+    XJdbc.executeUpdate(SQL_DELETE_BY_DETAIL_ID, orderDetailId);
+}
 
-        // Xóa đơn hàng chính
-        XJdbc.executeUpdate(deleteSql, id);
-    }
+// helper để OrderDAO gọi
+public int deleteByOrderId(Long orderId) {
+    if (orderId == null) return 0;
+    return XJdbc.executeUpdate(SQL_DELETE_BY_ORDER_ID, orderId);
+}
 
     @Override
     public List<OrderDetail> findAll() {
