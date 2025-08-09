@@ -17,7 +17,6 @@ public class Order {
     private Date checkin = new Date();
     private Date checkout;
     private int status;
-    private String color;
     public enum Status {
     Servicing, Completed, Canceled;
     }// nvarchar(50)

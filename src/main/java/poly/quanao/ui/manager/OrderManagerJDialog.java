@@ -548,7 +548,11 @@ public final class OrderManagerJDialog extends javax.swing.JDialog implements Or
     @Override
 public void fillOrderDetails() {
     DefaultTableModel model = (DefaultTableModel) tblBillDetails.getModel();
-    model.setRowCount(0);
+model.setColumnIdentifiers(new Object[]{
+    "Sản phẩm", "Đơn giá", "Giảm giá", "SL", "Thành tiền", "Màu"
+});
+model.setRowCount(0);
+
 
     details = List.of();
     if (!txtId.getText().isBlank()) {
@@ -563,8 +567,7 @@ public void fillOrderDetails() {
             String.format("%.1f VNĐ", d.getUnitPrice()),
             String.format("%.0f%%", d.getDiscount() * 100),
             d.getQuantity(),
-            String.format("%.1f VNĐ", amount),
-            d.getColor()
+            String.format("%.1f VNĐ", amount)
         };
         model.addRow(rowData);
     }
@@ -735,9 +738,8 @@ public void setEditable(boolean editable) {
 public void deleteCheckedItems() {
     if (!XDialog.confirm("Bạn thực sự muốn xóa các mục chọn?")) return;
 
-    // CẬP NHẬT: chỉnh đúng index theo table của bạn
-    final int CHECK_COL_VIEW    = 5; // cột checkbox trong VIEW (như bạn đang dùng)
-    final int ORDER_ID_COL_MODEL = 0; // cột OrderId trong MODEL (đặt đúng theo TableModel của bạn)
+    final int CHECK_COL_VIEW    = 5; // cột checkbox trong VIEW
+    final int ORDER_ID_COL_MODEL = 0; // cột OrderId trong MODEL
 
     int deleted = 0, failed = 0;
     TableModel model = tblBills.getModel();
@@ -746,9 +748,7 @@ public void deleteCheckedItems() {
         Object v = tblBills.getValueAt(rowView, CHECK_COL_VIEW);
         if (!(v instanceof Boolean) || !((Boolean) v)) continue;
 
-        // view -> model index (rất quan trọng khi có sort/filter)
         int rowModel = tblBills.convertRowIndexToModel(rowView);
-
         Object idObj = model.getValueAt(rowModel, ORDER_ID_COL_MODEL);
         if (idObj == null) continue;
 
@@ -757,12 +757,16 @@ public void deleteCheckedItems() {
             orderId = (idObj instanceof Long) ? (Long) idObj : Long.valueOf(idObj.toString());
         } catch (Exception castEx) {
             failed++;
-            System.err.println("[DELETE] Không ép kiểu được OrderId ở rowModel=" + rowModel + ", value=" + idObj);
             continue;
         }
 
         try {
-            dao.deleteById(orderId); // DAO đã xoá chi tiết -> xoá order trong 1 transaction
+            // Xóa chi tiết trước để tránh lỗi khóa ngoại
+            orderDetailDao.deleteById(orderId);
+
+            // Xóa order
+            dao.deleteById(orderId);
+
             deleted++;
         } catch (Exception ex) {
             failed++;
@@ -770,11 +774,10 @@ public void deleteCheckedItems() {
         }
     }
 
-    this.fillToTable(); // reload
- XDialog.alert(null, "Đã xoá: " + deleted + ", lỗi: " + failed);
-
-
+    this.fillToTable(); // reload lại danh sách
+    XDialog.alert(null, "Đã xoá: " + deleted + ", lỗi: " + failed);
 }
+
 
 
     @Override

@@ -347,12 +347,11 @@ public final class OrderJDialog extends javax.swing.JDialog implements OrderCont
 @Override
 public void open() {
     this.setLocationRelativeTo(null);
-    if (this.order == null) {
-        this.order = new Order(); // Tạo đơn mới nếu chưa có
-    }
-    this.setForm(order);         // Hiển thị thông tin đơn
-    this.fillOrderDetails();     // Hiển thị chi tiết đơn hàng
+    if (this.order == null) this.order = new Order();
+    this.setForm(order);
+    this.fillOrderDetails();
 }
+
 
 
 // Đóng form: nếu đơn hàng rỗng thì xóa
@@ -457,7 +456,7 @@ public void fillOrderDetails() {
             String.format("%.0f%%", d.getDiscount() * 100),
             d.getQuantity(),
             String.format("%.1f VNĐ", amount),
-            d.getColor(), // <<== THÊM DÒNG NÀY
+            
         };
         model.addRow(rowData);
     }

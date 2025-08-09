@@ -1,7 +1,5 @@
 package poly.quanao.dao.impl;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -13,55 +11,56 @@ import poly.quanao.util.XQuery;
 
 public class OrderDetailDAOImpl implements OrderDetailDAO {
 
-    String createSql =
-        "INSERT INTO OrderDetails (OrderId, ProductId, UnitPrice, Discount, Quantity, Color) VALUES (?, ?, ?, ?, ?, ?)";
+    // INSERT
+    private static final String CREATE_SQL =
+        "INSERT INTO OrderDetails (OrderId, ProductId, UnitPrice, Discount, Quantity) " +
+        "VALUES (?, ?, ?, ?, ?)";
 
-    String updateSql =
-        "UPDATE OrderDetails SET OrderId=?, ProductId=?, UnitPrice=?, Discount=?, Quantity=?, Color=? WHERE OrderDetailId=?";
+    // UPDATE
+    private static final String UPDATE_SQL =
+        "UPDATE OrderDetails " +
+        "SET OrderId=?, ProductId=?, UnitPrice=?, Discount=?, Quantity=? " +
+        "WHERE OrderDetailId=?";
 
-    // Xoá 1 chi tiết (giữ nguyên)
+    // DELETE theo detailId
     private static final String SQL_DELETE_BY_DETAIL_ID =
-    "DELETE FROM OrderDetails WHERE OrderDetailId = ?";
+        "DELETE FROM OrderDetails WHERE OrderDetailId = ?";
 
-    // Thêm: xoá tất cả chi tiết theo OrderId (dùng khi xoá Order)
+    // DELETE theo orderId
     private static final String SQL_DELETE_BY_ORDER_ID =
-    "DELETE FROM OrderDetails WHERE OrderId = ?";
+        "DELETE FROM OrderDetails WHERE OrderId = ?";
 
-    String findAllSql =
-        "SELECT od.OrderDetailId, od.OrderId, od.ProductId, od.UnitPrice, od.Discount, od.Quantity, od.Color, " +
-        "p.ProductName AS productName " +
+    // SELECTs
+    private static final String FIND_ALL_SQL =
+        "SELECT od.OrderDetailId, od.OrderId, od.ProductId, od.UnitPrice, od.Discount, od.Quantity, " +
+        "       p.ProductName AS productName " +
         "FROM OrderDetails od " +
         "JOIN Products p ON p.ProductId = od.ProductId";
 
-    String findByIdSql =
-        "SELECT od.OrderDetailId, od.OrderId, od.ProductId, od.UnitPrice, od.Discount, od.Quantity, od.Color, " +
-        "p.ProductName AS productName " +
+    private static final String FIND_BY_ID_SQL =
+        "SELECT od.OrderDetailId, od.OrderId, od.ProductId, od.UnitPrice, od.Discount, od.Quantity, " +
+        "       p.ProductName AS productName " +
         "FROM OrderDetails od " +
         "JOIN Products p ON p.ProductId = od.ProductId " +
-        "WHERE od.OrderDetailId=?";
+        "WHERE od.OrderDetailId = ?";
 
-    String findByOrderIdSql =
-        "SELECT od.OrderDetailId, od.OrderId, od.ProductId, od.UnitPrice, od.Discount, od.Quantity, od.Color, " +
-        "p.ProductName AS productName " +
+    private static final String FIND_BY_ORDER_ID_SQL =
+        "SELECT od.OrderDetailId, od.OrderId, od.ProductId, od.UnitPrice, od.Discount, od.Quantity, " +
+        "       p.ProductName AS productName " +
         "FROM OrderDetails od " +
         "JOIN Products p ON p.ProductId = od.ProductId " +
-        "WHERE od.OrderId=?";
+        "WHERE od.OrderId = ?";
 
-    String findByProductIdSql =
-        "SELECT od.OrderDetailId, od.OrderId, od.ProductId, od.UnitPrice, od.Discount, od.Quantity, od.Color, " +
-        "p.ProductName AS productName " +
+    private static final String FIND_BY_PRODUCT_ID_SQL =
+        "SELECT od.OrderDetailId, od.OrderId, od.ProductId, od.UnitPrice, od.Discount, od.Quantity, " +
+        "       p.ProductName AS productName " +
         "FROM OrderDetails od " +
         "JOIN Products p ON p.ProductId = od.ProductId " +
-        "WHERE od.ProductId=?";
+        "WHERE od.ProductId = ?";
 
     @Override
     public List<OrderDetail> findByOrderId(Long orderId) {
-        return XQuery.getBeanList(OrderDetail.class, findByOrderIdSql, orderId);
-    }
-
-    @Override
-    public List<OrderDetail> findByProductId(String productId) {
-        return XQuery.getBeanList(OrderDetail.class, findByProductIdSql, productId);
+        return XQuery.getBeanList(OrderDetail.class, FIND_BY_ORDER_ID_SQL, orderId);
     }
 
     @Override
@@ -72,32 +71,38 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
             entity.getUnitPrice(),
             entity.getDiscount(),
             entity.getQuantity(),
-            entity.getColor(), // thêm color
             entity.getOrderDetailId()
         };
-        XJdbc.executeUpdate(updateSql, values);
+        XJdbc.executeUpdate(UPDATE_SQL, values);
     }
 
-   @Override
-public void deleteById(Long orderDetailId) {
-    if (orderDetailId == null) return;
-    XJdbc.executeUpdate(SQL_DELETE_BY_DETAIL_ID, orderDetailId);
+    @Override
+public void deleteById(Long orderId) {
+    if (orderId == null) return;
+
+    // 1. Xoá chi tiết đơn hàng trước
+    OrderDetailDAOImpl orderDetailDAO = new OrderDetailDAOImpl();
+    orderDetailDAO.deleteByOrderId(orderId);
+
+    // 2. Xoá đơn hàng
+    XJdbc.executeUpdate("DELETE FROM Orders WHERE OrderId = ?", orderId);
 }
 
-// helper để OrderDAO gọi
-public int deleteByOrderId(Long orderId) {
-    if (orderId == null) return 0;
-    return XJdbc.executeUpdate(SQL_DELETE_BY_ORDER_ID, orderId);
-}
+
+    // Cho OrderDAO gọi khi xóa đơn hàng
+    public int deleteByOrderId(Long orderId) {
+        if (orderId == null) return 0;
+        return XJdbc.executeUpdate(SQL_DELETE_BY_ORDER_ID, orderId);
+    }
 
     @Override
     public List<OrderDetail> findAll() {
-        return XQuery.getBeanList(OrderDetail.class, findAllSql);
+        return XQuery.getBeanList(OrderDetail.class, FIND_ALL_SQL);
     }
 
     @Override
     public OrderDetail findById(Long id) {
-        return XQuery.getSingleBean(OrderDetail.class, findByIdSql, id);
+        return XQuery.getSingleBean(OrderDetail.class, FIND_BY_ID_SQL, id);
     }
 
     @Override
@@ -119,18 +124,21 @@ public int deleteByOrderId(Long orderId) {
         }
 
         // Thêm chi tiết đơn hàng
-        Object[] values = {
+        XJdbc.executeUpdate(CREATE_SQL,
             entity.getOrderId(),
             entity.getProductId(),
             entity.getUnitPrice(),
             entity.getDiscount(),
-            entity.getQuantity(),
-            entity.getColor() // thêm color vào insert
-        };
-        XJdbc.executeUpdate(createSql, values);
+            entity.getQuantity()
+        );
 
         // Trừ kho
         String sqlUpdateQuantity = "UPDATE Products SET Quantity = Quantity - ? WHERE ProductId = ?";
         XJdbc.executeUpdate(sqlUpdateQuantity, entity.getQuantity(), entity.getProductId());
+    }
+
+    @Override
+    public List<OrderDetail> findByProductId(String productId) {
+         return XQuery.getBeanList(OrderDetail.class, FIND_BY_PRODUCT_ID_SQL, productId);
     }
 }
