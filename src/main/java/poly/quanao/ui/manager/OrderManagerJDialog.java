@@ -217,13 +217,13 @@ public final class OrderManagerJDialog extends javax.swing.JDialog implements Or
 
         tblBillDetails.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Quần áo", "Đơn giá", "Giảm giá", "Số lượng", "Thành tiền", "Màu"
+                "Quần áo", "Đơn giá", "Giảm giá", "Số lượng", "Thành tiền"
             }
         ));
         jScrollPane2.setViewportView(tblBillDetails);
@@ -549,7 +549,7 @@ public final class OrderManagerJDialog extends javax.swing.JDialog implements Or
 public void fillOrderDetails() {
     DefaultTableModel model = (DefaultTableModel) tblBillDetails.getModel();
 model.setColumnIdentifiers(new Object[]{
-    "Sản phẩm", "Đơn giá", "Giảm giá", "SL", "Thành tiền", "Màu"
+    "Sản phẩm", "Đơn giá", "Giảm giá", "SL", "Thành tiền",
 });
 model.setRowCount(0);
 
@@ -738,7 +738,7 @@ public void setEditable(boolean editable) {
 public void deleteCheckedItems() {
     if (!XDialog.confirm("Bạn thực sự muốn xóa các mục chọn?")) return;
 
-    final int CHECK_COL_VIEW    = 5; // cột checkbox trong VIEW
+    final int CHECK_COL_VIEW     = 5; // cột checkbox trong VIEW
     final int ORDER_ID_COL_MODEL = 0; // cột OrderId trong MODEL
 
     int deleted = 0, failed = 0;
@@ -754,17 +754,19 @@ public void deleteCheckedItems() {
 
         Long orderId;
         try {
-            orderId = (idObj instanceof Long) ? (Long) idObj : Long.valueOf(idObj.toString());
+            orderId = (idObj instanceof Long) 
+                        ? (Long) idObj 
+                        : Long.valueOf(idObj.toString());
         } catch (Exception castEx) {
             failed++;
             continue;
         }
 
         try {
-            // Xóa chi tiết trước để tránh lỗi khóa ngoại
+            // Xoá toàn bộ chi tiết đơn hàng trước
             orderDetailDao.deleteById(orderId);
 
-            // Xóa order
+            // Xoá đơn hàng
             dao.deleteById(orderId);
 
             deleted++;
@@ -774,7 +776,8 @@ public void deleteCheckedItems() {
         }
     }
 
-    this.fillToTable(); // reload lại danh sách
+    // Reload lại bảng sau khi xoá
+    this.fillToTable();
     XDialog.alert(null, "Đã xoá: " + deleted + ", lỗi: " + failed);
 }
 

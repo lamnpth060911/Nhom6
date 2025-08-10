@@ -39,8 +39,8 @@ public final class UserManagerJDialog extends javax.swing.JDialog implements Use
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
-        buttonGroup2 = new javax.swing.ButtonGroup();
+        buttonGroup3 = new javax.swing.ButtonGroup();
+        buttonGroup4 = new javax.swing.ButtonGroup();
         tabs = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
@@ -112,7 +112,7 @@ public final class UserManagerJDialog extends javax.swing.JDialog implements Use
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Username", "Password", "Trạng thái", "Tên đầy đủ", "Ảnh", "Quyền hạn", "Title 7"
+                "Username", "Password", "Trạng thái", "Tên đầy đủ", "Ảnh", "Vai trò", "Title 7"
             }
         ) {
             Class[] types = new Class [] {
@@ -190,18 +190,17 @@ public final class UserManagerJDialog extends javax.swing.JDialog implements Use
             }
         });
 
-        buttonGroup1.add(rdoEnabled);
+        buttonGroup4.add(rdoEnabled);
         rdoEnabled.setSelected(true);
         rdoEnabled.setText("Hoạt động ");
 
-        buttonGroup1.add(jRadioButton2);
+        buttonGroup4.add(jRadioButton2);
         jRadioButton2.setText("Tạm dừng");
 
-        buttonGroup2.add(rdoManager);
-        rdoManager.setSelected(true);
+        buttonGroup3.add(rdoManager);
         rdoManager.setText("Quản lý");
 
-        buttonGroup1.add(jRadioButton4);
+        buttonGroup3.add(jRadioButton4);
         jRadioButton4.setText("Nhân viên");
 
         btnCreate.setText("Tạo mới");
@@ -499,8 +498,8 @@ public final class UserManagerJDialog extends javax.swing.JDialog implements Use
     private javax.swing.JButton btnMovePrevious;
     private javax.swing.JButton btnUncheckAll;
     private javax.swing.JButton btnUpdate;
-    private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.ButtonGroup buttonGroup3;
+    private javax.swing.ButtonGroup buttonGroup4;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

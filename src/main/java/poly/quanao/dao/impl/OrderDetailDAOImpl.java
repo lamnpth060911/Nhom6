@@ -77,17 +77,10 @@ public class OrderDetailDAOImpl implements OrderDetailDAO {
     }
 
     @Override
-public void deleteById(Long orderId) {
-    if (orderId == null) return;
-
-    // 1. Xoá chi tiết đơn hàng trước
-    OrderDetailDAOImpl orderDetailDAO = new OrderDetailDAOImpl();
-    orderDetailDAO.deleteByOrderId(orderId);
-
-    // 2. Xoá đơn hàng
-    XJdbc.executeUpdate("DELETE FROM Orders WHERE OrderId = ?", orderId);
+public void deleteById(Long orderDetailId) {
+    if (orderDetailId == null) return;
+    XJdbc.executeUpdate(SQL_DELETE_BY_DETAIL_ID, orderDetailId);
 }
-
 
     // Cho OrderDAO gọi khi xóa đơn hàng
     public int deleteByOrderId(Long orderId) {

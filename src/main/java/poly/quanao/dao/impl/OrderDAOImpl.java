@@ -102,7 +102,16 @@ public class OrderDAOImpl implements OrderDAO {
     }
 
     @Override
-    public void deleteById(Long orderId) { /* giữ nguyên như bạn đang có */ }
+public void deleteById(Long orderId) {
+    // Xoá chi tiết trước
+    String sqlDetails = "DELETE FROM OrderDetails WHERE OrderId = ?";
+    XJdbc.executeUpdate(sqlDetails, orderId);
+
+    // Xoá đơn hàng
+    String sqlOrder = "DELETE FROM Orders WHERE OrderId = ?";
+    XJdbc.executeUpdate(sqlOrder, orderId);
+}
+
 
     @Override
     public Order findById(Long id) {
