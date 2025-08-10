@@ -112,7 +112,7 @@ public final class UserManagerJDialog extends javax.swing.JDialog implements Use
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Username", "Password", "Trạng thái", "Tên đầy đủ", "Ảnh", "Vai trò", "Title 7"
+                "Username", "Password", "Trạng thái", "Tên đầy đủ", "Ảnh", "Vai trò", ""
             }
         ) {
             Class[] types = new Class [] {
@@ -170,38 +170,69 @@ public final class UserManagerJDialog extends javax.swing.JDialog implements Use
 
         tabs.addTab("Danh sách", jPanel2);
 
-        lblPhoto.setText("Ảnh");
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblPhoto.setIcon(new javax.swing.ImageIcon("C:\\Users\\Admin\\Documents\\NetBeansProjects\\Nhom6\\src\\main\\resources\\icons\\kt.jpg")); // NOI18N
+        lblPhoto.addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                lblPhotoAncestorAdded(evt);
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
+        lblPhoto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblPhotoMouseClicked(evt);
+            }
+        });
+        jPanel3.add(lblPhoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 480, 10, 10));
 
         jLabel2.setText("Tên đăng nhập");
+        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, -1, -1));
 
         jLabel3.setText("Họ và tên");
+        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 60, -1, -1));
 
         jLabel4.setText("Mật khẩu");
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, -1, -1));
 
         jLabel5.setText("Xác nhận mật khẩu");
+        jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 160, -1, -1));
 
         jLabel6.setText("Trạng thái");
+        jPanel3.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 240, -1, -1));
 
         jLabel7.setText("Vai trò");
+        jPanel3.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 240, -1, -1));
+        jPanel3.add(txtUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, 189, -1));
 
         txtFullName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtFullNameActionPerformed(evt);
             }
         });
+        jPanel3.add(txtFullName, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 90, 197, -1));
+        jPanel3.add(txtPwConfirm, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 180, 197, -1));
 
         buttonGroup4.add(rdoEnabled);
         rdoEnabled.setSelected(true);
         rdoEnabled.setText("Hoạt động ");
+        jPanel3.add(rdoEnabled, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 280, -1, -1));
 
         buttonGroup4.add(jRadioButton2);
         jRadioButton2.setText("Tạm dừng");
+        jPanel3.add(jRadioButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 280, -1, -1));
 
         buttonGroup3.add(rdoManager);
         rdoManager.setText("Quản lý");
+        jPanel3.add(rdoManager, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 270, -1, -1));
 
         buttonGroup3.add(jRadioButton4);
         jRadioButton4.setText("Nhân viên");
+        jPanel3.add(jRadioButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 270, -1, -1));
+        jPanel3.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 365, 754, 10));
 
         btnCreate.setText("Tạo mới");
         btnCreate.addActionListener(new java.awt.event.ActionListener() {
@@ -209,6 +240,7 @@ public final class UserManagerJDialog extends javax.swing.JDialog implements Use
                 btnCreateActionPerformed(evt);
             }
         });
+        jPanel3.add(btnCreate, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 411, -1, -1));
 
         btnUpdate.setText("Cập nhật ");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
@@ -216,6 +248,7 @@ public final class UserManagerJDialog extends javax.swing.JDialog implements Use
                 btnUpdateActionPerformed(evt);
             }
         });
+        jPanel3.add(btnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(108, 411, -1, -1));
 
         btnDelete.setText("Xóa");
         btnDelete.addActionListener(new java.awt.event.ActionListener() {
@@ -223,6 +256,7 @@ public final class UserManagerJDialog extends javax.swing.JDialog implements Use
                 btnDeleteActionPerformed(evt);
             }
         });
+        jPanel3.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(206, 411, -1, -1));
 
         btnClear.setText("Làm mới");
         btnClear.addActionListener(new java.awt.event.ActionListener() {
@@ -230,6 +264,7 @@ public final class UserManagerJDialog extends javax.swing.JDialog implements Use
                 btnClearActionPerformed(evt);
             }
         });
+        jPanel3.add(btnClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(296, 411, -1, -1));
 
         btnMoveFirst.setText("<<");
         btnMoveFirst.addActionListener(new java.awt.event.ActionListener() {
@@ -237,6 +272,7 @@ public final class UserManagerJDialog extends javax.swing.JDialog implements Use
                 btnMoveFirstActionPerformed(evt);
             }
         });
+        jPanel3.add(btnMoveFirst, new org.netbeans.lib.awtextra.AbsoluteConstraints(442, 411, -1, -1));
 
         btnMovePrevious.setText("|<");
         btnMovePrevious.addActionListener(new java.awt.event.ActionListener() {
@@ -244,6 +280,7 @@ public final class UserManagerJDialog extends javax.swing.JDialog implements Use
                 btnMovePreviousActionPerformed(evt);
             }
         });
+        jPanel3.add(btnMovePrevious, new org.netbeans.lib.awtextra.AbsoluteConstraints(532, 411, -1, -1));
 
         btnMoveNext.setText(">|");
         btnMoveNext.addActionListener(new java.awt.event.ActionListener() {
@@ -251,6 +288,7 @@ public final class UserManagerJDialog extends javax.swing.JDialog implements Use
                 btnMoveNextActionPerformed(evt);
             }
         });
+        jPanel3.add(btnMoveNext, new org.netbeans.lib.awtextra.AbsoluteConstraints(622, 411, -1, -1));
 
         btnMoveLast.setText(">>");
         btnMoveLast.addActionListener(new java.awt.event.ActionListener() {
@@ -258,112 +296,10 @@ public final class UserManagerJDialog extends javax.swing.JDialog implements Use
                 btnMoveLastActionPerformed(evt);
             }
         });
+        jPanel3.add(btnMoveLast, new org.netbeans.lib.awtextra.AbsoluteConstraints(712, 411, -1, -1));
+        jPanel3.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 190, 189, -1));
 
-        txtPassword.setText("jPasswordField1");
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addComponent(lblPhoto)
-                .addGap(200, 200, 200)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtPassword)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel6)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(rdoEnabled)
-                        .addGap(28, 28, 28)
-                        .addComponent(jRadioButton2))
-                    .addComponent(jLabel2)
-                    .addComponent(txtUsername))
-                .addGap(62, 62, 62)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(rdoManager)
-                        .addGap(18, 18, 18)
-                        .addComponent(jRadioButton4)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtPwConfirm, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtFullName, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 754, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addComponent(btnCreate)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnUpdate)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnDelete)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnClear)
-                        .addGap(70, 70, 70)
-                        .addComponent(btnMoveFirst)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnMovePrevious)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnMoveNext)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnMoveLast)))
-                .addGap(0, 14, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(61, 61, 61)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPhoto)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtFullName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtPwConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rdoEnabled)
-                    .addComponent(jRadioButton2)
-                    .addComponent(rdoManager)
-                    .addComponent(jRadioButton4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCreate)
-                    .addComponent(btnUpdate)
-                    .addComponent(btnDelete)
-                    .addComponent(btnClear)
-                    .addComponent(btnMoveFirst)
-                    .addComponent(btnMovePrevious)
-                    .addComponent(btnMoveNext)
-                    .addComponent(btnMoveLast))
-                .addGap(61, 61, 61))
-        );
-
-        tabs.addTab("Biểu mẫu", jPanel3);
+        tabs.addTab("Người Dùng", jPanel3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -441,6 +377,14 @@ public final class UserManagerJDialog extends javax.swing.JDialog implements Use
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
       this.open();
     }//GEN-LAST:event_formWindowOpened
+
+    private void lblPhotoAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_lblPhotoAncestorAdded
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblPhotoAncestorAdded
+
+    private void lblPhotoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblPhotoMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblPhotoMouseClicked
                                
 
     /**
@@ -533,36 +477,45 @@ public final class UserManagerJDialog extends javax.swing.JDialog implements Use
     }
 
     @Override
-    public void setForm(User entity) {
-        txtUsername.setText(entity.getUsername());
-        txtPassword.setText(entity.getPassword());    
-        txtFullName.setText(entity.getFullname());
-        ImageIcon icon = new ImageIcon(entity.getPhoto());
-        lblPhoto.setIcon(icon);
-        if (entity.isEnabled()){
-            rdoEnabled.setSelected(true);
-        }else{
-            jRadioButton4.setSelected(true);
+public void setForm(User entity) {
+    txtUsername.setText(entity.getUsername());
+    txtPassword.setText(entity.getPassword());    
+    txtFullName.setText(entity.getFullname());
+
+    if (entity.getPhoto() != null) {
+        java.net.URL imgURL = getClass().getResource("/poly/quanao/icons/" + entity.getPhoto());
+        if (imgURL != null) {
+            ImageIcon icon = new ImageIcon(imgURL);
+            lblPhoto.setIcon(icon);
+        } else {
+            lblPhoto.setIcon(null); // hoặc set ảnh mặc định
         }
-        if (entity.isManager()){
-            rdoManager.setSelected(true);
-        }else{
-            jRadioButton2.setSelected(true);
-        }
-        
     }
 
-    @Override
-    public User getForm() {
-        User entity = new User();
-        entity.setUsername(txtUsername.getText());
-        entity.setPassword(txtPassword.getText());        
-        entity.setFullname(txtFullName.getText());
-        entity.setManager(rdoManager.isSelected()? true:false);
-        entity.setEnabled(rdoEnabled.isSelected()? true:false);
-        entity.setPhoto("");
-        return entity;    
+    if (entity.isEnabled()) {
+        rdoEnabled.setSelected(true);
+    } else {
+        jRadioButton4.setSelected(true);
     }
+    if (entity.isManager()) {
+        rdoManager.setSelected(true);
+    } else {
+        jRadioButton2.setSelected(true);
+    }
+}
+
+@Override
+public User getForm() {
+    User entity = new User();
+    entity.setUsername(txtUsername.getText());
+    entity.setPassword(txtPassword.getText());        
+    entity.setFullname(txtFullName.getText());
+    entity.setManager(rdoManager.isSelected());
+    entity.setEnabled(rdoEnabled.isSelected());
+    entity.setPhoto(""); // chỉ cần tên file, ảnh nằm trong /poly/quanao/icon/
+    return entity;    
+}
+
 
     @Override
     public void fillToTable() {

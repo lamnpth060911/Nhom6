@@ -15,7 +15,7 @@ import poly.quanao.util.XDialog;
  *
  * @author Admin
  */
-public class ProductCategoriesManager extends javax.swing.JDialog implements ProductCategoryController {
+public final class ProductCategoriesManager extends javax.swing.JDialog implements ProductCategoryController {
 
     /**
      * Creates new form ProductCategoriesManager
@@ -23,6 +23,7 @@ public class ProductCategoriesManager extends javax.swing.JDialog implements Pro
     public ProductCategoriesManager(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        fillToTable();
     }
 
     /**
@@ -258,7 +259,7 @@ public class ProductCategoriesManager extends javax.swing.JDialog implements Pro
                 .addGap(63, 63, 63))
         );
 
-        tabs.addTab("Biểu mẫu", jPanel2);
+        tabs.addTab("Loại", jPanel2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -330,7 +331,7 @@ public class ProductCategoriesManager extends javax.swing.JDialog implements Pro
     }//GEN-LAST:event_tblCategoriesMouseClicked
 
     private void btncheckAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncheckAllActionPerformed
-
+        this.checkAll();
     }//GEN-LAST:event_btncheckAllActionPerformed
 
     private void btnuncheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnuncheckActionPerformed
@@ -516,16 +517,19 @@ public class ProductCategoriesManager extends javax.swing.JDialog implements Pro
     }
 
     @Override
-    public void deleteCheckedItems() {
-        if (XDialog.confirm("Bạn thực sự muốn xóa các mục chọn?")) {
-            for (int i = 0; i < tblCategories.getRowCount(); i++) {
-                if ((Boolean) tblCategories.getValueAt(i, 2)) {
-                    dao.deleteById(items.get(i).getCategoryId());
-                }
+public void deleteCheckedItems() {
+    if (XDialog.confirm("Bạn thực sự muốn xóa các mục chọn?")) {
+        for (int i = 0; i < tblCategories.getRowCount(); i++) {
+            Boolean checked = (Boolean) tblCategories.getValueAt(i, 2);
+            if (checked != null && checked) {
+                String id = tblCategories.getValueAt(i, 0).toString();
+                dao.deleteById(id);
             }
-            this.fillToTable();
-        }  
+        }
+        this.fillToTable();
     }
+}
+
 
     @Override
     public void moveFirst() {

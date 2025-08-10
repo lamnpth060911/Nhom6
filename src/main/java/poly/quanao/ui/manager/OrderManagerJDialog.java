@@ -138,7 +138,7 @@ public final class OrderManagerJDialog extends javax.swing.JDialog implements Or
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Mã phiếu", "Thời điểm tạo", "Thời điểm thanh toán", "Trạng thái", "Email", ""
+                "Mã phiếu", "Thời điểm tạo", "Thời điểm thanh toán", "Trạng thái", "Tên NV", ""
             }
         ) {
             Class[] types = new Class [] {
@@ -378,7 +378,7 @@ public final class OrderManagerJDialog extends javax.swing.JDialog implements Or
                 .addGap(237, 237, 237))
         );
 
-        tabs.addTab("Biểu mẫu", jPanel2);
+        tabs.addTab("Hoá Đơn", jPanel2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

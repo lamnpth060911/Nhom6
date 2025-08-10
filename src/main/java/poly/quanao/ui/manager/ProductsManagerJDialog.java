@@ -192,43 +192,58 @@ public final class ProductsManagerJDialog extends javax.swing.JDialog implements
                     .addComponent(btncheckAll)
                     .addComponent(btnUncheckAll)
                     .addComponent(btndeleteChecked))
-                .addContainerGap(439, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         tabs.addTab("Danh Sách", jPanel1);
 
-        lblImage.setIcon(new javax.swing.ImageIcon("C:\\Users\\Admin\\Documents\\NetBeansProjects\\Nhom6\\src\\main\\resources\\icons\\kitty.jpg")); // NOI18N
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblImage.setIcon(new javax.swing.ImageIcon("C:\\Users\\Admin\\Documents\\NetBeansProjects\\Nhom6\\src\\main\\resources\\icons\\bulon.jpg")); // NOI18N
         lblImage.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblImageMouseClicked(evt);
             }
         });
+        jPanel2.add(lblImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         jLabel2.setText("Mã quần áo");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(317, 81, 173, 20));
 
         jLabel3.setText("Tên quần áo");
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 83, -1, -1));
 
         jLabel4.setText("Màu");
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(317, 323, -1, -1));
 
         jLabel5.setText("Giảm giá");
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 177, -1, -1));
 
         jLabel6.setText("Số lượng");
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 249, -1, -1));
 
         jLabel7.setText("Loại");
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(317, 249, -1, -1));
+        jPanel2.add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(317, 119, 191, -1));
+        jPanel2.add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 119, 205, -1));
 
         txtColor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtColorActionPerformed(evt);
             }
         });
+        jPanel2.add(txtColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(317, 357, 191, -1));
 
         cboCategories.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jPanel2.add(cboCategories, new org.netbeans.lib.awtextra.AbsoluteConstraints(317, 283, -1, -1));
 
         Sldiscount.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 SldiscountStateChanged(evt);
             }
         });
+        jPanel2.add(Sldiscount, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 201, -1, -1));
+        jPanel2.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 427, 864, -1));
 
         btnCreate.setText("Tạo mới");
         btnCreate.addActionListener(new java.awt.event.ActionListener() {
@@ -236,6 +251,7 @@ public final class ProductsManagerJDialog extends javax.swing.JDialog implements
                 btnCreateActionPerformed(evt);
             }
         });
+        jPanel2.add(btnCreate, new org.netbeans.lib.awtextra.AbsoluteConstraints(55, 456, -1, -1));
 
         btnUpdate.setText("Cập nhật ");
         btnUpdate.addActionListener(new java.awt.event.ActionListener() {
@@ -243,8 +259,10 @@ public final class ProductsManagerJDialog extends javax.swing.JDialog implements
                 btnUpdateActionPerformed(evt);
             }
         });
+        jPanel2.add(btnUpdate, new org.netbeans.lib.awtextra.AbsoluteConstraints(147, 456, -1, -1));
 
         btnDelete.setText("Xóa");
+        jPanel2.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(245, 456, -1, -1));
 
         btnClear.setText("Làm mới");
         btnClear.addActionListener(new java.awt.event.ActionListener() {
@@ -252,6 +270,7 @@ public final class ProductsManagerJDialog extends javax.swing.JDialog implements
                 btnClearActionPerformed(evt);
             }
         });
+        jPanel2.add(btnClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(335, 456, -1, -1));
 
         btnMoveFirst.setText("<<");
         btnMoveFirst.addActionListener(new java.awt.event.ActionListener() {
@@ -259,6 +278,7 @@ public final class ProductsManagerJDialog extends javax.swing.JDialog implements
                 btnMoveFirstActionPerformed(evt);
             }
         });
+        jPanel2.add(btnMoveFirst, new org.netbeans.lib.awtextra.AbsoluteConstraints(511, 456, -1, -1));
 
         btnMovePrevious.setText("|<");
         btnMovePrevious.addActionListener(new java.awt.event.ActionListener() {
@@ -266,6 +286,7 @@ public final class ProductsManagerJDialog extends javax.swing.JDialog implements
                 btnMovePreviousActionPerformed(evt);
             }
         });
+        jPanel2.add(btnMovePrevious, new org.netbeans.lib.awtextra.AbsoluteConstraints(601, 456, -1, -1));
 
         btnMoveNext.setText(">|");
         btnMoveNext.addActionListener(new java.awt.event.ActionListener() {
@@ -273,6 +294,7 @@ public final class ProductsManagerJDialog extends javax.swing.JDialog implements
                 btnMoveNextActionPerformed(evt);
             }
         });
+        jPanel2.add(btnMoveNext, new org.netbeans.lib.awtextra.AbsoluteConstraints(691, 456, -1, -1));
 
         btnMoveLast.setText(">>");
         btnMoveLast.addActionListener(new java.awt.event.ActionListener() {
@@ -280,136 +302,23 @@ public final class ProductsManagerJDialog extends javax.swing.JDialog implements
                 btnMoveLastActionPerformed(evt);
             }
         });
+        jPanel2.add(btnMoveLast, new org.netbeans.lib.awtextra.AbsoluteConstraints(781, 456, -1, -1));
 
         jLabel8.setText("Giá");
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(317, 159, -1, -1));
+        jPanel2.add(txtPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(317, 199, 191, -1));
 
         lblDiscountValue.setText("0%");
+        jPanel2.add(lblDiscountValue, new org.netbeans.lib.awtextra.AbsoluteConstraints(806, 202, -1, -1));
 
         txtSoLuong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSoLuongActionPerformed(evt);
             }
         });
+        jPanel2.add(txtSoLuong, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 283, 200, -1));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(59, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(btnCreate)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnUpdate)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnDelete)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnClear)
-                        .addGap(120, 120, 120)
-                        .addComponent(btnMoveFirst)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnMovePrevious)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnMoveNext)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnMoveLast))
-                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 864, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(87, 87, 87))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(47, 47, 47)
-                .addComponent(lblImage)
-                .addGap(47, 47, 47)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtColor, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(110, 110, 110)
-                        .addComponent(jLabel3)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8))
-                        .addGap(92, 92, 92)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(Sldiscount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lblDiscountValue))
-                            .addComponent(jLabel6)
-                            .addComponent(txtSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(cboCategories, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(81, 81, 81)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(22, 22, 22)
-                        .addComponent(lblImage))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel8)
-                        .addGap(2, 2, 2)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Sldiscount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblDiscountValue))
-                        .addGap(28, 28, 28)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel6))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cboCategories, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel4)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtColor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 411, Short.MAX_VALUE)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCreate)
-                    .addComponent(btnUpdate)
-                    .addComponent(btnDelete)
-                    .addComponent(btnClear)
-                    .addComponent(btnMoveFirst)
-                    .addComponent(btnMovePrevious)
-                    .addComponent(btnMoveNext)
-                    .addComponent(btnMoveLast))
-                .addGap(98, 98, 98))
-        );
-
-        tabs.addTab("Biểu mẫu", jPanel2);
+        tabs.addTab("Quần Áo", jPanel2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -461,10 +370,6 @@ this.uncheckAll();    }//GEN-LAST:event_btnUncheckAllActionPerformed
     this.fillToTable();
     }//GEN-LAST:event_tblCategoriesMouseClicked
 
-    private void lblImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImageMouseClicked
-    this.chooseFile();  
-    }//GEN-LAST:event_lblImageMouseClicked
-
     private void btnCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateActionPerformed
       this.create();   // TODO add your handling code here:
     }//GEN-LAST:event_btnCreateActionPerformed
@@ -500,6 +405,10 @@ this.uncheckAll();    }//GEN-LAST:event_btnUncheckAllActionPerformed
     private void txtSoLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSoLuongActionPerformed
 
     }//GEN-LAST:event_txtSoLuongActionPerformed
+
+    private void lblImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblImageMouseClicked
+        this.chooseFile();
+    }//GEN-LAST:event_lblImageMouseClicked
 
     /**
      * @param args the command line arguments

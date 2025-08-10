@@ -23,6 +23,6 @@ public class User {
     private boolean enabled;
     private String Fullname;
     @Builder.Default
-    private String photo = "photo.png";
+    private String photo = "kt.jpg";
     private boolean manager;
 }

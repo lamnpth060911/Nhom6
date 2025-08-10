@@ -202,7 +202,7 @@
                         <Column editable="true" title="Th&#x1edd;i &#x111;i&#x1ec3;m t&#x1ea1;o" type="java.lang.Object"/>
                         <Column editable="true" title="Th&#x1edd;i &#x111;i&#x1ec3;m thanh to&#xe1;n" type="java.lang.Object"/>
                         <Column editable="true" title="Tr&#x1ea1;ng th&#xe1;i" type="java.lang.Object"/>
-                        <Column editable="true" title="Email" type="java.lang.Object"/>
+                        <Column editable="true" title="T&#xea;n NV" type="java.lang.Object"/>
                         <Column editable="true" title="" type="java.lang.Boolean"/>
                       </Table>
                     </Property>
@@ -221,8 +221,8 @@
         <Container class="javax.swing.JPanel" name="jPanel2">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Bi&#x1ec3;u m&#x1eab;u">
-                <Property name="tabTitle" type="java.lang.String" value="Bi&#x1ec3;u m&#x1eab;u"/>
+              <JTabbedPaneConstraints tabName="Ho&#xe1; &#x110;&#x1a1;n">
+                <Property name="tabTitle" type="java.lang.String" value="Ho&#xe1; &#x110;&#x1a1;n"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
