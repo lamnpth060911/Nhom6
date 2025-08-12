@@ -19,5 +19,5 @@ public class Order {
     private int status;
     public enum Status {
     Servicing, Completed, Canceled;
-    }// nvarchar(50)
+    }
 }

@@ -183,7 +183,7 @@
                 </Component>
                 <Component class="javax.swing.JButton" name="btnOrderManager">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Phi&#x1ebf;u b&#xe1;n h&#xe0;ng"/>
+                    <Property name="text" type="java.lang.String" value="Ho&#xe1; &#x111;&#x1a1;n chi ti&#x1ebf;t"/>
                   </Properties>
                   <Events>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnOrderManagerActionPerformed"/>

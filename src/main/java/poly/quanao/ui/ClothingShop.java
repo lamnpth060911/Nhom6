@@ -68,7 +68,7 @@ ClothingShopController {
             }
         });
 
-        btnOrderManager.setText("Phiếu bán hàng");
+        btnOrderManager.setText("Hoá đơn chi tiết");
         btnOrderManager.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnOrderManagerActionPerformed(evt);
